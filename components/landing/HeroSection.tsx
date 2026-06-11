@@ -1,13 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { ShanyrakArc } from "@/components/shared/ShanyrakArc";
 
-const words = ["Your", "AI", "Executive", "Team.", "For", "Your", "Business."];
-
 export function HeroSection() {
+  const t = useTranslations("landing.hero");
+  const words = t("heading").split(" ");
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
       <ShanyrakArc className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.04] pointer-events-none" />
@@ -31,9 +33,7 @@ export function HeroSection() {
           transition={{ delay: 0.6, duration: 0.4 }}
           className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          AI Business OS gives every SMB owner a Digital Board of Directors —
-          one that monitors your finances, detects profit leaks, and advises
-          you every day.
+          {t("description")}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -42,10 +42,10 @@ export function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Button variant="bronze" size="lg" asChild>
-            <Link href="/register">Start Free</Link>
+            <Link href="/register">{t("startFree")}</Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link href="#demo">See how it works</Link>
+            <Link href="#demo">{t("seeHowItWorks")}</Link>
           </Button>
         </motion.div>
       </div>

@@ -23,15 +23,35 @@ export function formatCurrencyInput(value: number): string {
   return value.toLocaleString("en-US");
 }
 
+const STATUS_KEYS = [
+  "excellent",
+  "healthy",
+  "stable",
+  "warning",
+  "critical",
+] as const;
+
+export type StatusKey = (typeof STATUS_KEYS)[number];
+
 export function getStatusLabel(status: string): string {
-  const labels: Record<string, string> = {
+  const labels: Record<StatusKey, string> = {
     excellent: "Excellent",
     healthy: "Healthy",
     stable: "Stable",
     warning: "Needs Attention",
     critical: "Critical",
   };
-  return labels[status] ?? status;
+  return labels[status as StatusKey] ?? status;
+}
+
+export function getStatusLabelTranslated(
+  status: string,
+  t: (key: StatusKey) => string
+): string {
+  if (STATUS_KEYS.includes(status as StatusKey)) {
+    return t(status as StatusKey);
+  }
+  return status;
 }
 
 export function getStatusColor(status: string): string {

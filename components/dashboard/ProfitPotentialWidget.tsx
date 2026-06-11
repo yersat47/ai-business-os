@@ -1,12 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { CurrencyDisplay } from "@/components/shared/CurrencyDisplay";
 import { ConfidenceBadge } from "@/components/shared/ConfidenceBadge";
 import { MOCK_PROFIT } from "@/lib/mock/mock-profit";
 import { formatCurrency } from "@/lib/utils/formatters";
 
 export function ProfitPotentialWidget() {
+  const t = useTranslations("dashboard.profit");
   const maxAmount = Math.max(...MOCK_PROFIT.breakdown.map((b) => b.amount));
 
   return (
@@ -16,8 +18,8 @@ export function ProfitPotentialWidget() {
       transition={{ delay: 0.05 }}
       className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full"
     >
-      <h3 className="font-semibold text-lg mb-1">Profit Potential</h3>
-      <p className="text-sm text-text-secondary mb-6">Recoverable per month</p>
+      <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
+      <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
       <CurrencyDisplay
         amount={MOCK_PROFIT.totalRecoverable}
         size="lg"
@@ -50,7 +52,7 @@ export function ProfitPotentialWidget() {
         ))}
       </div>
       <p className="text-xs text-text-muted mt-6">
-        vs current {formatCurrency(MOCK_PROFIT.monthlyRevenue)} revenue
+        {t("vsLastMonth")} · {formatCurrency(MOCK_PROFIT.monthlyRevenue)}
       </p>
     </motion.div>
   );

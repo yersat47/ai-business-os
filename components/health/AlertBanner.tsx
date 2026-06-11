@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Risk } from "@/lib/types/health.types";
@@ -14,6 +17,8 @@ interface AlertBannerProps {
 }
 
 export function AlertBanner({ risk, onViewAction }: AlertBannerProps) {
+  const t = useTranslations("health");
+
   return (
     <div
       className={cn(
@@ -37,7 +42,7 @@ export function AlertBanner({ risk, onViewAction }: AlertBannerProps) {
         <p className="text-sm text-text-secondary">{risk.description}</p>
       </div>
       <Button variant="outline" size="sm" onClick={onViewAction}>
-        View action →
+        {t("viewAction")}
       </Button>
     </div>
   );

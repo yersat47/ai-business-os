@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,9 @@ interface AgentWorkspaceProps {
 }
 
 export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
+  const t = useTranslations("agents.workspace");
+  const tCommon = useTranslations("common");
+
   if (!agent) return null;
 
   const insights = mockInsights[agent.id] ?? [
@@ -73,9 +77,9 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
         </SheetHeader>
         <Tabs defaultValue="chat" className="mt-6">
           <TabsList className="w-full">
-            <TabsTrigger value="chat" className="flex-1">Chat</TabsTrigger>
-            <TabsTrigger value="insights" className="flex-1">Insights</TabsTrigger>
-            <TabsTrigger value="tasks" className="flex-1">Tasks</TabsTrigger>
+            <TabsTrigger value="chat" className="flex-1">{t("chat")}</TabsTrigger>
+            <TabsTrigger value="insights" className="flex-1">{t("insights")}</TabsTrigger>
+            <TabsTrigger value="tasks" className="flex-1">{t("tasks")}</TabsTrigger>
           </TabsList>
           <TabsContent value="chat">
             <AgentChatMock agent={agent} />
@@ -89,18 +93,18 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
                 <h4 className="font-medium mb-2">{insight.title}</h4>
                 <p className="text-sm text-text-secondary mb-3">{insight.body}</p>
                 <div className="flex items-center justify-between">
-                  <Badge variant="accent">{insight.confidence}% confidence</Badge>
+                  <Badge variant="accent">{tCommon("confidence", { pct: insight.confidence })}</Badge>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() =>
                       toast({
-                        title: "Action created",
-                        description: "Full task management available in the next release.",
+                        title: t("actionCreated"),
+                        description: t("actionCreatedDesc"),
                       })
                     }
                   >
-                    Take action
+                    {t("takeAction")}
                   </Button>
                 </div>
               </div>
@@ -115,7 +119,7 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
                 <div>
                   <p className="font-medium text-sm">{task.title}</p>
                   <p className="text-xs text-text-muted">
-                    {task.status} · {task.priority} · Due {task.due}
+                    {task.status} · {task.priority} · {t("due")} {task.due}
                   </p>
                 </div>
                 <Badge variant={task.status === "in progress" ? "accent" : "outline"}>

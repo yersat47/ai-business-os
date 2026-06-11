@@ -1,34 +1,26 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
-const steps = [
-  { num: 1, label: "Company Identity" },
-  { num: 2, label: "Business Type" },
-  { num: 3, label: "Company Size" },
-  { num: 4, label: "Location" },
-  { num: 5, label: "Sales Channels" },
-  { num: 6, label: "Current Tools" },
-  { num: 7, label: "Your Team" },
-  { num: 8, label: "Business Goals" },
-  { num: 9, label: "Challenges" },
-  { num: 10, label: "Business Numbers" },
-  { num: 11, label: "Company DNA" },
-  { num: 12, label: "Complete" },
-];
+const stepNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
 
 interface StepIndicatorProps {
   currentStep: number;
 }
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
+  const t = useTranslations("wizard.steps");
+
   return (
     <div className="space-y-1">
-      {steps.map((step) => {
-        const isComplete = currentStep > step.num;
-        const isActive = currentStep === step.num;
+      {stepNums.map((num) => {
+        const isComplete = currentStep > num;
+        const isActive = currentStep === num;
         return (
           <div
-            key={step.num}
+            key={num}
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors border-l-2",
               isActive && "border-accent bg-accent/5 text-accent",
@@ -44,9 +36,9 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
                 !isActive && !isComplete && "bg-surface-raised"
               )}
             >
-              {isComplete ? <Check className="h-3 w-3" /> : step.num}
+              {isComplete ? <Check className="h-3 w-3" /> : num}
             </span>
-            <span className="truncate">{step.label}</span>
+            <span className="truncate">{t(String(num))}</span>
           </div>
         );
       })}

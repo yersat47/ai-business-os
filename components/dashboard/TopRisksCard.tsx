@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { formatCurrency } from "@/lib/utils/formatters";
@@ -11,6 +12,7 @@ const severityDot: Record<string, string> = {
 };
 
 export function TopRisksCard() {
+  const t = useTranslations("dashboard.risks");
   const risks = useHealthStore((s) => s.health.topRisks);
 
   return (
@@ -20,7 +22,7 @@ export function TopRisksCard() {
       transition={{ delay: 0.15 }}
       className="rounded-2xl border border-border bg-surface p-6 shadow-card"
     >
-      <h3 className="font-semibold text-lg mb-6">Top Risks</h3>
+      <h3 className="font-semibold text-lg mb-6">{t("title")}</h3>
       <div className="space-y-6">
         {risks.map((risk) => (
           <div key={risk.id} className="space-y-2">

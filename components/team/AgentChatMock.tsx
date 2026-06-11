@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -34,13 +35,15 @@ interface AgentChatMockProps {
 }
 
 export function AgentChatMock({ agent }: AgentChatMockProps) {
+  const t = useTranslations("agents");
+  const tWs = useTranslations("agents.workspace");
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState(
     mockChats[agent.id] ?? [
       {
         role: "agent",
-        content: `Hello! I'm ${agent.name}. I'm currently working on: ${agent.currentTask}`,
+        content: tWs("greeting", { name: agent.name, task: agent.currentTask }),
       },
     ]
   );
@@ -79,12 +82,12 @@ export function AgentChatMock({ agent }: AgentChatMockProps) {
         {typing && (
           <div className="flex items-center gap-2 text-text-muted text-sm">
             <Loader2 className="h-4 w-4 animate-spin" />
-            {agent.name} is typing...
+            {tWs("typing", { name: agent.name })}
           </div>
         )}
         {showInfo && (
           <div className="rounded-xl border border-info/30 bg-info/5 p-4 text-sm text-text-secondary">
-            This feature requires AI connection. Available in the next release.
+            {tWs("aiConnection")}
           </div>
         )}
       </div>
@@ -92,11 +95,11 @@ export function AgentChatMock({ agent }: AgentChatMockProps) {
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask a question..."
+          placeholder={t("askPlaceholder")}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
         <Button variant="bronze" onClick={handleSend}>
-          Send
+          {t("send")}
         </Button>
       </div>
     </div>

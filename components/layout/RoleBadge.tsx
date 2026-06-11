@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { getRoleBadgeColor } from "@/lib/utils/permissions";
 import type { UserRole } from "@/lib/types/company.types";
@@ -8,23 +11,15 @@ interface RoleBadgeProps {
   className?: string;
 }
 
-const roleLabels: Record<UserRole, string> = {
-  owner: "Owner",
-  manager: "Manager",
-  marketer: "Marketer",
-  smm: "SMM",
-  accountant: "Accountant",
-  salesperson: "Salesperson",
-  administrator: "Administrator",
-};
-
 export function RoleBadge({ role, className }: RoleBadgeProps) {
+  const t = useTranslations("roles");
+
   return (
     <Badge
       variant="outline"
       className={cn("capitalize border", getRoleBadgeColor(role), className)}
     >
-      {roleLabels[role]}
+      {t(role)}
     </Badge>
   );
 }

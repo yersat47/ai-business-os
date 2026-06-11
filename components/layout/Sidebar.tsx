@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import {
   LayoutDashboard,
   Activity,
@@ -21,13 +21,13 @@ import { MOCK_BRAIN } from "@/lib/mock/mock-brain";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { id: "dashboard", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { id: "health", label: "Business Health", href: "/health", icon: Activity },
-  { id: "brain", label: "Company Brain", href: "/brain", icon: Brain },
-  { id: "team", label: "AI Team", href: "/team", icon: Hexagon },
-  { id: "employees", label: "Employees", href: "/employees", icon: Users },
-  { id: "data", label: "Data Center", href: "/data", icon: Database },
-  { id: "settings", label: "Settings", href: "/settings", icon: Settings },
+  { id: "dashboard", key: "dashboard" as const, href: "/dashboard", icon: LayoutDashboard },
+  { id: "health", key: "health" as const, href: "/health", icon: Activity },
+  { id: "brain", key: "brain" as const, href: "/brain", icon: Brain },
+  { id: "team", key: "team" as const, href: "/team", icon: Hexagon },
+  { id: "employees", key: "employees" as const, href: "/employees", icon: Users },
+  { id: "data", key: "data" as const, href: "/data", icon: Database },
+  { id: "settings", key: "settings" as const, href: "/settings", icon: Settings },
 ];
 
 interface SidebarProps {
@@ -44,6 +44,9 @@ export function Sidebar({
   onMobileClose,
 }: SidebarProps) {
   const pathname = usePathname();
+  const t = useTranslations("sidebar");
+  const tCommon = useTranslations("common");
+  const tRoles = useTranslations("roles");
   const user = useAuthStore((s) => s.user);
   const role = user?.role ?? "owner";
 
@@ -71,7 +74,7 @@ export function Sidebar({
             </div>
             {!collapsed && (
               <span className="font-semibold text-sm text-text-primary">
-                AI Business OS
+                {tCommon("brand")}
               </span>
             )}
           </Link>
@@ -94,7 +97,7 @@ export function Sidebar({
                 )}
               >
                 <Icon className="h-4 w-4 shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
+                {!collapsed && <span>{t(item.key)}</span>}
               </Link>
             );
           })}
@@ -104,7 +107,7 @@ export function Sidebar({
           {!collapsed && (
             <div>
               <div className="flex justify-between text-xs text-text-secondary mb-1">
-                <span>Company Brain</span>
+                <span>{t("brainCoverage")}</span>
                 <span>{MOCK_BRAIN.coveragePct}%</span>
               </div>
               <div className="h-1.5 rounded-full bg-border overflow-hidden">
@@ -122,7 +125,7 @@ export function Sidebar({
             {!collapsed && (
               <div className="min-w-0">
                 <p className="text-xs font-medium text-text-primary truncate">
-                  {user?.name ?? "Ersat"} · Owner
+                  {user?.name ?? "Ersat"} · {tRoles(role)}
                 </p>
               </div>
             )}
@@ -138,7 +141,7 @@ export function Sidebar({
             ) : (
               <>
                 <ChevronLeft className="h-4 w-4 mr-1" />
-                Collapse
+                {tCommon("collapse")}
               </>
             )}
           </Button>

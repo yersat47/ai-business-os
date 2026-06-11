@@ -1,13 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScoreRing } from "@/components/shared/ScoreRing";
 import { MOCK_HEALTH } from "@/lib/mock/mock-health";
 
 export function DemoHealthWidget() {
+  const t = useTranslations("landing.demo");
+
   return (
     <section id="demo" className="py-24 px-6">
       <div className="max-w-2xl mx-auto">
@@ -17,11 +20,9 @@ export function DemoHealthWidget() {
           viewport={{ once: true }}
           className="rounded-2xl border border-border bg-surface p-8 text-center"
         >
-          <Badge variant="accent" className="mb-4">Demo</Badge>
-          <h2 className="text-2xl font-bold mb-2">See your business health score</h2>
-          <p className="text-text-secondary text-sm mb-8">
-            Urban Mode · Fashion Retail · Astana
-          </p>
+          <Badge variant="accent" className="mb-4">{t("badge")}</Badge>
+          <h2 className="text-2xl font-bold mb-2">{t("heading")}</h2>
+          <p className="text-text-secondary text-sm mb-8">{t("demoLabel")}</p>
           <div className="flex justify-center mb-6">
             <ScoreRing score={MOCK_HEALTH.masterScore} size="md" animated />
           </div>
@@ -36,7 +37,7 @@ export function DemoHealthWidget() {
             ))}
           </div>
           <Button variant="bronze" asChild>
-            <Link href="/register">Get your real score →</Link>
+            <Link href="/register">{t("ctaButton")}</Link>
           </Button>
         </motion.div>
       </div>

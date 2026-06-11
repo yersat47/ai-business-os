@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { ScoreRing } from "@/components/shared/ScoreRing";
 import { TrendBadge } from "@/components/shared/TrendBadge";
 import { useHealthStore } from "@/lib/stores/health.store";
@@ -28,6 +29,10 @@ const statusColors: Record<string, string> = {
 };
 
 export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) {
+  const t = useTranslations("dashboard.health");
+  const tPillars = useTranslations("mock.pillars");
+  const tStatus = useTranslations("status");
+  const tCommon = useTranslations("common");
   const health = useHealthStore((s) => s.health);
   const role = useAuthStore((s) => s.user?.role ?? "owner");
   const visiblePillars = getVisiblePillars(role);
@@ -47,7 +52,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
         <ShanyrakArc className="absolute -top-20 -right-20 w-64 h-64 opacity-[0.04] pointer-events-none" />
       )}
       <div className="flex items-center justify-between mb-6 relative">
-        <h3 className="font-semibold text-lg">Business Health</h3>
+        <h3 className="font-semibold text-lg">{t("title")}</h3>
         <Tooltip>
           <TooltipTrigger>
             <Info className="h-4 w-4 text-text-muted" />
@@ -66,12 +71,12 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
         <div className="flex-1 w-full">
           <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
             <span className={`text-sm font-medium ${getStatusColor(health.status)}`}>
-              Stable
+              {tStatus(health.status)}
             </span>
             <TrendBadge
               direction={health.trend}
               delta={health.trendDelta}
-              label="this month"
+              label={tCommon("thisMonth")}
             />
           </div>
           <div className="space-y-3">
@@ -84,7 +89,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
                 className="flex items-center gap-3"
               >
                 <span className="text-xs text-text-secondary w-24 truncate">
-                  {pillar.label}
+                  {tPillars(pillar.id)}
                 </span>
                 <div className="flex-1 h-1 rounded-full bg-border overflow-hidden">
                   <motion.div
