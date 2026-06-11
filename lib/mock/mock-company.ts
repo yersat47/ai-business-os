@@ -1,0 +1,40 @@
+import type { Company } from "@/lib/types/company.types";
+
+export const MOCK_COMPANY: Company = {
+  id: "urban-mode-001",
+  name: "Urban Mode",
+  industry: "Fashion Retail",
+  businessType: "Retail + Online",
+  size: "11-30",
+  city: "Astana",
+  country: "KZ",
+  currency: "₸",
+  salesChannels: ["Instagram", "Physical Store", "Kaspi"],
+  currentTools: ["Instagram", "WhatsApp", "Excel", "Kaspi"],
+  employeeCount: 14,
+  monthlyRevenue: 8450000,
+  averageOrderValue: 24500,
+  marketingSpend: 620000,
+  inventoryValue: 4200000,
+  deadStockValue: 1100000,
+  grossMarginPct: 48,
+  netMarginPct: 11,
+  cac: 4800,
+  repeatPurchaseRate: 28,
+  positioning:
+    "Accessible urban fashion for young professionals in Kazakhstan",
+  targetAudience: "Women 22–35, Astana/Almaty, middle income",
+  toneOfVoice: "Confident, modern, warm",
+  competitors: ["ZARA KZ", "LC Waikiki", "Local Instagram brands"],
+  strategicGoals: [
+    "Increase repeat purchases",
+    "Reduce dead stock",
+    "Expand to Almaty",
+  ],
+  mainProblems: [
+    "Too much unsold inventory",
+    "High CAC via Instagram ads",
+    "Low net margin",
+  ],
+  setupComplete: true,
+};
