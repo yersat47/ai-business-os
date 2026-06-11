@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import { useWizardStore } from "@/lib/stores/wizard.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 
 export function StepComplete() {
+  const t = useTranslations("wizard.complete");
   const router = useRouter();
   const { wizardData, completeWizard } = useWizardStore();
   const company = useCompanyStore((s) => s.company);
@@ -39,23 +41,23 @@ export function StepComplete() {
         >
           <Check className="h-10 w-10 text-accent" />
         </motion.div>
-        <h1 className="text-3xl font-bold mb-4">{name} is ready.</h1>
+        <h1 className="text-3xl font-bold mb-4">{t("heading", { name })}</h1>
         <ul className="text-left space-y-3 mb-10 text-text-secondary">
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-success" />
-            Business Health Score: calculated
+            {t("healthScore")}
           </li>
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-success" />
-            AI Executive Team: 6 agents active
+            {t("agentTeam")}
           </li>
           <li className="flex items-center gap-2">
             <Check className="h-4 w-4 text-success" />
-            Company Brain: initialized
+            {t("companyBrain")}
           </li>
         </ul>
         <Button variant="bronze" size="lg" onClick={() => router.push("/dashboard")}>
-          Open your Dashboard →
+          {t("openDashboard")}
         </Button>
       </div>
     </div>

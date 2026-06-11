@@ -2,12 +2,15 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { formatCurrency, getEffortColor } from "@/lib/utils/formatters";
 import { toast } from "@/hooks/use-toast";
 
 export function TopActionsCard() {
+  const t = useTranslations("dashboard.actions");
+  const tEffort = useTranslations("mock.effort");
   const actions = useHealthStore((s) => s.health.topActions);
 
   return (
@@ -17,7 +20,7 @@ export function TopActionsCard() {
       transition={{ delay: 0.2 }}
       className="rounded-2xl border border-border bg-surface p-6 shadow-card"
     >
-      <h3 className="font-semibold text-lg mb-6">Top Actions</h3>
+      <h3 className="font-semibold text-lg mb-6">{t("title")}</h3>
       <div className="space-y-6">
         {actions.map((action) => (
           <div
@@ -25,8 +28,8 @@ export function TopActionsCard() {
             className="group flex gap-3 cursor-pointer"
             onClick={() =>
               toast({
-                title: "Action queued",
-                description: "Full action execution available in the next release.",
+                title: t("queued"),
+                description: t("queuedDesc"),
               })
             }
           >
@@ -40,7 +43,7 @@ export function TopActionsCard() {
                   variant="outline"
                   className={`text-[10px] ${getEffortColor(action.effort)}`}
                 >
-                  {action.effort}
+                  {tEffort(action.effort.toLowerCase() as "low" | "medium" | "high")}
                 </Badge>
                 <ArrowRight className="h-4 w-4 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
               </div>

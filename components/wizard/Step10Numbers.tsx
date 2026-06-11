@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useWizardStore } from "@/lib/stores/wizard.store";
@@ -38,44 +39,41 @@ function CurrencyField({
 }
 
 export function Step10Numbers() {
+  const t = useTranslations("wizard.step10");
   const { wizardData, setStepData } = useWizardStore();
 
   return (
     <div className="max-w-lg">
-      <h2 className="text-2xl font-bold mb-2">Business Numbers</h2>
-      <p className="text-text-secondary mb-2">
-        Share your key numbers. This powers your Health Score.
-      </p>
-      <p className="text-xs text-text-muted mb-8">
-        Approximate is fine. You can update anytime.
-      </p>
+      <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
+      <p className="text-text-secondary mb-2">{t("subtitle")}</p>
+      <p className="text-xs text-text-muted mb-8">{t("hint")}</p>
       <div className="space-y-4">
         <CurrencyField
-          label="Monthly Revenue (₸)"
+          label={t("monthlyRevenue")}
           value={wizardData.monthlyRevenue}
           onChange={(v) => setStepData({ monthlyRevenue: v })}
           placeholder="8,450,000"
         />
         <CurrencyField
-          label="Average Order Value (₸)"
+          label={t("avgOrderValue")}
           value={wizardData.averageOrderValue}
           onChange={(v) => setStepData({ averageOrderValue: v })}
           placeholder="24,500"
         />
         <CurrencyField
-          label="Monthly Marketing Spend (₸)"
+          label={t("marketingSpend")}
           value={wizardData.marketingSpend}
           onChange={(v) => setStepData({ marketingSpend: v })}
           placeholder="620,000"
         />
         <CurrencyField
-          label="Inventory Value (₸)"
+          label={t("inventoryValue")}
           value={wizardData.inventoryValue}
           onChange={(v) => setStepData({ inventoryValue: v })}
           placeholder="4,200,000"
         />
         <div>
-          <Label>Number of employees</Label>
+          <Label>{t("employeeCount")}</Label>
           <Input
             type="number"
             className="mt-1.5"
@@ -88,7 +86,7 @@ export function Step10Numbers() {
         </div>
       </div>
       <div className="mt-6 p-4 rounded-xl bg-surface-raised border border-border text-sm text-text-secondary">
-        🔒 Your data is private. We never share it.
+        {t("privacyNote")}
       </div>
     </div>
   );

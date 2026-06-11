@@ -1,0 +1,626 @@
+{
+  "metadata": {
+    "title": "AI Business OS",
+    "description": "AI-powered operating system for SMB companies — Decision Intelligence Platform"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "back": "Back",
+    "next": "Next",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "and": "and",
+    "settings": "Settings",
+    "logout": "Log out",
+    "profile": "Profile",
+    "collapse": "Collapse",
+    "brand": "AI Business OS",
+    "saveChanges": "Save changes",
+    "viewAll": "View all",
+    "add": "Add",
+    "upload": "Upload",
+    "active": "Active",
+    "inactive": "Inactive",
+    "connect": "Connect",
+    "notConnected": "Not connected",
+    "provided": "Provided",
+    "missing": "Missing",
+    "thisMonth": "this month",
+    "of100": "/100",
+    "confidence": "{pct}% confidence",
+    "items": "{count} items",
+    "today": "Today, 09:00"
+  },
+  "language": {
+    "title": "Interface language",
+    "ru": "Русский",
+    "kk": "Қазақша",
+    "en": "English",
+    "flagRu": "🇷🇺",
+    "flagKk": "🇰🇿",
+    "flagEn": "🇺🇸"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "health": "Business Health",
+    "brain": "Company Brain",
+    "team": "AI Team",
+    "employees": "Employees",
+    "data": "Data Center",
+    "settings": "Settings",
+    "brainCoverage": "Company Brain",
+    "ownerSuffix": "Owner"
+  },
+  "roles": {
+    "owner": "Owner",
+    "manager": "Manager",
+    "marketer": "Marketer",
+    "smm": "SMM",
+    "accountant": "Accountant",
+    "salesperson": "Salesperson",
+    "administrator": "Administrator"
+  },
+  "status": {
+    "excellent": "Excellent",
+    "healthy": "Healthy",
+    "stable": "Stable",
+    "warning": "Needs Attention",
+    "critical": "Critical"
+  },
+  "landing": {
+    "nav": {
+      "signIn": "Sign in",
+      "getStartedFree": "Get Started Free"
+    },
+    "hero": {
+      "heading": "Your AI Executive Team. For Your Business.",
+      "description": "AI Business OS gives every SMB owner a Digital Board of Directors — one that monitors your finances, detects profit leaks, and advises you every day.",
+      "startFree": "Start Free",
+      "seeHowItWorks": "See how it works"
+    },
+    "problem": {
+      "heading": "Business owners are drowning in tools.",
+      "before": {
+        "label": "Before",
+        "description": "Scattered data across spreadsheets, social apps, and POS systems. No single view of business health. Decisions made on gut feeling."
+      },
+      "after": {
+        "label": "After",
+        "tagline": "One unified operating system.",
+        "description": "Health score, profit recovery, AI executive team, and company memory — all in one place. Know your business in 10 seconds."
+      }
+    },
+    "pillars": {
+      "heading": "Five layers. One operating system.",
+      "subtitle": "Decision intelligence built for SMB owners who need clarity, not more dashboards.",
+      "profitEngine": {
+        "title": "Profit Engine",
+        "description": "Find the money you are already losing"
+      },
+      "healthSystem": {
+        "title": "Business Health System",
+        "description": "Know your business score in seconds"
+      },
+      "companyBrain": {
+        "title": "Company Brain",
+        "description": "Your business never forgets"
+      },
+      "aiTeam": {
+        "title": "AI Executive Team",
+        "description": "Six AI experts. Your business, full time."
+      }
+    },
+    "demo": {
+      "badge": "Demo",
+      "heading": "See your business health score",
+      "demoLabel": "Urban Mode · Fashion Retail · Astana",
+      "ctaButton": "Get your real score →"
+    },
+    "cta": {
+      "heading": "Stop guessing. Start knowing.",
+      "subtitle": "Join 200+ SMB owners using AI Business OS to run smarter businesses.",
+      "button": "Create your free account",
+      "copyright": "© 2026 AI Business OS"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "noAccount": "Don't have an account?",
+      "createLink": "Create one →",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "you@company.com",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "continueGoogle": "Continue with Google",
+      "toastComingSoon": "Coming soon",
+      "toastGoogleDesc": "Google OAuth will be available in the next release."
+    },
+    "register": {
+      "title": "Create your account",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in →",
+      "fullName": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Create account"
+    }
+  },
+  "validations": {
+    "emailInvalid": "Enter a valid email",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords don't match",
+    "codeIncomplete": "Enter the full 6-character code"
+  },
+  "onboarding": {
+    "entry": {
+      "heading": "Welcome to AI Business OS",
+      "subtitle": "Let's get you set up.",
+      "createTitle": "Create a new company account",
+      "createDesc": "Set up AI Business OS for your business from scratch",
+      "createButton": "Create company",
+      "joinTitle": "Join an existing company",
+      "joinDesc": "Your team already uses AI Business OS? Enter your invite code.",
+      "joinButton": "Join with invite code"
+    },
+    "join": {
+      "backLink": "← Back to setup options",
+      "heading": "Join your company",
+      "subtitle": "Enter the 6-character invite code from your administrator.",
+      "errorNotFound": "Invite code not found. Check with your administrator.",
+      "success": "Welcome to {company}!",
+      "joining": "Joining...",
+      "join": "Join"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "health": {
+      "title": "Business Health"
+    },
+    "profit": {
+      "title": "Profit Potential",
+      "subtitle": "Recoverable per month",
+      "vsLastMonth": "vs last month"
+    },
+    "briefing": {
+      "title": "AI Executive Briefing",
+      "viewTeam": "View AI Team →",
+      "agentName": "AI CEO"
+    },
+    "risks": {
+      "title": "Top Risks"
+    },
+    "actions": {
+      "title": "Top Actions",
+      "queued": "Action queued",
+      "queuedDesc": "Full action execution available in the next release."
+    },
+    "aiTeam": {
+      "title": "AI Team",
+      "active": "{count} active",
+      "openTeam": "Open AI Team"
+    },
+    "brain": {
+      "title": "Company Brain",
+      "populated": "of brain populated",
+      "missingAreas": "{count} missing areas",
+      "completeBrain": "Complete your brain →"
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "description": "Your team's latest actions and AI agent updates will appear here.",
+      "action": "View AI Team"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "updateNumbers": "Update monthly numbers",
+      "reviewRisks": "Review top risks",
+      "checkBriefing": "Check AI briefing",
+      "navigateDesc": "Navigating to the relevant section."
+    }
+  },
+  "health": {
+    "title": "Business Health",
+    "showing": "Showing: {role} view",
+    "pillarsCount": "({count} pillars)",
+    "viewAsRole": "View as role",
+    "viewAs": "View as {role}",
+    "trend": "6-Month Trend",
+    "alerts": "Active Alerts ({count})",
+    "viewAction": "View action →",
+    "viewActionDesc": "Viewing recommended action for this risk."
+  },
+  "brain": {
+    "title": "Company Brain",
+    "coverage": "Brain coverage — {pct}% populated",
+    "stats": "{docs} documents · {items} knowledge items",
+    "recentKnowledge": "Recent knowledge",
+    "gaps": "Brain gaps",
+    "addData": "Add data",
+    "uploadTitle": "Add to Company Brain",
+    "dropzone": "Drag and drop files here, or click to browse",
+    "addDocument": "Add document",
+    "addProcess": "Add process",
+    "addDecision": "Add decision",
+    "addRule": "Add rule",
+    "toastUpload": "Upload",
+    "toastUploadDesc": "File upload available after AI connection is configured."
+  },
+  "agents": {
+    "title": "AI Executive Team",
+    "badge": "{count} agents · All active",
+    "subtitle": "Your digital board of directors — always monitoring, always advising.",
+    "askPlaceholder": "Ask a question...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "workspace": {
+      "active": "Active",
+      "lastActive": "Last active: {time}",
+      "openWorkspace": "Open workspace →",
+      "chat": "Chat",
+      "insights": "Insights",
+      "tasks": "Tasks",
+      "takeAction": "Take action",
+      "actionCreated": "Action created",
+      "actionCreatedDesc": "Full task management available in the next release.",
+      "typing": "{name} is typing...",
+      "aiConnection": "This feature requires AI connection. Available in the next release.",
+      "greeting": "Hello! I'm {name}. I'm currently working on: {task}",
+      "due": "Due"
+    }
+  },
+  "employees": {
+    "title": "Employee Center",
+    "memberCount": "{count} team members",
+    "invite": "Invite Employee",
+    "table": {
+      "name": "Name",
+      "role": "Role",
+      "status": "Status",
+      "department": "Department",
+      "aiAgent": "AI Agent",
+      "added": "Added",
+      "active": "Active"
+    },
+    "inviteDialog": {
+      "description": "Share this invite code with your team member:",
+      "expiry": "Code expires in 7 days"
+    },
+    "profile": {
+      "role": "Role",
+      "department": "Department",
+      "aiAgent": "AI Agent",
+      "joined": "Joined"
+    }
+  },
+  "data": {
+    "title": "Data Center",
+    "tabs": {
+      "metrics": "Monthly Metrics",
+      "import": "Import Data",
+      "integrations": "Integrations",
+      "quality": "Data Quality"
+    },
+    "metricsTitle": "{month} — Business Numbers",
+    "sections": {
+      "revenue": "Revenue",
+      "inventory": "Inventory",
+      "marketing": "Marketing",
+      "finance": "Finance",
+      "team": "Team"
+    },
+    "fields": {
+      "monthlyRevenue": "Monthly Revenue",
+      "aov": "Average Order Value",
+      "transactions": "Monthly Transactions",
+      "marketingSpend": "Marketing Spend",
+      "adSpend": "Ad Spend",
+      "socialFollowers": "Social Followers",
+      "inventoryValue": "Inventory Value",
+      "deadStock": "Dead Stock Value",
+      "skuCount": "SKU Count",
+      "grossMargin": "Gross Margin %",
+      "netProfit": "Net Profit",
+      "operatingCosts": "Operating Costs",
+      "employeeCount": "Employee Count",
+      "openPositions": "Open Positions"
+    },
+    "saveRecalculate": "Save & Recalculate Health Score",
+    "import": {
+      "dropzone": "Drag and drop your CSV or Excel file here",
+      "downloadTemplate": "Download template",
+      "empty": "No imports yet"
+    },
+    "integrations": {
+      "banner": "Connect your tools to automatically sync business data.",
+      "connect": "Connect"
+    },
+    "quality": {
+      "completeness": "Data completeness",
+      "table": {
+        "field": "Data Point",
+        "status": "Status",
+        "provided": "Provided/Missing",
+        "add": "Add"
+      }
+    },
+    "toast": {
+      "updated": "Health Score updated",
+      "updatedDesc": "Health Score updated: {score}/100",
+      "saved": "Saved",
+      "savedDesc": "Your data has been saved.",
+      "importQueued": "Import queued",
+      "connectSoon": "Integration available in the next release."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "profile": "Profile",
+      "company": "Company",
+      "aiTeam": "AI Team",
+      "notifications": "Notifications",
+      "billing": "Billing"
+    },
+    "profile": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "viewAsRole": "View as role (demo)",
+      "viewAsHint": "Switch roles to preview role-based navigation and data visibility."
+    },
+    "company": {
+      "name": "Company name",
+      "industry": "Industry",
+      "city": "City",
+      "salesChannels": "Sales channels"
+    },
+    "aiTeam": {
+      "deactivateHint": "Deactivating an agent removes them from your AI Team and briefings."
+    },
+    "notifications": {
+      "dailyBriefing": "Daily briefing",
+      "healthAlerts": "Health alerts",
+      "profitOpportunities": "Profit opportunities",
+      "teamUpdates": "Team updates"
+    },
+    "billing": {
+      "currentPlan": "Current plan: Starter (Free Trial)",
+      "trialAccess": "Full access during trial period",
+      "upgrade": "Upgrade to Pro",
+      "upgradeToast": "Upgrade",
+      "upgradeToastDesc": "Payment flow available in the next release.",
+      "plans": {
+        "starter": {
+          "name": "Starter",
+          "price": "Free Trial",
+          "f1": "6 AI agents",
+          "f2": "Health Score",
+          "f3": "Basic Brain"
+        },
+        "pro": {
+          "name": "Pro",
+          "price": "$49/mo",
+          "f1": "All Starter",
+          "f2": "Integrations",
+          "f3": "Advanced analytics"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "price": "Custom",
+          "f1": "All Pro",
+          "f2": "Custom agents",
+          "f3": "Priority support"
+        }
+      }
+    },
+    "saved": "Saved",
+    "savedDesc": "Your changes have been saved."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found"
+  },
+  "mock": {
+    "pillars": {
+      "financial": "Financial",
+      "sales": "Sales",
+      "customer": "Customer",
+      "inventory": "Inventory",
+      "marketing": "Marketing",
+      "team": "Team",
+      "operations": "Operations",
+      "aiReadiness": "AI Readiness"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun"
+    },
+    "effort": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
+  },
+  "wizard": {
+    "shell": {
+      "settingUp": "Setting up",
+      "yourCompany": "Your company",
+      "back": "← Back",
+      "continue": "Continue →"
+    },
+    "steps": {
+      "1": "Company Identity",
+      "2": "Business Type",
+      "3": "Company Size",
+      "4": "Location",
+      "5": "Sales Channels",
+      "6": "Current Tools",
+      "7": "Your Team",
+      "8": "Business Goals",
+      "9": "Challenges",
+      "10": "Business Numbers",
+      "11": "Company DNA",
+      "12": "Complete"
+    },
+    "step1": {
+      "title": "Company Identity",
+      "subtitle": "What's your company called?",
+      "name": "Company Name *",
+      "namePlaceholder": "Urban Mode",
+      "tagline": "Tagline / short description",
+      "taglinePlaceholder": "Optional — one line about your business",
+      "charCount": "{count}/120"
+    },
+    "step2": {
+      "title": "Business Type",
+      "subtitle": "How does your business operate?",
+      "retailStore": "Retail Store (physical)",
+      "onlineStore": "Online Store (e-commerce)",
+      "retailOnline": "Retail + Online",
+      "wholesale": "Wholesale",
+      "serviceBusiness": "Service Business",
+      "other": "Other"
+    },
+    "step3": {
+      "title": "Company Size",
+      "subtitle": "How many people work in your company?",
+      "solo": "Solo (just me)",
+      "s2_5": "2–5 people",
+      "s6_15": "6–15 people",
+      "s16_30": "16–30 people",
+      "s31_50": "31–50 people",
+      "s50plus": "50+ people"
+    },
+    "step4": {
+      "title": "Location",
+      "subtitle": "Where is your business based?",
+      "city": "City *",
+      "country": "Country",
+      "currency": "Currency",
+      "KZ": "Kazakhstan",
+      "UZ": "Uzbekistan",
+      "KG": "Kyrgyzstan",
+      "KZT": "₸ KZT",
+      "USD": "$ USD"
+    },
+    "step5": {
+      "title": "Sales Channels",
+      "subtitle": "Where do you sell? Select all that apply.",
+      "instagramShop": "Instagram Shop",
+      "physicalStore": "Physical Store",
+      "kaspi": "Kaspi.kz",
+      "ownWebsite": "Own Website",
+      "whatsappSales": "WhatsApp Sales",
+      "wildberries": "Wildberries",
+      "other": "Other"
+    },
+    "step6": {
+      "title": "Current Tools",
+      "subtitle": "What tools do you use today?",
+      "excelSheets": "Excel / Google Sheets",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "accounting1c": "1C Accounting",
+      "posterPos": "Poster POS",
+      "bitrix24": "Bitrix24",
+      "otherCrm": "Other CRM",
+      "noTools": "No tools — just starting"
+    },
+    "step7": {
+      "title": "Your Team",
+      "subtitle": "Tell us about your team structure.",
+      "employeeCount": "Employee count",
+      "roles": "Roles in your company",
+      "owner": "Owner",
+      "manager": "Manager",
+      "marketerSmm": "Marketer / SMM",
+      "accountant": "Accountant",
+      "salesStaff": "Sales staff",
+      "administrator": "Administrator",
+      "warehouseStaff": "Warehouse staff",
+      "inviteHint": "You can invite team members after setup."
+    },
+    "step8": {
+      "title": "Business Goals",
+      "subtitle": "What are your top 3 business goals?",
+      "hint": "Choose 1–3. This helps AI agents focus on what matters most.",
+      "increaseRevenue": "Increase revenue",
+      "reduceExpenses": "Reduce expenses",
+      "expandCities": "Expand to new cities",
+      "repeatPurchases": "Increase repeat purchases",
+      "buildTeam": "Build a strong team",
+      "launchOnlineStore": "Launch online store",
+      "improveMargins": "Improve margins",
+      "reduceDeadStock": "Reduce dead stock"
+    },
+    "step9": {
+      "title": "Business Challenges",
+      "subtitle": "What are your biggest challenges right now?",
+      "hint": "Be honest. AI Business OS is here to fix these, not judge them.",
+      "unsoldInventory": "Too much unsold inventory",
+      "highAcquisitionCost": "High customer acquisition cost",
+      "lowMargin": "Low net margin",
+      "weakOnlinePresence": "Weak online presence",
+      "teamManagement": "Team management issues",
+      "cashFlow": "Cash flow problems",
+      "noCustomerData": "No clear customer data",
+      "inconsistentSales": "Inconsistent sales"
+    },
+    "step10": {
+      "title": "Business Numbers",
+      "subtitle": "Share your key numbers. This powers your Health Score.",
+      "hint": "Approximate is fine. You can update anytime.",
+      "monthlyRevenue": "Monthly Revenue (₸)",
+      "avgOrderValue": "Average Order Value (₸)",
+      "marketingSpend": "Monthly Marketing Spend (₸)",
+      "inventoryValue": "Inventory Value (₸)",
+      "employeeCount": "Number of employees",
+      "privacyNote": "🔒 Your data is private. We never share it."
+    },
+    "step11": {
+      "title": "Company DNA",
+      "subtitle": "Now let's capture your brand identity.",
+      "hint": "This powers how AI agents communicate for your company.",
+      "positioning": "Brand Positioning",
+      "positioningPlaceholder": "e.g. Accessible urban fashion for young professionals in Kazakhstan",
+      "targetAudience": "Target Audience",
+      "targetAudiencePlaceholder": "e.g. Women 22–35, Astana, middle income",
+      "toneOfVoice": "Tone of Voice",
+      "tonePlaceholder": "Select tone",
+      "confident": "Confident & Direct",
+      "warm": "Warm & Friendly",
+      "professional": "Professional & Formal",
+      "playful": "Playful & Energetic",
+      "competitors": "Top Competitors",
+      "competitorsPlaceholder": "e.g. ZARA KZ, LC Waikiki",
+      "skip": "I'll add this later"
+    },
+    "complete": {
+      "heading": "{name} is ready.",
+      "healthScore": "Business Health Score: calculated",
+      "agentTeam": "AI Executive Team: 6 agents active",
+      "companyBrain": "Company Brain: initialized",
+      "openDashboard": "Open your Dashboard →"
+    }
+  }
+}

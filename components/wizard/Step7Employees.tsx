@@ -1,21 +1,23 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 
 const roles = [
-  { id: "Owner", disabled: true },
-  { id: "Manager" },
-  { id: "Marketer / SMM" },
-  { id: "Accountant" },
-  { id: "Sales staff" },
-  { id: "Administrator" },
-  { id: "Warehouse staff" },
-];
+  { id: "Owner", key: "owner", disabled: true },
+  { id: "Manager", key: "manager" },
+  { id: "Marketer / SMM", key: "marketerSmm" },
+  { id: "Accountant", key: "accountant" },
+  { id: "Sales staff", key: "salesStaff" },
+  { id: "Administrator", key: "administrator" },
+  { id: "Warehouse staff", key: "warehouseStaff" },
+] as const;
 
 export function Step7Employees() {
+  const t = useTranslations("wizard.step7");
   const { wizardData, setStepData } = useWizardStore();
   const teamRoles = wizardData.teamRoles ?? ["Owner"];
 
@@ -29,11 +31,11 @@ export function Step7Employees() {
 
   return (
     <div className="max-w-lg">
-      <h2 className="text-2xl font-bold mb-2">Your Team</h2>
-      <p className="text-text-secondary mb-8">Tell us about your team structure.</p>
+      <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
+      <p className="text-text-secondary mb-8">{t("subtitle")}</p>
       <div className="space-y-6">
         <div>
-          <Label htmlFor="employees">Employee count</Label>
+          <Label htmlFor="employees">{t("employeeCount")}</Label>
           <Input
             id="employees"
             type="number"
@@ -46,7 +48,7 @@ export function Step7Employees() {
           />
         </div>
         <div>
-          <Label className="mb-3 block">Roles in your company</Label>
+          <Label className="mb-3 block">{t("roles")}</Label>
           <div className="space-y-3">
             {roles.map((role) => (
               <label
@@ -55,16 +57,14 @@ export function Step7Employees() {
               >
                 <Checkbox
                   checked={teamRoles.includes(role.id)}
-                  disabled={role.disabled}
+                  disabled={"disabled" in role && role.disabled}
                   onCheckedChange={() => toggleRole(role.id)}
                 />
-                {role.id}
+                {t(role.key)}
               </label>
             ))}
           </div>
-          <p className="text-xs text-text-muted mt-4">
-            You can invite team members after setup.
-          </p>
+          <p className="text-xs text-text-muted mt-4">{t("inviteHint")}</p>
         </div>
       </div>
     </div>

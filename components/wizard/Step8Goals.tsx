@@ -1,20 +1,22 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { MultiCard } from "./MultiCard";
 
 const goals = [
-  "Increase revenue",
-  "Reduce expenses",
-  "Expand to new cities",
-  "Increase repeat purchases",
-  "Build a strong team",
-  "Launch online store",
-  "Improve margins",
-  "Reduce dead stock",
-];
+  { value: "Increase revenue", key: "increaseRevenue" },
+  { value: "Reduce expenses", key: "reduceExpenses" },
+  { value: "Expand to new cities", key: "expandCities" },
+  { value: "Increase repeat purchases", key: "repeatPurchases" },
+  { value: "Build a strong team", key: "buildTeam" },
+  { value: "Launch online store", key: "launchOnlineStore" },
+  { value: "Improve margins", key: "improveMargins" },
+  { value: "Reduce dead stock", key: "reduceDeadStock" },
+] as const;
 
 export function Step8Goals() {
+  const t = useTranslations("wizard.step8");
   const { wizardData, setStepData } = useWizardStore();
   const selected = wizardData.strategicGoals ?? [];
 
@@ -28,19 +30,17 @@ export function Step8Goals() {
 
   return (
     <div className="max-w-lg">
-      <h2 className="text-2xl font-bold mb-2">Business Goals</h2>
-      <p className="text-text-secondary mb-2">What are your top 3 business goals?</p>
-      <p className="text-xs text-text-muted mb-8">
-        Choose 1–3. This helps AI agents focus on what matters most.
-      </p>
+      <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
+      <p className="text-text-secondary mb-2">{t("subtitle")}</p>
+      <p className="text-xs text-text-muted mb-8">{t("hint")}</p>
       <div className="grid gap-3">
         {goals.map((goal) => (
           <MultiCard
-            key={goal}
-            label={goal}
-            selected={selected.includes(goal)}
-            disabled={!selected.includes(goal) && selected.length >= 3}
-            onClick={() => toggle(goal)}
+            key={goal.value}
+            label={t(goal.key)}
+            selected={selected.includes(goal.value)}
+            disabled={!selected.includes(goal.value) && selected.length >= 3}
+            onClick={() => toggle(goal.value)}
           />
         ))}
       </div>

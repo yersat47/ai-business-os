@@ -1,12 +1,15 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MOCK_AGENTS } from "@/lib/mock/mock-agents";
 
 export function AITeamMiniCard() {
+  const t = useTranslations("dashboard.aiTeam");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -15,8 +18,8 @@ export function AITeamMiniCard() {
       className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full flex flex-col"
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-lg">AI Team</h3>
-        <Badge variant="success">6 active</Badge>
+        <h3 className="font-semibold text-lg">{t("title")}</h3>
+        <Badge variant="success">{t("active", { count: MOCK_AGENTS.length })}</Badge>
       </div>
       <div className="space-y-3 flex-1">
         {MOCK_AGENTS.map((agent) => (
@@ -40,7 +43,7 @@ export function AITeamMiniCard() {
         ))}
       </div>
       <Button variant="outline" className="w-full mt-4" asChild>
-        <Link href="/team">Open AI Team →</Link>
+        <Link href="/team">{t("openTeam")}</Link>
       </Button>
     </motion.div>
   );

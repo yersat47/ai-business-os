@@ -1,11 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils/cn";
 
 export function LandingNav() {
+  const t = useTranslations("landing.nav");
+  const tCommon = useTranslations("common");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,14 +29,14 @@ export function LandingNav() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <span className="h-2 w-2 rounded-full bg-accent" />
-          <span className="font-semibold text-text-primary">AI Business OS</span>
+          <span className="font-semibold text-text-primary">{tCommon("brand")}</span>
         </Link>
         <div className="flex items-center gap-3">
           <Button variant="ghost" asChild>
-            <Link href="/login">Sign in</Link>
+            <Link href="/login">{t("signIn")}</Link>
           </Button>
           <Button variant="bronze" asChild>
-            <Link href="/register">Get Started Free</Link>
+            <Link href="/register">{t("getStartedFree")}</Link>
           </Button>
         </div>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Agent } from "@/lib/types/agents.types";
@@ -10,6 +11,9 @@ interface AgentCardProps {
 }
 
 export function AgentCard({ agent, onOpen }: AgentCardProps) {
+  const t = useTranslations("agents.workspace");
+  const tCommon = useTranslations("common");
+
   return (
     <div className="rounded-2xl border border-border bg-surface/80 backdrop-blur p-6 hover:border-border-bright hover:scale-[1.01] transition-all duration-300">
       <div
@@ -22,7 +26,7 @@ export function AgentCard({ agent, onOpen }: AgentCardProps) {
       <p className="text-sm text-text-secondary mb-2">{agent.role}</p>
       <div className="flex items-center gap-2 mb-4">
         <span className="h-2 w-2 rounded-full bg-success" />
-        <span className="text-xs text-success">Active</span>
+        <span className="text-xs text-success">{tCommon("active")}</span>
       </div>
       <div className="flex flex-wrap gap-1 mb-4">
         {agent.specialty.map((s) => (
@@ -35,14 +39,14 @@ export function AgentCard({ agent, onOpen }: AgentCardProps) {
         {agent.currentTask}
       </p>
       <p className="text-[10px] text-text-muted mb-4">
-        Last active: {agent.lastActivity}
+        {t("lastActive", { time: agent.lastActivity })}
       </p>
       <Button
         variant="outline"
         className="w-full"
         onClick={() => onOpen(agent)}
       >
-        Open workspace →
+        {t("openWorkspace")}
       </Button>
     </div>
   );

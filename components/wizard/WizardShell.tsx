@@ -1,6 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "./StepIndicator";
 import { useWizardStore } from "@/lib/stores/wizard.store";
@@ -38,6 +39,7 @@ interface WizardShellProps {
 }
 
 export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
+  const t = useTranslations("wizard.shell");
   const { currentStep, prevStep, nextStep, wizardData } = useWizardStore();
   const StepComponent = stepComponents[currentStep];
   const progress = Math.round(((currentStep - 1) / 11) * 100);
@@ -59,8 +61,8 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
       <div className="flex-1 flex flex-col">
         <div className="border-b border-border px-6 py-4 flex items-center justify-between">
           <div>
-            <p className="text-sm text-text-secondary">Setting up</p>
-            <p className="font-semibold">{wizardData.name || "Your company"}</p>
+            <p className="text-sm text-text-secondary">{t("settingUp")}</p>
+            <p className="font-semibold">{wizardData.name || t("yourCompany")}</p>
           </div>
           <span className="text-sm font-mono text-accent">{progress}%</span>
         </div>
@@ -83,14 +85,14 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
             onClick={prevStep}
             disabled={currentStep === 1}
           >
-            ← Back
+            {t("back")}
           </Button>
           <Button
             variant="bronze"
             onClick={handleContinue}
             disabled={!canContinue}
           >
-            Continue →
+            {t("continue")}
           </Button>
         </div>
       </div>

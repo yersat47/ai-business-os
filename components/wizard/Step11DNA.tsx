@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,63 +15,60 @@ import {
 import { useWizardStore } from "@/lib/stores/wizard.store";
 
 const tones = [
-  "Confident & Direct",
-  "Warm & Friendly",
-  "Professional & Formal",
-  "Playful & Energetic",
-];
+  { value: "Confident & Direct", key: "confident" },
+  { value: "Warm & Friendly", key: "warm" },
+  { value: "Professional & Formal", key: "professional" },
+  { value: "Playful & Energetic", key: "playful" },
+] as const;
 
 export function Step11DNA() {
+  const t = useTranslations("wizard.step11");
   const { wizardData, setStepData, nextStep } = useWizardStore();
 
   return (
     <div className="max-w-lg">
-      <h2 className="text-2xl font-bold mb-2">Company DNA</h2>
-      <p className="text-text-secondary mb-2">
-        Now let&apos;s capture your brand identity.
-      </p>
-      <p className="text-xs text-text-muted mb-8">
-        This powers how AI agents communicate for your company.
-      </p>
+      <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
+      <p className="text-text-secondary mb-2">{t("subtitle")}</p>
+      <p className="text-xs text-text-muted mb-8">{t("hint")}</p>
       <div className="space-y-6">
         <div>
-          <Label>Brand Positioning</Label>
+          <Label>{t("positioning")}</Label>
           <Textarea
             className="mt-1.5"
             value={wizardData.positioning ?? ""}
             onChange={(e) => setStepData({ positioning: e.target.value })}
-            placeholder="e.g. Accessible urban fashion for young professionals in Kazakhstan"
+            placeholder={t("positioningPlaceholder")}
           />
         </div>
         <div>
-          <Label>Target Audience</Label>
+          <Label>{t("targetAudience")}</Label>
           <Input
             className="mt-1.5"
             value={wizardData.targetAudience ?? ""}
             onChange={(e) => setStepData({ targetAudience: e.target.value })}
-            placeholder="e.g. Women 22–35, Astana, middle income"
+            placeholder={t("targetAudiencePlaceholder")}
           />
         </div>
         <div>
-          <Label>Tone of Voice</Label>
+          <Label>{t("toneOfVoice")}</Label>
           <Select
             value={wizardData.toneOfVoice ?? ""}
             onValueChange={(v) => setStepData({ toneOfVoice: v })}
           >
             <SelectTrigger className="mt-1.5">
-              <SelectValue placeholder="Select tone" />
+              <SelectValue placeholder={t("tonePlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              {tones.map((t) => (
-                <SelectItem key={t} value={t}>
-                  {t}
+              {tones.map((tone) => (
+                <SelectItem key={tone.value} value={tone.value}>
+                  {t(tone.key)}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
         <div>
-          <Label>Top Competitors</Label>
+          <Label>{t("competitors")}</Label>
           <Input
             className="mt-1.5"
             value={wizardData.competitors?.join(", ") ?? ""}
@@ -82,12 +80,12 @@ export function Step11DNA() {
                   .filter(Boolean),
               })
             }
-            placeholder="e.g. ZARA KZ, LC Waikiki"
+            placeholder={t("competitorsPlaceholder")}
           />
         </div>
       </div>
       <Button variant="ghost" className="mt-6" onClick={() => nextStep()}>
-        I&apos;ll add this later
+        {t("skip")}
       </Button>
     </div>
   );

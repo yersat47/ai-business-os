@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface AuthCardProps {
   title: string;
@@ -10,13 +11,15 @@ interface AuthCardProps {
 }
 
 export function AuthCard({ title, subtitle, children, footer }: AuthCardProps) {
+  const tCommon = useTranslations("common");
+
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-background">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
             <span className="h-2 w-2 rounded-full bg-accent" />
-            <span className="font-semibold">AI Business OS</span>
+            <span className="font-semibold">{tCommon("brand")}</span>
           </Link>
           <h1 className="text-2xl font-bold">{title}</h1>
           {subtitle && (

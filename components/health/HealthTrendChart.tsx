@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import {
   LineChart,
   Line,
@@ -10,13 +11,15 @@ import {
 } from "recharts";
 import { MOCK_HEALTH_TREND } from "@/lib/mock/mock-health";
 
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
-const data = MOCK_HEALTH_TREND.map((score, i) => ({
-  month: months[i],
-  score,
-}));
+const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun"] as const;
 
 export function HealthTrendChart() {
+  const t = useTranslations("mock.months");
+  const data = MOCK_HEALTH_TREND.map((score, i) => ({
+    month: t(monthKeys[i]),
+    score,
+  }));
+
   return (
     <div className="h-48 w-full">
       <ResponsiveContainer width="100%" height="100%">

@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { RoleBadge } from "./RoleBadge";
+import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 interface TopBarProps {
   title: string;
@@ -44,7 +45,8 @@ export function TopBar({ title, onMenuClick }: TopBarProps) {
         <Badge variant="outline">{company.industry}</Badge>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
+        <LanguageSwitcher variant="compact" />
         <Button variant="ghost" size="icon" className="text-text-secondary">
           <Bell className="h-4 w-4" />
         </Button>

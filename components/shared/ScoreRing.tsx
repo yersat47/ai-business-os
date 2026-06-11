@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
 
@@ -25,6 +26,7 @@ export function ScoreRing({
   animated = true,
   showLabel = true,
 }: ScoreRingProps) {
+  const t = useTranslations("common");
   const { diameter, stroke, fontSize } = sizes[size];
   const radius = (diameter - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -77,7 +79,7 @@ export function ScoreRing({
           <span className={cn("font-mono font-bold tabular-nums", fontSize)}>
             {displayScore}
           </span>
-          <span className="text-text-muted text-xs font-mono">/100</span>
+          <span className="text-text-muted text-xs font-mono">{t("of100")}</span>
         </div>
       )}
     </div>
