@@ -8,11 +8,13 @@ export const MOCK_AGENTS: Agent[] = [
     description:
       "Synthesizes all business intelligence into executive decisions",
     icon: "⬡",
-    color: "#C9923A",
+    color: "#C9963A",
     status: "active",
     lastActivity: "2 min ago",
     specialty: ["Strategy", "Risk", "Opportunities"],
     currentTask: "Preparing monthly executive briefing",
+    avatarAnimal: "Тау",
+    avatarSymbol: "🏔️",
   },
   {
     id: "analyst",
@@ -21,11 +23,13 @@ export const MOCK_AGENTS: Agent[] = [
     description:
       "Monitors KPIs, detects anomalies, surfaces insights from data",
     icon: "◈",
-    color: "#3498DB",
+    color: "#5A9FD4",
     status: "active",
     lastActivity: "5 min ago",
     specialty: ["KPIs", "Trends", "Forecasting"],
     currentTask: "Analyzing dead stock patterns",
+    avatarAnimal: "Бүркіт",
+    avatarSymbol: "🦅",
   },
   {
     id: "marketer",
@@ -34,11 +38,13 @@ export const MOCK_AGENTS: Agent[] = [
     description:
       "Plans campaigns, optimizes CAC, manages acquisition funnels",
     icon: "◎",
-    color: "#E74C3C",
+    color: "#E85A4F",
     status: "active",
     lastActivity: "12 min ago",
     specialty: ["Instagram", "CAC", "Campaigns"],
     currentTask: "Building clearance campaign plan",
+    avatarAnimal: "Жылқы",
+    avatarSymbol: "🐴",
   },
   {
     id: "accountant",
@@ -47,11 +53,13 @@ export const MOCK_AGENTS: Agent[] = [
     description:
       "Tracks margins, cash flow, expenses, and financial health",
     icon: "◇",
-    color: "#2ECC71",
+    color: "#4CAF7D",
     status: "active",
     lastActivity: "1 hr ago",
     specialty: ["Margins", "Cash Flow", "Expenses"],
     currentTask: "Monthly expense analysis",
+    avatarAnimal: "Үкі",
+    avatarSymbol: "🦉",
   },
   {
     id: "manager",
@@ -65,6 +73,8 @@ export const MOCK_AGENTS: Agent[] = [
     lastActivity: "3 hr ago",
     specialty: ["Tasks", "Team", "SOP"],
     currentTask: "Reviewing team targets for June",
+    avatarAnimal: "Қасқыр",
+    avatarSymbol: "🐺",
   },
   {
     id: "smm",
@@ -73,10 +83,12 @@ export const MOCK_AGENTS: Agent[] = [
     description:
       "Plans content calendar, analyzes engagement, drives organic reach",
     icon: "◫",
-    color: "#F39C12",
+    color: "#E8923A",
     status: "active",
     lastActivity: "30 min ago",
     specialty: ["Instagram", "Content", "Engagement"],
     currentTask: "Creating June content calendar",
+    avatarAnimal: "Түлкі",
+    avatarSymbol: "🦊",
   },
 ];

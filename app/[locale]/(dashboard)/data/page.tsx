@@ -16,7 +16,7 @@ import {
   parseCurrencyInput,
 } from "@/lib/utils/formatters";
 import { toast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { DataCenterGuided } from "@/components/data/DataCenterGuided";
 
 const integrations = [
   "Google Sheets",
@@ -99,125 +99,7 @@ export default function DataPage() {
         </TabsList>
 
         <TabsContent value="metrics">
-          <div className="rounded-2xl border border-border bg-surface p-6 space-y-8">
-            <h3 className="font-semibold text-lg">
-              {t("metricsTitle", { month: "June 2026" })}
-            </h3>
-
-            <div>
-              <h4 className="text-sm font-medium text-accent mb-4 uppercase tracking-widest">
-                {t("sections.revenue")}
-              </h4>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <CurrencyInput
-                  label={t("fields.monthlyRevenue")}
-                  value={company.monthlyRevenue}
-                  onChange={(v) => updateCompany({ monthlyRevenue: v })}
-                />
-                <CurrencyInput
-                  label={t("fields.aov")}
-                  value={company.averageOrderValue}
-                  onChange={(v) => updateCompany({ averageOrderValue: v })}
-                />
-                <div>
-                  <Label className="text-xs">{t("fields.transactions")}</Label>
-                  <Input className="mt-1 font-mono" defaultValue="344" />
-                </div>
-                <div>
-                  <Label className="text-xs">New customers</Label>
-                  <Input className="mt-1 font-mono" defaultValue="129" />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-medium text-accent mb-4 uppercase tracking-widest">
-                {t("sections.inventory")}
-              </h4>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <CurrencyInput
-                  label={t("fields.inventoryValue")}
-                  value={company.inventoryValue}
-                  onChange={(v) => updateCompany({ inventoryValue: v })}
-                />
-                <CurrencyInput
-                  label={t("fields.deadStock")}
-                  value={company.deadStockValue}
-                  onChange={(v) => updateCompany({ deadStockValue: v })}
-                />
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-medium text-accent mb-4 uppercase tracking-widest">
-                {t("sections.marketing")}
-              </h4>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <CurrencyInput
-                  label={t("fields.marketingSpend")}
-                  value={company.marketingSpend}
-                  onChange={(v) => updateCompany({ marketingSpend: v })}
-                />
-                <CurrencyInput
-                  label={t("fields.adSpend")}
-                  value={420000}
-                  onChange={() => {}}
-                />
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-medium text-accent mb-4 uppercase tracking-widest">
-                {t("sections.finance")}
-              </h4>
-              <div className="grid sm:grid-cols-3 gap-4">
-                <CurrencyInput label={t("fields.operatingCosts")} value={3200000} onChange={() => {}} />
-                <CurrencyInput label="Rent" value={450000} onChange={() => {}} />
-                <CurrencyInput label="Salaries" value={1800000} onChange={() => {}} />
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-sm font-medium text-accent mb-4 uppercase tracking-widest">
-                {t("sections.team")}
-              </h4>
-              <div className="grid sm:grid-cols-3 gap-4">
-                <div>
-                  <Label className="text-xs">{t("fields.employeeCount")}</Label>
-                  <Input
-                    className="mt-1"
-                    value={company.employeeCount}
-                    onChange={(e) =>
-                      updateCompany({
-                        employeeCount: parseInt(e.target.value, 10) || 0,
-                      })
-                    }
-                  />
-                </div>
-                <div>
-                  <Label className="text-xs">New hires</Label>
-                  <Input className="mt-1" defaultValue="1" />
-                </div>
-                <div>
-                  <Label className="text-xs">Departures</Label>
-                  <Input className="mt-1" defaultValue="0" />
-                </div>
-              </div>
-            </div>
-
-            <Button
-              variant="bronze"
-              className="w-full"
-              onClick={handleSave}
-              disabled={saving}
-            >
-              {saving ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                t("saveRecalculate")
-              )}
-            </Button>
-          </div>
+          <DataCenterGuided />
         </TabsContent>
 
         <TabsContent value="import">

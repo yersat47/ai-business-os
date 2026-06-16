@@ -41,6 +41,18 @@ export interface Company {
 
 export interface WizardData extends Partial<Company> {
   step?: number;
+  brainSeeded?: boolean;
+}
+
+export interface EmployeeRecord {
+  id: string;
+  name: string;
+  jobTitle: string;
+  department: string;
+  systemRole: UserRole;
+  accessCode: string;
+  status: "active" | "deactivated";
+  addedAt: string;
 }
 
 export interface AuthUser {

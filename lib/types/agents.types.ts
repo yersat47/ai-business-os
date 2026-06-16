@@ -9,4 +9,6 @@ export interface Agent {
   lastActivity: string;
   specialty: string[];
   currentTask: string;
+  avatarAnimal: string;
+  avatarSymbol: string;
 }

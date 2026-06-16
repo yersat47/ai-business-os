@@ -1,31 +1,18 @@
 "use client";
 
-import { AlertTriangle, Upload } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { ScoreRing } from "@/components/shared/ScoreRing";
 import { DocumentCard } from "@/components/brain/DocumentCard";
+import { BrainUploadActions } from "@/components/brain/BrainUploadActions";
 import { Button } from "@/components/ui/button";
 import { MOCK_BRAIN } from "@/lib/mock/mock-brain";
-import { toast } from "@/hooks/use-toast";
-
-const addButtonKeys = [
-  "addDocument",
-  "addProcess",
-  "addDecision",
-  "addRule",
-] as const;
 
 export default function BrainPage() {
   const t = useTranslations("brain");
   const tCommon = useTranslations("common");
-
-  const showToast = () =>
-    toast({
-      title: t("toastUpload"),
-      description: t("toastUploadDesc"),
-    });
 
   return (
     <DashboardShell title={t("title")}>
@@ -102,20 +89,7 @@ export default function BrainPage() {
 
         <div className="rounded-2xl border border-border bg-surface p-8">
           <h3 className="font-semibold text-lg mb-4">{t("uploadTitle")}</h3>
-          <div
-            className="border-2 border-dashed border-border rounded-xl p-12 text-center cursor-pointer hover:border-accent transition-colors mb-6"
-            onClick={showToast}
-          >
-            <Upload className="h-8 w-8 text-text-muted mx-auto mb-3" />
-            <p className="text-text-secondary text-sm">{t("dropzone")}</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {addButtonKeys.map((key) => (
-              <Button key={key} variant="outline" onClick={showToast}>
-                {t(key)}
-              </Button>
-            ))}
-          </div>
+          <BrainUploadActions />
         </div>
       </div>
     </DashboardShell>

@@ -22,12 +22,8 @@ const initialData: WizardData = {
   city: "Astana",
   country: "KZ",
   currency: "₸",
-  salesChannels: ["Instagram Shop", "Physical Store", "Kaspi.kz"],
-  currentTools: ["Excel / Google Sheets", "WhatsApp", "Instagram", "Kaspi"],
   employeeCount: 14,
   teamRoles: ["Owner", "Manager", "Marketer / SMM", "Accountant"],
-  strategicGoals: ["Increase repeat purchases", "Reduce dead stock"],
-  mainProblems: ["Too much unsold inventory", "High customer acquisition cost"],
 };
 
 export const useWizardStore = create<WizardState>()((set, get) => ({
@@ -36,7 +32,7 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
   isComplete: false,
   nextStep: () => {
     const { currentStep } = get();
-    if (currentStep < 12) set({ currentStep: currentStep + 1 });
+    if (currentStep < 6) set({ currentStep: currentStep + 1 });
   },
   prevStep: () => {
     const { currentStep } = get();
@@ -61,20 +57,12 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
       businessType: wizardData.businessType || "Retail + Online",
       size: wizardData.size || "11-30",
       setupComplete: true,
-      salesChannels:
-        wizardData.salesChannels?.map((c) =>
-          c.replace("Instagram Shop", "Instagram").replace("Kaspi.kz", "Kaspi")
-        ) ?? companyStore.company.salesChannels,
-      currentTools:
-        wizardData.currentTools?.map((t) =>
-          t.replace("Excel / Google Sheets", "Excel")
-        ) ?? companyStore.company.currentTools,
     };
 
     companyStore.setCompany(merged);
     companyStore.completeSetup();
     healthStore.recalculate(merged);
-    set({ isComplete: true, currentStep: 12 });
+    set({ isComplete: true, currentStep: 6 });
   },
   reset: () =>
     set({ currentStep: 1, wizardData: initialData, isComplete: false }),
