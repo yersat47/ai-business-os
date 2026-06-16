@@ -1,26 +1,27 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
-
-const stepNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const;
+import { useTranslations } from "next-intl";
 
 interface StepIndicatorProps {
   currentStep: number;
 }
 
+const stepKeys = ["1", "2", "3", "4", "5", "6"] as const;
+
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
-  const t = useTranslations("wizard.steps");
+  const t = useTranslations("wizard.onboardingSteps");
 
   return (
     <div className="space-y-1">
-      {stepNums.map((num) => {
+      {stepKeys.map((key, index) => {
+        const num = index + 1;
         const isComplete = currentStep > num;
         const isActive = currentStep === num;
         return (
           <div
-            key={num}
+            key={key}
             className={cn(
               "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors border-l-2",
               isActive && "border-accent bg-accent/5 text-accent",
@@ -38,7 +39,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
             >
               {isComplete ? <Check className="h-3 w-3" /> : num}
             </span>
-            <span className="truncate">{t(String(num))}</span>
+            <span className="truncate">{t(key)}</span>
           </div>
         );
       })}

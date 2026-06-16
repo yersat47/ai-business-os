@@ -12,9 +12,13 @@ import { TopRisksCard } from "@/components/dashboard/TopRisksCard";
 import { TopActionsCard } from "@/components/dashboard/TopActionsCard";
 import { AITeamMiniCard } from "@/components/dashboard/AITeamMiniCard";
 import { DataCompletenessCard } from "@/components/dashboard/DataCompletenessCard";
+import { RoleDashboardView } from "@/components/dashboard/RoleDashboardView";
+import { BusinessCompletionScore } from "@/components/onboarding/BusinessCompletionScore";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { useCompanyStore } from "@/lib/stores/company.store";
+import { getCompletionFromWizard } from "@/lib/utils/completion-calculator";
 
 const quickActionKeys = [
   "updateNumbers",
@@ -25,6 +29,15 @@ const quickActionKeys = [
 export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const router = useRouter();
+  const company = useCompanyStore((s) => s.company);
+
+  const completion = getCompletionFromWizard({
+    name: company.name,
+    businessType: company.businessType,
+    employeeCount: company.employeeCount,
+    monthlyRevenue: company.monthlyRevenue,
+    brainSeeded: company.setupComplete,
+  });
 
   return (
     <DashboardShell title={t("title")}>
@@ -33,6 +46,12 @@ export default function DashboardPage() {
         animate={{ opacity: 1, y: 0 }}
         className="space-y-6"
       >
+        <RoleDashboardView />
+
+        {completion.score < 100 && (
+          <BusinessCompletionScore data={completion} compact />
+        )}
+
         <div className="grid lg:grid-cols-5 gap-6">
           <div className="lg:col-span-3">
             <HealthScoreWidget />
