@@ -349,6 +349,52 @@
     "codeCopied": "Code copied",
     "codeRegenerated": "Code regenerated",
     "employeeAdded": "Employee added",
+    "employeeSaved": "Changes saved",
+    "views": {
+      "tree": "Tree",
+      "grid": "Cards",
+      "table": "Table"
+    },
+    "departments": {
+      "management": "Management",
+      "operations": "Operations",
+      "marketing": "Marketing",
+      "finance": "Finance",
+      "sales": "Sales",
+      "custom": "Custom department"
+    },
+    "dept": {
+      "addToDept": "+ Add",
+      "addDepartment": "+ New department",
+      "newTitle": "New department",
+      "nameLabel": "Department name",
+      "namePlaceholder": "e.g. Warehouse",
+      "create": "Create department",
+      "created": "Department created"
+    },
+    "grid": {
+      "empty": "No employees yet"
+    },
+    "modal": {
+      "title": "Employee profile",
+      "fullName": "Full name",
+      "jobTitle": "Job title",
+      "jobTitlePlaceholder": "e.g. SMM Specialist",
+      "department": "Department",
+      "systemRole": "System role",
+      "phone": "Phone",
+      "email": "Email",
+      "accessCodeLabel": "Access code",
+      "accessCodeHint": "Share this code with the employee to sign in",
+      "aiAssistant": "AI assistant",
+      "aiConnected": "Connected: {agent}",
+      "aiNotNeeded": "Not required for this role",
+      "aiActive": "Active",
+      "aiNone": "None",
+      "lastSeen": "Last seen: {time}",
+      "deactivate": "Deactivate",
+      "save": "Save"
+    },
     "table": {
       "name": "Name",
       "jobTitle": "Job Title",

@@ -349,6 +349,52 @@
     "codeCopied": "Код көшірілді",
     "codeRegenerated": "Код жаңартылды",
     "employeeAdded": "Қызметкер қосылды",
+    "employeeSaved": "Өзгерістер сақталды",
+    "views": {
+      "tree": "Ағаш",
+      "grid": "Карточкалар",
+      "table": "Кесте"
+    },
+    "departments": {
+      "management": "Басқару",
+      "operations": "Операциялар",
+      "marketing": "Маркетинг",
+      "finance": "Қаржы",
+      "sales": "Сату",
+      "custom": "Өз бөлімі"
+    },
+    "dept": {
+      "addToDept": "+ Қосу",
+      "addDepartment": "+ Жаңа бөлім",
+      "newTitle": "Жаңа бөлім",
+      "nameLabel": "Бөлім атауы",
+      "namePlaceholder": "Мысалы: Қойма",
+      "create": "Бөлім жасау",
+      "created": "Бөлім жасалды"
+    },
+    "grid": {
+      "empty": "Қызметкерлер әлі жоқ"
+    },
+    "modal": {
+      "title": "Қызметкер карточкасы",
+      "fullName": "Толық аты",
+      "jobTitle": "Лауазымы",
+      "jobTitlePlaceholder": "Мысалы: SMM маманы",
+      "department": "Бөлім",
+      "systemRole": "Жүйедегі рөлі",
+      "phone": "Телефон",
+      "email": "Email",
+      "accessCodeLabel": "Жүйеге кіру коды",
+      "accessCodeHint": "Бұл кодты қызметкерге жүйеге кіру үшін беріңіз",
+      "aiAssistant": "AI көмекші",
+      "aiConnected": "Қосылған: {agent}",
+      "aiNotNeeded": "Бұл рөл үшін қажет емес",
+      "aiActive": "Белсенді",
+      "aiNone": "Жоқ",
+      "lastSeen": "Соңғы кіру: {time}",
+      "deactivate": "Өшіру",
+      "save": "Сақтау"
+    },
     "table": {
       "name": "Аты",
       "jobTitle": "Лауазымы",

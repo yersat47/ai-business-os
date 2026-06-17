@@ -438,6 +438,52 @@
     "codeCopied": "Код скопирован",
     "codeRegenerated": "Код обновлён",
     "employeeAdded": "Сотрудник добавлен",
+    "employeeSaved": "Изменения сохранены",
+    "views": {
+      "tree": "Дерево",
+      "grid": "Карточки",
+      "table": "Таблица"
+    },
+    "departments": {
+      "management": "Управление",
+      "operations": "Операции",
+      "marketing": "Маркетинг",
+      "finance": "Финансы",
+      "sales": "Продажи",
+      "custom": "Свой отдел"
+    },
+    "dept": {
+      "addToDept": "+ Добавить",
+      "addDepartment": "+ Новый отдел",
+      "newTitle": "Новый отдел",
+      "nameLabel": "Название отдела",
+      "namePlaceholder": "Например: Склад",
+      "create": "Создать отдел",
+      "created": "Отдел создан"
+    },
+    "grid": {
+      "empty": "Сотрудников пока нет"
+    },
+    "modal": {
+      "title": "Карточка сотрудника",
+      "fullName": "Полное имя",
+      "jobTitle": "Должность",
+      "jobTitlePlaceholder": "Например: SMM-специалист",
+      "department": "Отдел",
+      "systemRole": "Роль в системе",
+      "phone": "Телефон",
+      "email": "Email",
+      "accessCodeLabel": "Код входа в систему",
+      "accessCodeHint": "Передайте этот код сотруднику для входа в систему",
+      "aiAssistant": "AI-ассистент",
+      "aiConnected": "Подключён: {agent}",
+      "aiNotNeeded": "Не требуется для этой роли",
+      "aiActive": "Активен",
+      "aiNone": "Нет",
+      "lastSeen": "Последний вход: {time}",
+      "deactivate": "Деактивировать",
+      "save": "Сохранить"
+    },
     "table": {
       "name": "Имя",
       "jobTitle": "Должность",
