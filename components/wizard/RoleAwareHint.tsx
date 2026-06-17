@@ -1,57 +1,63 @@
 "use client";
 
+import { Info } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const roleMap: Record<
+const roleSectionMap: Record<
   string,
-  { triggerRoles: string[]; messageKey: string }
+  { roleIds: string[]; messageKey: string }
 > = {
   marketing: {
-    triggerRoles: ["Marketer / SMM", "Маркетолог", "Marketer"],
+    roleIds: ["marketer"],
     messageKey: "marketer",
   },
   financial: {
-    triggerRoles: ["Accountant", "Бухгалтер"],
+    roleIds: ["accountant"],
     messageKey: "accountant",
   },
   operations: {
-    triggerRoles: ["Manager", "Менеджер"],
+    roleIds: ["manager"],
     messageKey: "manager",
   },
   sales: {
-    triggerRoles: ["Sales staff", "Продавец", "Salesperson"],
+    roleIds: ["salesperson"],
     messageKey: "salesperson",
   },
   social: {
-    triggerRoles: ["Marketer / SMM", "SMM"],
+    roleIds: ["smm"],
     messageKey: "smm",
   },
   brain: {
-    triggerRoles: ["Administrator", "Администратор"],
+    roleIds: ["administrator"],
     messageKey: "administrator",
   },
   integrations: {
-    triggerRoles: ["Administrator", "Администратор"],
+    roleIds: ["administrator"],
     messageKey: "administrator",
   },
 };
 
 interface RoleAwareHintProps {
-  section: keyof typeof roleMap;
-  teamRoles?: string[];
+  section: keyof typeof roleSectionMap;
+  selectedRoles?: string[];
 }
 
-export function RoleAwareHint({ section, teamRoles = [] }: RoleAwareHintProps) {
+export function RoleAwareHint({
+  section,
+  selectedRoles = [],
+}: RoleAwareHintProps) {
   const t = useTranslations("onboarding.roleHint");
-  const config = roleMap[section];
+  const tRoles = useTranslations("roles");
+  const config = roleSectionMap[section];
   if (!config) return null;
 
-  const matched = config.triggerRoles.find((r) => teamRoles.includes(r));
-  if (!matched) return null;
+  const matchedRoleId = config.roleIds.find((id) => selectedRoles.includes(id));
+  if (!matchedRoleId) return null;
 
   return (
-    <div className="rounded-xl border border-info/20 bg-info/5 p-4 mt-4 text-sm text-text-secondary">
-      💡 {t(config.messageKey, { role: matched })}
+    <div className="flex gap-2 p-3 rounded-lg bg-accent/10 border border-accent/20 text-sm text-text-secondary mt-4">
+      <Info size={16} className="text-accent shrink-0 mt-0.5" />
+      <p>{t(config.messageKey, { role: tRoles(matchedRoleId) })}</p>
     </div>
   );
 }

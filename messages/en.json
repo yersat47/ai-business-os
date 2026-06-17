@@ -196,12 +196,23 @@
       "join": "Join"
     },
     "roleHint": {
-      "marketer": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с маркетологом или попросить его сделать это самостоятельно.",
-      "accountant": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с бухгалтером или попросить его сделать это самостоятельно.",
-      "manager": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с менеджером или попросить его сделать это самостоятельно.",
-      "salesperson": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с продавцом или попросить его сделать это самостоятельно.",
-      "smm": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с SMM-специалистом или попросить его сделать это самостоятельно.",
-      "administrator": "Мы видим, что в вашей компании есть {role}. Рекомендуем заполнить этот раздел вместе с администратором или попросить его сделать это самостоятельно."
+      "marketer": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently.",
+      "accountant": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently.",
+      "manager": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently.",
+      "salesperson": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently.",
+      "smm": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently.",
+      "administrator": "We see your company has a {role}. We recommend filling this section together or asking them to complete it independently."
+    },
+    "businessType": {
+      "title": "Your business type",
+      "subtitle": "This helps the system configure Industry Brain for your sector",
+      "fashionRetail": "Clothing store / Retail",
+      "beautyAndSpa": "Beauty & wellness",
+      "foodAndCafe": "Cafes & restaurants",
+      "ecommerce": "Online store",
+      "services": "Services",
+      "wholesale": "Wholesale",
+      "other": "Other"
     }
   },
   "dashboard": {
@@ -773,7 +784,11 @@
       "salesStaff": "Sales staff",
       "administrator": "Administrator",
       "warehouseStaff": "Warehouse staff",
-      "inviteHint": "You can invite team members after setup."
+      "inviteHint": "You can invite team members after setup.",
+      "customRolesQuestion": "Other positions?",
+      "customRolePlaceholder": "e.g. Procurement specialist",
+      "addRole": "+ Add",
+      "removeRole": "Remove"
     },
     "step8": {
       "title": "Business Goals",
@@ -810,6 +825,10 @@
       "marketingSpend": "Monthly Marketing Spend (₸)",
       "inventoryValue": "Inventory Value (₸)",
       "employeeCount": "Number of employees",
+      "employeeCountFromSettings": "Employees:",
+      "employeeCountHint": "from company settings",
+      "monthlyTransactions": "Monthly transactions",
+      "saveAndContinue": "Save and continue",
       "privacyNote": "🔒 Your data is private. We never share it."
     },
     "step11": {
@@ -846,31 +865,48 @@
       "6": "Готово"
     },
     "onboarding": {
-      "step1Why": "Название и описание — основа вашего Company Brain. Система запомнит, кто вы.",
-      "step1Gain": "Вы получите персонализированные рекомендации от AI-команды.",
-      "step2Title": "Тип бизнеса",
-      "step2Why": "Система адаптируется под вашу отрасль и формат работы.",
-      "step2Gain": "Показатели здоровья будут сравниваться с релевантными бенчмарками.",
-      "step3Why": "Добавьте сотрудников — они получат свой доступ и роль в системе.",
-      "step3Gain": "AI-агенты смогут давать рекомендации с учётом структуры команды.",
-      "step4Title": "Бизнес-показатели",
-      "step4Why": "Без этих данных невозможно рассчитать Здоровье Бизнеса и Прибыльный Потенциал.",
-      "step4Gain": "Вы увидите точный индекс здоровья и скрытые потери в тенге.",
-      "emptyMetricsWarning": "Без данных бизнеса система не сможет точно рассчитать Здоровье Бизнеса и Прибыльный Потенциал.",
-      "fillNow": "Заполнить сейчас",
-      "continueLater": "Продолжить позже"
+      "step1Why": "Your name and description are the foundation of Company Brain. The system will remember who you are.",
+      "step1Gain": "You'll get personalized recommendations from your AI team.",
+      "step2Title": "Business type",
+      "step2Why": "The system adapts to your industry and business format.",
+      "step2Gain": "Health metrics will be compared to relevant benchmarks.",
+      "step3Why": "Add team members — they'll get their own access and role in the system.",
+      "step3Gain": "AI agents can give recommendations based on your team structure.",
+      "step4Title": "Business metrics",
+      "step4Why": "Without this data, Business Health and Profit Potential cannot be calculated.",
+      "step4Gain": "You'll see an accurate health index and hidden losses in tenge.",
+      "emptyMetricsWarning": "Without business data, the system cannot accurately calculate Business Health and Profit Potential.",
+      "fillNow": "Fill in now",
+      "fillLater": "Fill in later",
+      "continueLater": "Continue later"
     },
-    "brainSeed": {
-      "title": "База знаний",
-      "subtitle": "Загрузите 1–3 документа, чтобы обучить Company Brain",
-      "why": "Документы становятся памятью компании. AI-агенты используют их для рекомендаций.",
-      "gain": "Чем больше знаний — тем точнее советы и выше заполненность Brain.",
-      "dropzone": "Перетащите PDF, Word или таблицу",
-      "uploadBtn": "Загрузить документ",
-      "seeded": "Документ добавлен в базу знаний",
-      "skipHint": "Можно пропустить и добавить позже в разделе «База знаний»",
-      "uploadSuccess": "Документ принят",
-      "uploadSuccessDesc": "Файл будет обработан после подключения AI."
+    "brainInfo": {
+      "title": "This is your company's memory",
+      "subtitle": "Company Brain remembers everything you add: documents, processes, decisions, and rules. The more information — the smarter your AI assistants.",
+      "addLater": "You can add documents anytime in the Knowledge Base section",
+      "continue": "Got it, continue →",
+      "items": {
+        "documents": {
+          "icon": "📄",
+          "title": "Documents",
+          "desc": "Price lists, catalogs, contracts"
+        },
+        "processes": {
+          "icon": "⚙️",
+          "title": "Processes",
+          "desc": "How your business works"
+        },
+        "decisions": {
+          "icon": "✅",
+          "title": "Decisions",
+          "desc": "What you decided and why"
+        },
+        "rules": {
+          "icon": "📌",
+          "title": "Rules",
+          "desc": "Standards for the team"
+        }
+      }
     }
   },
   "roleDashboard": {
@@ -949,11 +985,15 @@
   },
   "completion": {
     "title": "Business Completion",
+    "businessReady": "Your business is set up",
+    "goToDashboard": "Go to dashboard →",
     "filled": "Complete",
     "notFilled": "Incomplete",
     "fillNow": "Complete now",
     "items": {
       "profile": "Company profile",
+      "businessType": "Business type",
+      "team": "Team",
       "employees": "Employees",
       "metrics": "Business metrics",
       "brain": "Knowledge base",

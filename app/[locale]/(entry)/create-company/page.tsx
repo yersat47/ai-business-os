@@ -13,9 +13,17 @@ export default function CreateCompanyPage() {
       case 1:
         return !!wizardData.name?.trim();
       case 2:
-        return !!wizardData.businessType && !!wizardData.city?.trim();
-      case 3:
-        return (wizardData.employeeCount ?? 0) >= 1;
+        return (
+          !!wizardData.businessType &&
+          !!wizardData.size &&
+          !!wizardData.city?.trim()
+        );
+      case 3: {
+        const roleCount =
+          (wizardData.selectedRoles?.length ?? 0) +
+          (wizardData.customRoles?.length ?? 0);
+        return roleCount > 0;
+      }
       case 4:
       case 5:
         return true;

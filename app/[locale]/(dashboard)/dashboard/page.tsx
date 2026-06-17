@@ -34,9 +34,11 @@ export default function DashboardPage() {
   const completion = getCompletionFromWizard({
     name: company.name,
     businessType: company.businessType,
+    selectedRoles: company.selectedRoles,
+    customRoles: company.customRoles,
+    teamRoles: company.teamRoles,
     employeeCount: company.employeeCount,
     monthlyRevenue: company.monthlyRevenue,
-    brainSeeded: company.setupComplete,
   });
 
   return (

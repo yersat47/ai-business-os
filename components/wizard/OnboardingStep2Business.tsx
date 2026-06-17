@@ -1,7 +1,15 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Store, ShoppingBag, Layers, Package, Briefcase, MoreHorizontal } from "lucide-react";
+import {
+  Store,
+  ShoppingBag,
+  UtensilsCrossed,
+  Sparkles,
+  Package,
+  Briefcase,
+  MoreHorizontal,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -14,47 +22,54 @@ import {
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { RadioCard } from "./RadioCard";
 import { OnboardingTip } from "./OnboardingTip";
+import {
+  BUSINESS_TYPE_KEYS,
+  SIZE_KEYS,
+  employeeCountFromSize,
+  type BusinessTypeKey,
+  type SizeKey,
+} from "@/lib/utils/wizard-helpers";
 
-const businessTypes = [
-  { value: "Retail Store (physical)", icon: <Store className="h-5 w-5" /> },
-  { value: "Online Store (e-commerce)", icon: <ShoppingBag className="h-5 w-5" /> },
-  { value: "Retail + Online", icon: <Layers className="h-5 w-5" /> },
-  { value: "Wholesale", icon: <Package className="h-5 w-5" /> },
-  { value: "Service Business", icon: <Briefcase className="h-5 w-5" /> },
-  { value: "Other", icon: <MoreHorizontal className="h-5 w-5" /> },
-];
-
-const sizes = [
-  "Solo (just me)",
-  "2–5 people",
-  "6–15 people",
-  "16–30 people",
-  "31–50 people",
-  "50+ people",
-];
+const businessTypeIcons: Record<BusinessTypeKey, React.ReactNode> = {
+  fashionRetail: <Store className="h-5 w-5" />,
+  beautyAndSpa: <Sparkles className="h-5 w-5" />,
+  foodAndCafe: <UtensilsCrossed className="h-5 w-5" />,
+  ecommerce: <ShoppingBag className="h-5 w-5" />,
+  services: <Briefcase className="h-5 w-5" />,
+  wholesale: <Package className="h-5 w-5" />,
+  other: <MoreHorizontal className="h-5 w-5" />,
+};
 
 export function OnboardingStep2Business() {
-  const t = useTranslations("wizard.onboarding");
-  const t2 = useTranslations("wizard.step2");
+  const t = useTranslations("onboarding.businessType");
+  const tOnb = useTranslations("wizard.onboarding");
   const t3 = useTranslations("wizard.step3");
   const t4 = useTranslations("wizard.step4");
   const { wizardData, setStepData } = useWizardStore();
 
+  const handleSizeSelect = (size: SizeKey) => {
+    setStepData({
+      size,
+      employeeCount: employeeCountFromSize(size),
+    });
+  };
+
   return (
     <div className="max-w-lg space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-2">{t("step2Title")}</h2>
-        <OnboardingTip text={t("step2Why")} gain={t("step2Gain")} />
+        <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
+        <p className="text-text-secondary text-sm mb-4">{t("subtitle")}</p>
+        <OnboardingTip text={tOnb("step2Why")} gain={tOnb("step2Gain")} />
       </div>
 
       <div className="grid gap-3">
-        {businessTypes.map((opt) => (
+        {BUSINESS_TYPE_KEYS.map((key) => (
           <RadioCard
-            key={opt.value}
-            label={opt.value}
-            icon={opt.icon}
-            selected={wizardData.businessType === opt.value}
-            onClick={() => setStepData({ businessType: opt.value })}
+            key={key}
+            label={t(key)}
+            icon={businessTypeIcons[key]}
+            selected={wizardData.businessType === key}
+            onClick={() => setStepData({ businessType: key })}
           />
         ))}
       </div>
@@ -62,18 +77,18 @@ export function OnboardingStep2Business() {
       <div>
         <Label className="mb-3 block">{t3("subtitle")}</Label>
         <div className="grid grid-cols-2 gap-2">
-          {sizes.map((size) => (
+          {SIZE_KEYS.map((sizeKey) => (
             <button
-              key={size}
+              key={sizeKey}
               type="button"
-              onClick={() => setStepData({ size })}
+              onClick={() => handleSizeSelect(sizeKey)}
               className={`p-3 rounded-xl border text-left text-xs transition-all ${
-                wizardData.size === size
+                wizardData.size === sizeKey
                   ? "border-accent bg-accent/10 text-accent"
                   : "border-border bg-surface hover:border-border-bright"
               }`}
             >
-              {size}
+              {t3(sizeKey)}
             </button>
           ))}
         </div>
