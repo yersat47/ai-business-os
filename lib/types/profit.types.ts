@@ -1,5 +1,6 @@
 export interface ProfitBreakdownItem {
   category: string;
+  categoryKey?: string;
   amount: number;
   confidence: number;
 }

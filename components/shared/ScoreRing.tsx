@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
 
 interface ScoreRingProps {
-  score: number;
+  score: number | null;
   size?: "sm" | "md" | "lg";
   color?: string;
   animated?: boolean;
@@ -30,11 +30,18 @@ export function ScoreRing({
   const { diameter, stroke, fontSize } = sizes[size];
   const radius = (diameter - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
-  const [displayScore, setDisplayScore] = useState(animated ? 0 : score);
-  const [offset, setOffset] = useState(animated ? circumference : circumference - (score / 100) * circumference);
+  const effectiveScore = score ?? 0;
+  const [displayScore, setDisplayScore] = useState(
+    animated && score !== null ? 0 : effectiveScore
+  );
+  const [offset, setOffset] = useState(
+    animated && score !== null
+      ? circumference
+      : circumference - (effectiveScore / 100) * circumference
+  );
 
   useEffect(() => {
-    if (!animated) return;
+    if (!animated || score === null) return;
     const duration = 1200;
     const start = performance.now();
     const animate = (now: number) => {
@@ -59,27 +66,37 @@ export function ScoreRing({
           stroke="var(--border)"
           strokeWidth={stroke}
         />
-        <motion.circle
-          cx={diameter / 2}
-          cy={diameter / 2}
-          r={radius}
-          fill="none"
-          stroke={color}
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
-          initial={animated ? { strokeDashoffset: circumference } : undefined}
-          animate={{ strokeDashoffset: offset }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
+        {score !== null && (
+          <motion.circle
+            cx={diameter / 2}
+            cy={diameter / 2}
+            r={radius}
+            fill="none"
+            stroke={color}
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            initial={animated ? { strokeDashoffset: circumference } : undefined}
+            animate={{ strokeDashoffset: offset }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          />
+        )}
       </svg>
       {showLabel && (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className={cn("font-mono font-bold tabular-nums", fontSize)}>
-            {displayScore}
+          <span
+            className={cn(
+              "font-mono font-bold tabular-nums",
+              fontSize,
+              score === null && "text-text-muted"
+            )}
+          >
+            {score === null ? "—" : displayScore}
           </span>
-          <span className="text-text-muted text-xs font-mono">{t("of100")}</span>
+          {score !== null && (
+            <span className="text-text-muted text-xs font-mono">{t("of100")}</span>
+          )}
         </div>
       )}
     </div>

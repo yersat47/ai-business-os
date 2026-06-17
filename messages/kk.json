@@ -38,7 +38,11 @@
     "of100": "/100",
     "confidence": "Сенімділік {pct}%",
     "items": "{count} элемент",
-    "today": "Бүгін, 09:00"
+    "today": "Бүгін, 09:00",
+    "skip": "Өткізу",
+    "retry": "Қайта көру",
+    "noData": "Дерек жоқ",
+    "demo": "демо"
   },
   "language": {
     "title": "Интерфейс тілі",
@@ -201,14 +205,25 @@
     }
   },
   "dashboard": {
-    "title": "Басқару панелі",
+    "title": "Бизнес шолуы",
+    "noData": "Деректер толтырылмаған",
+    "noDataDesc": "Аналитиканы көру үшін бизнес көрсеткіштерін енгізіңіз",
+    "fillData": "Деректерді толтыру",
     "health": {
-      "title": "Бизнес денсаулығы"
+      "title": "Бизнес денсаулығы",
+      "tooltip": "8 бизнес бағыты бойынша жиынтық көрсеткіш"
     },
     "profit": {
       "title": "Пайда әлеуеті",
       "subtitle": "Айына қалпына келтіруге болады",
-      "vsLastMonth": "өткен айға қарағанда"
+      "vsLastMonth": "өткен айға қарағанда",
+      "growthPotential": "+ {pct}% өсу әлеуеті",
+      "breakdown": {
+        "deadStock": "Сатылмайтын қорды қайтару",
+        "cacOptimization": "CAC оңтайландыру",
+        "marginImprovement": "Маржаны жақсарту",
+        "repeatPurchase": "Қайта сатып алу өсімі"
+      }
     },
     "briefing": {
       "title": "Бизнес-брифинг",
@@ -428,6 +443,79 @@
   },
   "data": {
     "title": "Деректер орталығы",
+    "fillNow": "Толтыру",
+    "fillLater": "Кейінірек толтыру",
+    "save": "Сақтау",
+    "saved": "Сақталды",
+    "savedDesc": "Бөлім деректері сақталды",
+    "cancel": "Болдырмау",
+    "collapse": "Жию",
+    "incomplete": "Толтырылмаған",
+    "complete": "Толтырылған",
+    "center": {
+      "progressLabel": "Толтырылған бөлімдер",
+      "progressCount": "{done} / {total}",
+      "limitedModeWarning": "Бизнес деректері жоқ кезде жүйе шектеулі режимде жұмыс істейді. Profit Engine және Health Score шамамен есептеледі.",
+      "fromProfile": "компания профилінен",
+      "sections": {
+        "finance": {
+          "title": "Қаржылық көрсеткіштер",
+          "description": "Табыс, маржа, шығындар — Profit Engine негізі"
+        },
+        "sales": {
+          "title": "Сату",
+          "description": "Транзакциялар, орташа чек, конверсия"
+        },
+        "marketing": {
+          "title": "Маркетинг",
+          "description": "Бюджет, CAC, ROAS, клиенттерді ұстап қалу"
+        },
+        "inventory": {
+          "title": "Тауар қорлары",
+          "description": "Құны, айналым, сатылмайтын қор"
+        },
+        "team": {
+          "title": "Команда",
+          "description": "Құрамы, тиімділік, ауысым"
+        }
+      },
+      "fields": {
+        "finance": {
+          "revenue": "Айлық айналым (₸)",
+          "grossMargin": "Жалпы маржа (%)",
+          "netMargin": "Таза маржа (%)",
+          "monthlyExpenses": "Айлық жалпы шығындар (₸)",
+          "rent": "Жалда (₸/ай)",
+          "payroll": "Еңбекақы қоры (₸/ай)",
+          "cashReserveMonths": "Қолма-қол резерв (ай)"
+        },
+        "sales": {
+          "monthlyTransactions": "Айлық транзакциялар",
+          "avgOrderValue": "Орташа чек (₸)",
+          "conversionRate": "Конверсия (%)",
+          "upt": "UPT (чектегі бірлік)"
+        },
+        "marketing": {
+          "adSpend": "Жарнама бюджеті (₸/ай)",
+          "cac": "Клиент тарту құны — CAC (₸)",
+          "roas": "ROAS",
+          "repeatRate": "Қайта сатып алу үлесі (%)",
+          "newCustomersMonthly": "Айына жаңа клиенттер"
+        },
+        "inventory": {
+          "inventoryValue": "Қор құны (₸)",
+          "inventoryValueHint": "Қоймада немесе сатудағы барлық тауардың жалпы құны. Айналымды есептеу үшін қажет.",
+          "skuCount": "SKU саны",
+          "turnover": "Айналым (жылына рет)",
+          "deadStockPct": "Сатылмайтын қор үлесі (%)"
+        },
+        "team": {
+          "employeeCount": "Қызметкер саны",
+          "salesStaffCount": "Сатушылар саны",
+          "staffTurnover": "Кадр ауысымы (%/жыл)"
+        }
+      }
+    },
     "tabs": {
       "metrics": "Айлық көрсеткіштер",
       "import": "Дерек импорты",
@@ -456,7 +544,10 @@
       "netProfit": "Таза пайда",
       "operatingCosts": "Операциялық шығындар",
       "employeeCount": "Қызметкер саны",
-      "openPositions": "Бос лауазымдар"
+      "openPositions": "Бос лауазымдар",
+      "customerFeedback": "Клиент пікірі",
+      "financialStatements": "Қаржылық есептер",
+      "supplierContracts": "Жеткізуші келісімдері"
     },
     "saveRecalculate": "Сақтау және денсаулық көрсеткішін қайта есептеу",
     "import": {

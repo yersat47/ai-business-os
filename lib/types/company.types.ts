@@ -35,6 +35,7 @@ export interface Company {
   strategicGoals: string[];
   mainProblems: string[];
   setupComplete: boolean;
+  metricsEntered?: boolean;
   tagline?: string;
   teamRoles?: string[];
 }

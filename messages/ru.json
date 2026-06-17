@@ -38,7 +38,11 @@
     "of100": "/100",
     "confidence": "Уверенность {pct}%",
     "items": "{count} элементов",
-    "today": "Сегодня, 09:00"
+    "today": "Сегодня, 09:00",
+    "skip": "Пропустить",
+    "retry": "Попробовать снова",
+    "noData": "Нет данных",
+    "demo": "демо"
   },
   "language": {
     "title": "Язык интерфейса",
@@ -273,14 +277,25 @@
     }
   },
   "dashboard": {
-    "title": "Панель управления",
+    "title": "Обзор бизнеса",
+    "noData": "Данные не заполнены",
+    "noDataDesc": "Введите бизнес-показатели, чтобы увидеть аналитику",
+    "fillData": "Заполнить данные",
     "health": {
-      "title": "Здоровье бизнеса"
+      "title": "Здоровье бизнеса",
+      "tooltip": "Сводный показатель по 8 направлениям бизнеса"
     },
     "profit": {
       "title": "Потенциал прибыли",
       "subtitle": "Восстановимо в месяц",
-      "vsLastMonth": "к прошлому месяцу"
+      "vsLastMonth": "к прошлому месяцу",
+      "growthPotential": "+ {pct}% потенциал роста",
+      "breakdown": {
+        "deadStock": "Возврат из неликвида",
+        "cacOptimization": "Оптимизация CAC",
+        "marginImprovement": "Улучшение маржи",
+        "repeatPurchase": "Рост повторных покупок"
+      }
     },
     "briefing": {
       "title": "Бизнес-брифинг",
@@ -517,6 +532,79 @@
   },
   "data": {
     "title": "Центр данных",
+    "fillNow": "Заполнить",
+    "fillLater": "Заполнить позже",
+    "save": "Сохранить",
+    "saved": "Сохранено",
+    "savedDesc": "Данные раздела сохранены",
+    "cancel": "Отмена",
+    "collapse": "Свернуть",
+    "incomplete": "Не заполнено",
+    "complete": "Заполнено",
+    "center": {
+      "progressLabel": "Заполнено разделов",
+      "progressCount": "{done} из {total}",
+      "limitedModeWarning": "Без данных бизнеса система работает в ограниченном режиме. Profit Engine и Health Score рассчитываются приблизительно.",
+      "fromProfile": "из профиля компании",
+      "sections": {
+        "finance": {
+          "title": "Финансовые показатели",
+          "description": "Выручка, маржа, расходы — основа Profit Engine"
+        },
+        "sales": {
+          "title": "Продажи",
+          "description": "Транзакции, средний чек, конверсия"
+        },
+        "marketing": {
+          "title": "Маркетинг",
+          "description": "Бюджет, CAC, ROAS, удержание клиентов"
+        },
+        "inventory": {
+          "title": "Товарные запасы",
+          "description": "Стоимость, оборачиваемость, мёртвый сток"
+        },
+        "team": {
+          "title": "Команда",
+          "description": "Состав, производительность, текучесть"
+        }
+      },
+      "fields": {
+        "finance": {
+          "revenue": "Ежемесячный оборот (₸)",
+          "grossMargin": "Валовая маржа (%)",
+          "netMargin": "Чистая маржа (%)",
+          "monthlyExpenses": "Общие расходы в месяц (₸)",
+          "rent": "Аренда (₸/мес)",
+          "payroll": "ФОТ (₸/мес)",
+          "cashReserveMonths": "Кэш-резерв (месяцев)"
+        },
+        "sales": {
+          "monthlyTransactions": "Транзакций в месяц",
+          "avgOrderValue": "Средний чек (₸)",
+          "conversionRate": "Конверсия (%)",
+          "upt": "UPT (единиц в чеке)"
+        },
+        "marketing": {
+          "adSpend": "Рекламный бюджет (₸/мес)",
+          "cac": "Стоимость привлечения клиента — CAC (₸)",
+          "roas": "ROAS",
+          "repeatRate": "Доля повторных покупок (%)",
+          "newCustomersMonthly": "Новых клиентов в месяц"
+        },
+        "inventory": {
+          "inventoryValue": "Стоимость запасов (₸)",
+          "inventoryValueHint": "Это общая стоимость всех товаров на складе или в торговом зале. Нужно для расчёта оборачиваемости.",
+          "skuCount": "Количество SKU (артикулов)",
+          "turnover": "Оборачиваемость (раз в год)",
+          "deadStockPct": "Доля мёртвого стока (%)"
+        },
+        "team": {
+          "employeeCount": "Количество сотрудников",
+          "salesStaffCount": "Из них продавцов",
+          "staffTurnover": "Текучесть кадров (%/год)"
+        }
+      }
+    },
     "tabs": {
       "metrics": "Месячные показатели",
       "import": "Импорт данных",
@@ -545,7 +633,10 @@
       "netProfit": "Чистая прибыль",
       "operatingCosts": "Операционные расходы",
       "employeeCount": "Количество сотрудников",
-      "openPositions": "Открытые вакансии"
+      "openPositions": "Открытые вакансии",
+      "customerFeedback": "Обратная связь клиентов",
+      "financialStatements": "Финансовая отчётность",
+      "supplierContracts": "Договоры с поставщиками"
     },
     "saveRecalculate": "Сохранить и пересчитать индекс здоровья",
     "import": {
