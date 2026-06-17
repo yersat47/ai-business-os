@@ -1,21 +1,38 @@
 "use client";
 
-import { Bell, Menu, LogOut } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { RoleBadge } from "./RoleBadge";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
+import { TopBarIndicators } from "./TopBarIndicators";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { useRouter } from "@/i18n/navigation";
 
 interface TopBarProps {
-  title: string;
   onMenuClick?: () => void;
 }
 
-export function TopBar({ title, onMenuClick }: TopBarProps) {
+function Logo() {
+  const t = useTranslations("common");
+
+  return (
+    <Link href="/dashboard" className="flex items-center gap-2 shrink-0">
+      <div className="h-8 w-8 rounded-lg bg-accent/20 flex items-center justify-center">
+        <span className="text-accent text-sm">⬡</span>
+      </div>
+      <span className="hidden sm:inline font-semibold text-sm text-text-primary">
+        {t("brand")}
+      </span>
+    </Link>
+  );
+}
+
+export function TopBar({ onMenuClick }: TopBarProps) {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const company = useCompanyStore((s) => s.company);
@@ -27,30 +44,30 @@ export function TopBar({ title, onMenuClick }: TopBarProps) {
   };
 
   return (
-    <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md flex items-center justify-between px-4 md:px-6 sticky top-0 z-30">
-      <div className="flex items-center gap-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={onMenuClick}
-        >
-          <Menu className="h-5 w-5" />
-        </Button>
-        <h1 className="text-lg font-medium text-text-primary">{title}</h1>
-      </div>
+    <header className="h-14 border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+      <div className="flex items-center justify-between h-full px-4 gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden shrink-0"
+            onClick={onMenuClick}
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+          <Logo />
+          <span className="hidden lg:inline text-sm text-text-muted truncate max-w-[140px]">
+            {company.name}
+          </span>
+        </div>
 
-      <div className="hidden sm:flex items-center gap-2">
-        <Badge variant="accent">{company.name}</Badge>
-        <Badge variant="outline">{company.industry}</Badge>
-      </div>
+        <div className="flex items-center justify-center flex-1 min-w-0 px-2">
+          <TopBarIndicators />
+        </div>
 
-      <div className="flex items-center gap-2">
-        <LanguageSwitcher variant="compact" />
-        <Button variant="ghost" size="icon" className="text-text-secondary">
-          <Bell className="h-4 w-4" />
-        </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 shrink-0">
+          <LanguageSwitcher variant="compact" />
+          <ThemeToggle />
           <Avatar className="h-8 w-8">
             <AvatarFallback>
               {(user?.name ?? "E").charAt(0).toUpperCase()}
@@ -59,10 +76,10 @@ export function TopBar({ title, onMenuClick }: TopBarProps) {
           <div className="hidden md:block">
             {user && <RoleBadge role={user.role} />}
           </div>
+          <Button variant="ghost" size="icon" onClick={handleLogout}>
+            <LogOut className="h-4 w-4" />
+          </Button>
         </div>
-        <Button variant="ghost" size="icon" onClick={handleLogout}>
-          <LogOut className="h-4 w-4" />
-        </Button>
       </div>
     </header>
   );

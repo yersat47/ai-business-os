@@ -4,7 +4,6 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
-import { PersistentIndicators } from "./PersistentIndicators";
 import { ShanyrakArc } from "@/components/shared/ShanyrakArc";
 
 interface DashboardShellProps {
@@ -30,11 +29,10 @@ export function DashboardShell({ children, title }: DashboardShellProps) {
         {isDashboard && (
           <ShanyrakArc className="absolute top-0 right-0 w-96 h-96 opacity-[0.03] pointer-events-none -z-0" />
         )}
-        <TopBar title={title} onMenuClick={() => setMobileOpen(true)} />
-        <main className="flex-1 p-4 md:p-6 overflow-auto pb-24 relative z-10">
+        <TopBar onMenuClick={() => setMobileOpen(true)} />
+        <main className="flex-1 p-4 md:p-6 overflow-auto relative z-10">
           {children}
         </main>
-        <PersistentIndicators />
       </div>
     </div>
   );

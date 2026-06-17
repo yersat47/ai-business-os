@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthHydration } from "@/components/providers/AuthHydration";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -54,15 +55,22 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrains.variable} font-sans`}>
-        <NextIntlClientProvider messages={messages}>
-          <TooltipProvider>
-            <AuthHydration />
-            {children}
-            <Toaster />
-          </TooltipProvider>
-        </NextIntlClientProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NextIntlClientProvider messages={messages}>
+            <TooltipProvider>
+              <AuthHydration />
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </NextIntlClientProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

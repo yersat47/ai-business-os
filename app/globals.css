@@ -21,6 +21,18 @@
   --sidebar-bg: #0d0d14;
 }
 
+.light {
+  --background: #faf9f7;
+  --surface: #ffffff;
+  --surface-raised: #f5f4f2;
+  --border: #e5e5e5;
+  --border-bright: #d4d4d4;
+  --text-primary: #0a0a0f;
+  --text-secondary: #52525b;
+  --text-muted: #737373;
+  --sidebar-bg: #f5f4f2;
+}
+
 @layer base {
   * {
     @apply border-border;

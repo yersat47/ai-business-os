@@ -639,7 +639,13 @@
       }
     },
     "saved": "Saved",
-    "savedDesc": "Your changes have been saved."
+    "savedDesc": "Your changes have been saved.",
+    "appearance": {
+      "title": "Appearance",
+      "dark": "Dark",
+      "light": "Light",
+      "system": "System (auto)"
+    }
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -957,5 +963,11 @@
   "indicators": {
     "health": "Health",
     "potential": "Potential"
+  },
+  "topbar": {
+    "health": "Health",
+    "potential": "Potential",
+    "noData": "No data",
+    "fillData": "Fill in"
   }
 }
