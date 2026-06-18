@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Clock, Zap } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -19,6 +20,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { getCompletionFromWizard } from "@/lib/utils/completion-calculator";
+import { useBusinessHealth } from "@/hooks/useBusinessHealth";
+import { useHealthStore } from "@/lib/stores/health.store";
+import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
 
 const quickActionKeys = [
   "updateNumbers",
@@ -30,6 +34,19 @@ export default function DashboardPage() {
   const t = useTranslations("dashboard");
   const router = useRouter();
   const company = useCompanyStore((s) => s.company);
+  const { calculate } = useBusinessHealth();
+
+  useEffect(() => {
+    if (!hasBusinessMetrics(company)) return;
+
+    const oneHour = 60 * 60 * 1000;
+    const last = useHealthStore.getState().lastCalculated;
+    const shouldRecalculate = !last || Date.now() - last > oneHour;
+
+    if (shouldRecalculate) {
+      calculate();
+    }
+  }, [calculate, company]);
 
   const completion = getCompletionFromWizard({
     name: company.name,

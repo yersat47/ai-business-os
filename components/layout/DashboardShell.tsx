@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { TopBar } from "./TopBar";
 
@@ -13,8 +12,6 @@ interface DashboardShellProps {
 export function DashboardShell({ children, title }: DashboardShellProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
-  const isDashboard = pathname.includes("/dashboard");
 
   return (
     <div className="flex min-h-screen relative">

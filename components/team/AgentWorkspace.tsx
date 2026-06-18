@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { AgentChatMock } from "./AgentChatMock";
+import { AgentChat } from "./AgentChat";
 import type { Agent } from "@/lib/types/agents.types";
 import { toast } from "@/hooks/use-toast";
 
@@ -82,7 +82,7 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
             <TabsTrigger value="tasks" className="flex-1">{t("tasks")}</TabsTrigger>
           </TabsList>
           <TabsContent value="chat">
-            <AgentChatMock agent={agent} />
+            <AgentChat agent={agent} />
           </TabsContent>
           <TabsContent value="insights" className="space-y-4">
             {insights.map((insight, i) => (
