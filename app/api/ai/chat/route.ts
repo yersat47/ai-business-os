@@ -8,6 +8,8 @@ import {
 import { buildSystemPrompt } from "@/lib/ai/agents.prompts";
 
 export async function POST(req: NextRequest) {
+  console.log("API KEY exists:", !!process.env.ANTHROPIC_API_KEY);
+
   if (!hasAnthropicKey()) {
     return NextResponse.json(
       { error: "ANTHROPIC_API_KEY is not configured" },

@@ -2,6 +2,7 @@ export interface BlurConfig {
   blur: string;
   overlay: string;
   isLanding: boolean;
+  fullCoverImage?: boolean;
 }
 
 function normalizePath(pathname: string): string {
@@ -37,6 +38,7 @@ export function getBlurConfig(pathname: string): BlurConfig {
       blur: "blur(8px)",
       overlay: "rgba(6,6,14,0.55)",
       isLanding: false,
+      fullCoverImage: path.includes("/login"),
     };
   }
 
@@ -45,6 +47,7 @@ export function getBlurConfig(pathname: string): BlurConfig {
       blur: "blur(12px)",
       overlay: "rgba(6,6,14,0.65)",
       isLanding: false,
+      fullCoverImage: true,
     };
   }
 

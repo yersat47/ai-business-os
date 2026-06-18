@@ -15,14 +15,29 @@ export function CityBackgroundProvider({ children }: CityBackgroundProviderProps
   const pathname = usePathname();
   const { selectedCity } = useCityStore();
   const city = CITIES.find((c) => c.id === selectedCity) ?? CITIES[0];
-  const { blur, overlay, isLanding } = getBlurConfig(pathname);
+  const { blur, overlay, isLanding, fullCoverImage } = getBlurConfig(pathname);
+
+  const imageStyle = fullCoverImage
+    ? {
+        width: "100%",
+        height: "100vh",
+        objectFit: "cover" as const,
+        position: "fixed" as const,
+        top: 0,
+        left: 0,
+        zIndex: -1,
+        imageRendering: "pixelated" as const,
+      }
+    : {
+        imageRendering: "pixelated" as const,
+      };
 
   return (
     <div className="relative min-h-screen" style={{ background: "#06060E" }}>
       <AnimatePresence mode="sync">
         <motion.div
           key={city.id}
-          className="fixed inset-0 z-0"
+          className={fullCoverImage ? "fixed inset-0" : "fixed inset-0 z-0"}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -32,8 +47,8 @@ export function CityBackgroundProvider({ children }: CityBackgroundProviderProps
             src={city.image}
             alt=""
             aria-hidden="true"
-            className="w-full h-full object-cover object-center"
-            style={{ imageRendering: "pixelated" }}
+            className={fullCoverImage ? undefined : "w-full h-full object-cover object-center"}
+            style={imageStyle}
           />
           <div
             className="absolute inset-0"

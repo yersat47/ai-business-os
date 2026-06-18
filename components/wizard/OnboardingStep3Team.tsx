@@ -48,18 +48,30 @@ export function OnboardingStep3Team() {
       <div className="mt-6">
         <Label className="mb-3 block">{t7("roles")}</Label>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {MAIN_ROLE_IDS.map((roleId) => (
-            <label
-              key={roleId}
-              className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:border-accent transition-colors"
-            >
-              <Checkbox
-                checked={selectedRoles.includes(roleId)}
-                onCheckedChange={() => toggleRole(roleId)}
-              />
-              <span className="text-sm">{tRoles(roleId)}</span>
-            </label>
-          ))}
+          {MAIN_ROLE_IDS.map((roleId) => {
+            const isSelected = selectedRoles.includes(roleId);
+            return (
+              <label
+                key={roleId}
+                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                  isSelected ? "" : "border-border hover:border-accent"
+                }`}
+                style={{
+                  background: isSelected
+                    ? "rgba(201,150,58,0.15)"
+                    : "transparent",
+                  borderColor: isSelected ? "#C9963A" : undefined,
+                  color: isSelected ? "#C9963A" : undefined,
+                }}
+              >
+                <Checkbox
+                  checked={isSelected}
+                  onCheckedChange={() => toggleRole(roleId)}
+                />
+                <span className="text-sm">{tRoles(roleId)}</span>
+              </label>
+            );
+          })}
         </div>
       </div>
 
