@@ -66,7 +66,6 @@ export default function DataPage() {
                   description: t("toast.connectSoon"),
                 })
               }
-              }
             >
               <Upload className="h-5 w-5" />
               {t("import.dropzone")}
