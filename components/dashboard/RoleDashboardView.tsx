@@ -62,21 +62,21 @@ export function RoleDashboardView() {
   const config = roleConfig[role];
 
   return (
-    <div className="rounded-2xl border border-accent/20 bg-accent/5 p-6 mb-6">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold">{t(`titles.${config.titleKey}`)}</h3>
+    <div className="rounded-2xl border border-accent/20 bg-accent/5 p-4 md:p-6 mb-4 md:mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <h3 className="font-semibold text-sm md:text-base">{t(`titles.${config.titleKey}`)}</h3>
         <Badge variant="accent">{config.agent}</Badge>
       </div>
-      <div className="grid sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3">
         {config.metrics.map((metric) => (
           <div
             key={metric}
-            className="rounded-xl border border-border bg-surface p-4"
+            className="min-h-[72px] rounded-xl border border-border bg-surface p-3 md:p-4"
           >
             <p className="text-xs text-text-muted mb-1">
               {t(`metrics.${metric}`)}
             </p>
-            <p className="font-mono font-bold text-lg text-accent">
+            <p className="truncate font-mono font-bold text-base text-accent md:text-lg">
               {roleMetricValues[role][metric] ?? "—"}
             </p>
           </div>

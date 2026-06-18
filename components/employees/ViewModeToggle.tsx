@@ -21,20 +21,20 @@ export function ViewModeToggle({ viewMode, onChange }: ViewModeToggleProps) {
   ];
 
   return (
-    <div className="flex gap-1 p-1 bg-surface-raised rounded-lg border border-border">
+    <div className="flex gap-1 rounded-lg border border-border bg-surface-raised p-1">
       {modes.map(({ id, icon: Icon, label }) => (
         <Button
           key={id}
           size="sm"
           variant={viewMode === id ? "default" : "ghost"}
           className={cn(
-            "h-8",
+            "h-10 min-w-[40px] px-2 sm:h-8 sm:px-3",
             viewMode === id && "bg-accent text-background hover:bg-accent-light"
           )}
           onClick={() => onChange(id)}
         >
-          <Icon size={14} className="mr-1.5" />
-          {label}
+          <Icon size={14} className="sm:mr-1.5" />
+          <span className="hidden sm:inline">{label}</span>
         </Button>
       ))}
     </div>

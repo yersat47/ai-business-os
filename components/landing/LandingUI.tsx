@@ -33,11 +33,11 @@ export function LandingUI() {
 
   return (
     <>
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 z-10 px-4">
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 px-4 pb-28 sm:gap-6 sm:pb-0">
         <motion.div className="text-center" {...fadeUp(0.1)}>
           <div style={glass.logoPill}>
             <h1
-              className="text-3xl sm:text-[34px] font-light tracking-tight"
+              className="text-[32px] font-light tracking-tight sm:text-[34px]"
               style={{ color: "#EDE8E0" }}
             >
               AI Business OS
@@ -51,11 +51,11 @@ export function LandingUI() {
           </div>
         </motion.div>
 
-        <motion.div className="flex flex-wrap justify-center gap-3" {...fadeUp(0.3)}>
-          <Link href="/login">
+        <motion.div className="flex w-full max-w-xs flex-col justify-center gap-3 sm:max-w-none sm:flex-row sm:flex-wrap" {...fadeUp(0.3)}>
+          <Link href="/login" className="w-full sm:w-auto">
             <button
               type="button"
-              className="px-10 py-3 rounded-lg font-medium transition-all hover:opacity-90 active:scale-95"
+              className="min-h-[52px] w-full rounded-lg px-10 py-3 font-medium transition-all hover:opacity-90 active:scale-95"
               style={{
                 background: "#C9963A",
                 color: "#06060E",
@@ -65,10 +65,10 @@ export function LandingUI() {
               {t("login")}
             </button>
           </Link>
-          <Link href="/register">
+          <Link href="/register" className="w-full sm:w-auto">
             <button
               type="button"
-              className="px-10 py-3 rounded-lg transition-all hover:bg-white/5 active:scale-95"
+              className="min-h-[52px] w-full rounded-lg px-10 py-3 transition-all hover:bg-white/5 active:scale-95"
               style={{
                 border: "0.5px solid rgba(201,150,58,0.45)",
                 color: "#C9963A",
@@ -99,7 +99,7 @@ export function LandingUI() {
       </div>
 
       <motion.div
-        className="absolute bottom-6 right-6 z-10 flex gap-2"
+        className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2 sm:bottom-6 sm:left-auto sm:right-6 sm:translate-x-0"
         {...fadeUp(0.6)}
       >
         {langs.map((lang) => (
@@ -107,7 +107,7 @@ export function LandingUI() {
             key={lang.code}
             type="button"
             onClick={() => switchLocale(lang.code)}
-            className="text-[11px] px-3 py-1.5 rounded-full transition-all"
+            className="min-h-[44px] rounded-full px-3 py-1.5 text-[11px] transition-all"
             style={{
               border:
                 locale === lang.code

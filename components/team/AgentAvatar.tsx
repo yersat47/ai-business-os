@@ -12,7 +12,7 @@ interface AgentAvatarProps {
 }
 
 const sizes = {
-  sm: "h-16 w-16 text-2xl",
+  sm: "h-12 w-12 text-xl",
   md: "h-24 w-24 text-4xl",
   lg: "h-32 w-32 text-5xl",
 };

@@ -19,10 +19,10 @@ export function ExecutiveBriefing() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card border-l-4 border-l-accent md:col-span-2"
+      className="rounded-2xl border border-border bg-surface p-4 shadow-card border-l-4 border-l-accent md:p-6 lg:col-span-2"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-lg">{t("title")}</h3>
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <h3 className="font-semibold text-base md:text-lg">{t("title")}</h3>
         <span className="text-xs text-text-muted">{tCommon("today")}</span>
       </div>
       <div className="flex items-center gap-2 mb-4">
@@ -31,7 +31,7 @@ export function ExecutiveBriefing() {
         </div>
         <span className="font-medium text-accent">{t("agentName")}</span>
       </div>
-      <p className="text-text-secondary text-sm leading-relaxed mb-6">
+      <p className="mb-4 line-clamp-3 text-sm leading-relaxed text-text-secondary md:mb-6 md:line-clamp-none">
         {briefing}
       </p>
       <div className="flex flex-wrap gap-2 mb-4">
@@ -39,13 +39,13 @@ export function ExecutiveBriefing() {
           <Badge
             key={action.id}
             variant="outline"
-            className="border-accent/30 text-accent cursor-default"
+            className="max-w-full cursor-default truncate border-accent/30 text-accent"
           >
             {action.title} · {formatCurrency(action.estimatedRecovery)}
           </Badge>
         ))}
       </div>
-      <Link href="/team" className="text-sm text-accent hover:underline">
+      <Link href="/team" className="inline-flex min-h-[44px] items-center text-sm text-accent hover:underline">
         {t("viewTeam")}
       </Link>
     </motion.div>

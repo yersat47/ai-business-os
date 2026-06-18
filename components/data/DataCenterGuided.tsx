@@ -29,8 +29,8 @@ export function DataCenterGuided() {
   const fillPercent = Math.round((completedCount / totalSections) * 100);
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="flex items-center gap-4 mb-6 p-4 rounded-xl bg-surface-raised border border-border">
+    <div className="mx-auto max-w-2xl">
+      <div className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-surface-raised p-4 md:mb-6 md:gap-4">
         <div className="flex-1">
           <div className="flex justify-between text-sm mb-1">
             <span>{t("progressLabel")}</span>

@@ -43,16 +43,16 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="flex min-h-screen">
       <aside
-        className="hidden lg:block w-[280px] border-r border-border/50 p-6"
+        className="hidden w-[280px] border-r border-border/50 p-6 lg:block"
         style={glass.sidebar}
       >
         <StepIndicator currentStep={currentStep} />
       </aside>
-      <div className="flex-1 flex flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         <div
-          className="border-b border-border/50 px-6 py-4 flex items-center justify-between"
+          className="border-b border-border/50 px-4 py-4 md:px-6 flex items-center justify-between"
           style={glass.topbar}
         >
           <div>
@@ -61,7 +61,13 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
           </div>
           <span className="text-sm font-mono text-accent">{progress}%</span>
         </div>
-        <div className="flex-1 p-6 md:p-8 overflow-auto">
+        <div className="h-1 bg-border lg:hidden">
+          <div
+            className="h-full bg-accent transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="flex-1 overflow-auto px-4 pb-28 pt-6 md:p-8">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStep}
@@ -74,9 +80,10 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="border-t border-border px-6 py-4 flex justify-between">
+        <div className="fixed inset-x-0 bottom-0 z-30 flex gap-3 border-t border-border bg-[#0A0A0F]/95 px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] backdrop-blur md:static md:justify-between md:bg-transparent md:px-6 md:py-4 md:pb-4">
           <Button
             variant="ghost"
+            className="min-h-[52px] flex-1 md:flex-none"
             onClick={prevStep}
             disabled={currentStep === 1}
           >
@@ -84,6 +91,7 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
           </Button>
           <Button
             variant="bronze"
+            className="min-h-[52px] flex-1 md:flex-none"
             onClick={handleContinue}
             disabled={!canContinue}
           >

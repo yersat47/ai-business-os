@@ -64,8 +64,9 @@ export default function LoginPage() {
           <Input
             id="email"
             type="email"
+            inputMode="email"
             placeholder={t("emailPlaceholder")}
-            className="mt-1.5"
+            className="mt-1.5 min-h-[52px] text-base"
             {...register("email")}
           />
           {errors.email && (
@@ -77,23 +78,23 @@ export default function LoginPage() {
           <Input
             id="password"
             type="password"
-            className="mt-1.5"
+            className="mt-1.5 min-h-[52px] text-base"
             {...register("password")}
           />
           {errors.password && (
             <p className="text-danger text-xs mt-1">{errors.password.message}</p>
           )}
         </div>
-        <div className="flex items-center justify-between">
-          <label className="flex items-center gap-2 text-sm text-text-secondary cursor-pointer">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <label className="flex min-h-[44px] cursor-pointer items-center gap-2 text-sm text-text-secondary">
             <Checkbox checked={remember} onCheckedChange={(c) => setRemember(!!c)} />
             {t("rememberMe")}
           </label>
-          <button type="button" className="text-sm text-text-muted hover:text-accent">
+          <button type="button" className="min-h-[44px] text-sm text-text-muted hover:text-accent">
             {t("forgotPassword")}
           </button>
         </div>
-        <Button type="submit" variant="bronze" className="w-full" disabled={isLoading}>
+        <Button type="submit" variant="bronze" className="min-h-[52px] w-full" disabled={isLoading}>
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : t("submit")}
         </Button>
         <div className="relative my-4">
@@ -107,7 +108,7 @@ export default function LoginPage() {
         <Button
           type="button"
           variant="outline"
-          className="w-full"
+          className="min-h-[52px] w-full"
           onClick={() =>
             toast({
               title: t("toastComingSoon"),

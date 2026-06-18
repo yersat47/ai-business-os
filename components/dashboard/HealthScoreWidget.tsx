@@ -44,6 +44,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
   const visiblePillars = getVisiblePillars(role);
   const hasData = hasBusinessMetrics(company);
   const displayScore = hasData ? health.masterScore : null;
+  const ringSize = expanded ? "lg" : "md";
 
   const pillars =
     visiblePillars === "all"
@@ -55,11 +56,22 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative rounded-2xl border border-border bg-surface p-6 shadow-card"
+        className="relative rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
       >
         <h3 className="font-semibold text-lg mb-4">{t("title")}</h3>
-        <div className="flex flex-col md:flex-row items-center gap-8">
-          <ScoreRing score={null} size={expanded ? "lg" : "md"} animated={false} />
+        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+          {expanded ? (
+            <>
+              <div className="md:hidden">
+                <ScoreRing score={null} size="md" animated={false} />
+              </div>
+              <div className="hidden md:block">
+                <ScoreRing score={null} size="lg" animated={false} />
+              </div>
+            </>
+          ) : (
+            <ScoreRing score={null} size={ringSize} animated={false} />
+          )}
           <div className="flex-1 text-center md:text-left">
             <p className="text-warning text-sm font-medium mb-2">
               ⚠️ {tDash("noData")}
@@ -78,13 +90,13 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative rounded-2xl border border-border bg-surface p-6 shadow-card overflow-hidden"
+      className="relative overflow-hidden rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
       {expanded && (
-        <ShanyrakArc className="absolute -top-20 -right-20 w-64 h-64 opacity-[0.04] pointer-events-none" />
+        <ShanyrakArc className="absolute -right-16 -top-16 hidden h-56 w-56 opacity-[0.04] pointer-events-none md:block lg:h-64 lg:w-64" />
       )}
-      <div className="flex items-center justify-between mb-6 relative">
-        <h3 className="font-semibold text-lg">{t("title")}</h3>
+      <div className="flex items-center justify-between mb-4 md:mb-6 relative">
+        <h3 className="font-semibold text-base md:text-lg">{t("title")}</h3>
         <Tooltip>
           <TooltipTrigger>
             <Info className="h-4 w-4 text-text-muted" />
@@ -92,14 +104,21 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
           <TooltipContent>{t("tooltip")}</TooltipContent>
         </Tooltip>
       </div>
-      <div className="flex flex-col md:flex-row items-center gap-8">
-        <ScoreRing
-          score={displayScore}
-          size={expanded ? "lg" : "md"}
-          animated
-        />
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+        {expanded ? (
+          <>
+            <div className="md:hidden">
+              <ScoreRing score={displayScore} size="md" animated />
+            </div>
+            <div className="hidden md:block">
+              <ScoreRing score={displayScore} size="lg" animated />
+            </div>
+          </>
+        ) : (
+          <ScoreRing score={displayScore} size={ringSize} animated />
+        )}
         <div className="flex-1 w-full">
-          <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
+          <div className="flex flex-wrap items-center gap-2 mb-4 justify-center md:justify-start">
             <span className={`text-sm font-medium ${getStatusColor(health.status)}`}>
               {tStatus(health.status)}
             </span>
@@ -109,19 +128,22 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
               label={tCommon("thisMonth")}
             />
           </div>
-          <div className="space-y-3">
+          <div className="grid grid-cols-2 gap-2 md:block md:space-y-3">
             {pillars.map((pillar, i) => (
               <motion.div
                 key={pillar.id}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-3"
+                className="flex min-h-[44px] items-center gap-2 rounded-xl border border-border bg-surface-raised px-3 py-2 md:min-h-0 md:gap-3 md:border-0 md:bg-transparent md:p-0"
               >
-                <span className="text-xs text-text-secondary w-24 truncate">
+                <span
+                  className={`h-2 w-2 shrink-0 rounded-full ${statusColors[pillar.status]} md:hidden`}
+                />
+                <span className="min-w-0 flex-1 truncate text-xs text-text-secondary md:w-24 md:flex-none">
                   {tPillars(pillar.id)}
                 </span>
-                <div className="flex-1 h-1 rounded-full bg-border overflow-hidden">
+                <div className="hidden h-1 flex-1 overflow-hidden rounded-full bg-border md:block">
                   <motion.div
                     className={`h-full rounded-full ${statusColors[pillar.status]}`}
                     initial={{ width: 0 }}
@@ -129,10 +151,12 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
                     transition={{ delay: 0.3 + i * 0.05, duration: 0.8 }}
                   />
                 </div>
-                <span className="font-mono text-xs w-8 text-right">
+                <span className="font-mono text-xs text-accent md:w-8 md:text-right md:text-text-primary">
                   {pillar.score}
                 </span>
-                <TrendBadge direction={pillar.trend} delta={pillar.delta} />
+                <div className="hidden md:block">
+                  <TrendBadge direction={pillar.trend} delta={pillar.delta} />
+                </div>
               </motion.div>
             ))}
           </div>

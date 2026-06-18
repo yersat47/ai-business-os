@@ -16,7 +16,7 @@ export function DataCompletenessCard() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.25 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card"
+      className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
       <h3 className="font-semibold text-lg mb-4">{t("title")}</h3>
       <div className="flex items-end gap-2 mb-2">
@@ -42,7 +42,7 @@ export function DataCompletenessCard() {
       <p className="text-xs text-text-muted mb-4">
         Data completeness: {completeness}%
       </p>
-      <Button variant="outline" size="sm" asChild>
+      <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto" asChild>
         <Link href="/data">{t("completeBrain")}</Link>
       </Button>
     </motion.div>

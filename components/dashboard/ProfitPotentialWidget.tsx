@@ -23,13 +23,13 @@ export function ProfitPotentialWidget() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full"
+        className="h-full rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
       >
         <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
         <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
         <p className="text-3xl font-mono font-bold text-text-muted mb-4">—</p>
         <p className="text-text-secondary text-sm mb-4">{tDash("noDataDesc")}</p>
-        <Button variant="outline" size="sm" asChild>
+        <Button variant="outline" size="sm" className="min-h-[44px]" asChild>
           <Link href="/data">{tDash("fillData")}</Link>
         </Button>
       </motion.div>
@@ -43,10 +43,10 @@ export function ProfitPotentialWidget() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.05 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full"
+      className="h-full rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
       <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
-      <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
+      <p className="text-sm text-text-secondary mb-4 md:mb-6">{t("subtitle")}</p>
       <CurrencyDisplay
         amount={MOCK_PROFIT.totalRecoverable}
         size="lg"
@@ -58,13 +58,13 @@ export function ProfitPotentialWidget() {
       <div className="space-y-4">
         {MOCK_PROFIT.breakdown.map((item, i) => (
           <div key={item.category}>
-            <div className="flex justify-between text-sm mb-1">
-              <span className="text-text-secondary">
+            <div className="flex justify-between gap-2 text-sm mb-1">
+              <span className="min-w-0 truncate text-text-secondary">
                 {item.categoryKey
                   ? t(`breakdown.${item.categoryKey}` as "breakdown.deadStock")
                   : item.category}
               </span>
-              <span className="font-mono text-accent">
+              <span className="shrink-0 text-right font-mono text-accent">
                 {formatCurrency(item.amount)}
               </span>
             </div>

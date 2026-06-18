@@ -64,21 +64,21 @@ export default function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="name">{t("fullName")}</Label>
-          <Input id="name" className="mt-1.5" {...register("name")} />
+          <Input id="name" className="mt-1.5 min-h-[52px] text-base" {...register("name")} />
           {errors.name && (
             <p className="text-danger text-xs mt-1">{errors.name.message}</p>
           )}
         </div>
         <div>
           <Label htmlFor="email">{t("email")}</Label>
-          <Input id="email" type="email" className="mt-1.5" {...register("email")} />
+          <Input id="email" type="email" inputMode="email" className="mt-1.5 min-h-[52px] text-base" {...register("email")} />
           {errors.email && (
             <p className="text-danger text-xs mt-1">{errors.email.message}</p>
           )}
         </div>
         <div>
           <Label htmlFor="password">{t("password")}</Label>
-          <Input id="password" type="password" className="mt-1.5" {...register("password")} />
+          <Input id="password" type="password" className="mt-1.5 min-h-[52px] text-base" {...register("password")} />
           {errors.password && (
             <p className="text-danger text-xs mt-1">{errors.password.message}</p>
           )}
@@ -88,7 +88,7 @@ export default function RegisterPage() {
           <Input
             id="confirmPassword"
             type="password"
-            className="mt-1.5"
+            className="mt-1.5 min-h-[52px] text-base"
             {...register("confirmPassword")}
           />
           {errors.confirmPassword && (
@@ -97,7 +97,7 @@ export default function RegisterPage() {
             </p>
           )}
         </div>
-        <Button type="submit" variant="bronze" className="w-full" disabled={isLoading}>
+        <Button type="submit" variant="bronze" className="min-h-[52px] w-full" disabled={isLoading}>
           {isLoading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
           ) : (

@@ -21,20 +21,23 @@ export function HealthTrendChart() {
   }));
 
   return (
-    <div className="h-48 w-full">
+    <div className="h-[180px] w-full md:h-56">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
+        <LineChart data={data} margin={{ top: 8, right: 8, left: -18, bottom: 0 }}>
           <XAxis
             dataKey="month"
             stroke="#4A5568"
-            fontSize={12}
+            fontSize={10}
             tickLine={false}
+            axisLine={false}
           />
           <YAxis
             domain={[60, 80]}
             stroke="#4A5568"
-            fontSize={12}
+            fontSize={10}
             tickLine={false}
+            axisLine={false}
+            width={32}
           />
           <Tooltip
             contentStyle={{

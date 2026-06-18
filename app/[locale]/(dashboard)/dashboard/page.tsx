@@ -46,7 +46,7 @@ export default function DashboardPage() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="space-y-6"
+        className="space-y-4 md:space-y-6"
       >
         <RoleDashboardView />
 
@@ -54,7 +54,7 @@ export default function DashboardPage() {
           <BusinessCompletionScore data={completion} compact />
         )}
 
-        <div className="grid lg:grid-cols-5 gap-6">
+        <div className="grid gap-4 lg:grid-cols-5 lg:gap-6">
           <div className="lg:col-span-3">
             <HealthScoreWidget />
           </div>
@@ -63,17 +63,17 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
           <ExecutiveBriefing />
           <AITeamMiniCard />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid gap-4 md:grid-cols-2 lg:gap-6">
           <TopRisksCard />
           <TopActionsCard />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 lg:gap-6">
           <DataCompletenessCard />
           <EmptyState
             icon={Clock}
@@ -82,7 +82,7 @@ export default function DashboardPage() {
             actionLabel={t("activity.action")}
             onAction={() => router.push("/team")}
           />
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-card">
+          <div className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6">
             <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
               <Zap className="h-4 w-4 text-accent" />
               {t("quickActions.title")}
@@ -92,7 +92,7 @@ export default function DashboardPage() {
                 <Button
                   key={key}
                   variant="outline"
-                  className="w-full justify-start"
+                  className="min-h-[44px] w-full justify-start"
                   onClick={() =>
                     toast({
                       title: t(`quickActions.${key}`),

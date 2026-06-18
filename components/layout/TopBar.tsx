@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, LogOut } from "lucide-react";
+import { Bell, Menu, LogOut } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
@@ -54,7 +54,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden shrink-0"
+            className="min-h-[44px] min-w-[44px] shrink-0 lg:hidden"
             onClick={onMenuClick}
           >
             <Menu className="h-5 w-5" />
@@ -65,14 +65,21 @@ export function TopBar({ onMenuClick }: TopBarProps) {
           </span>
         </div>
 
-        <div className="flex items-center justify-center flex-1 min-w-0 px-2">
+        <div className="hidden md:flex items-center justify-center flex-1 min-w-0 px-2">
           <TopBarIndicators />
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <LanguageSwitcher variant="compact" />
-          <ThemeToggle />
-          <Avatar className="h-8 w-8">
+          <Button variant="ghost" size="icon" className="min-h-[44px] min-w-[44px] md:hidden">
+            <Bell className="h-4 w-4" />
+          </Button>
+          <div className="hidden md:block">
+            <LanguageSwitcher variant="compact" />
+          </div>
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+          <Avatar className="hidden h-8 w-8 sm:flex">
             <AvatarFallback>
               {(user?.name ?? "E").charAt(0).toUpperCase()}
             </AvatarFallback>
@@ -80,7 +87,7 @@ export function TopBar({ onMenuClick }: TopBarProps) {
           <div className="hidden md:block">
             {user && <RoleBadge role={user.role} />}
           </div>
-          <Button variant="ghost" size="icon" onClick={handleLogout}>
+          <Button variant="ghost" size="icon" onClick={handleLogout} className="hidden min-h-[44px] min-w-[44px] sm:inline-flex">
             <LogOut className="h-4 w-4" />
           </Button>
         </div>

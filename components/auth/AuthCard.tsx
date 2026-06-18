@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { glass } from "@/lib/glass.styles";
 
 interface AuthCardProps {
   title: string;
@@ -15,11 +14,11 @@ export function AuthCard({ title, subtitle, children, footer }: AuthCardProps) {
   const tCommon = useTranslations("common");
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center px-4 py-8 md:p-6">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
+        <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
-            <span className="h-2 w-2 rounded-full bg-accent" />
+            <span className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center text-accent">⬡</span>
             <span className="font-semibold" style={{ color: "#EDE8E0" }}>
               {tCommon("brand")}
             </span>
@@ -33,7 +32,7 @@ export function AuthCard({ title, subtitle, children, footer }: AuthCardProps) {
             </p>
           )}
         </div>
-        <div className="p-6 shadow-card" style={glass.card}>
+        <div className="p-0 md:rounded-2xl md:border md:border-border md:bg-surface md:p-6 md:shadow-card">
           {children}
         </div>
         {footer && <div className="text-center mt-6 text-sm">{footer}</div>}

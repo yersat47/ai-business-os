@@ -53,7 +53,7 @@ export default function JoinCompanyPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center px-4 py-8 md:p-6">
       <div className="w-full max-w-md">
         <Link
           href="/entry"
@@ -61,7 +61,7 @@ export default function JoinCompanyPage() {
         >
           {t("backLink")}
         </Link>
-        <div className="rounded-2xl border border-border bg-surface p-8">
+        <div className="rounded-2xl border border-border bg-surface p-5 md:p-8">
           <h1 className="text-2xl font-bold mb-2">{t("heading")}</h1>
           <p className="text-text-secondary text-sm mb-8">{t("subtitle")}</p>
 
@@ -79,15 +79,17 @@ export default function JoinCompanyPage() {
               </motion.div>
             ) : (
               <motion.div initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <div className="flex gap-2 justify-center mb-6">
+                <div className="mb-6 flex justify-center gap-1.5 sm:gap-2">
                   {code.map((char, i) => (
                     <Input
                       key={i}
                       id={`code-${i}`}
                       value={char}
                       onChange={(e) => handleChange(i, e.target.value)}
-                      className="w-12 h-14 text-center text-lg font-mono uppercase"
+                      className="h-14 w-11 text-center font-mono text-2xl uppercase sm:w-12 sm:text-[32px]"
                       maxLength={1}
+                      inputMode="text"
+                      autoCapitalize="characters"
                     />
                   ))}
                 </div>
@@ -96,7 +98,7 @@ export default function JoinCompanyPage() {
                 )}
                 <Button
                   variant="bronze"
-                  className="w-full"
+                  className="min-h-[52px] w-full"
                   onClick={handleJoin}
                   disabled={loading}
                 >

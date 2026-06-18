@@ -15,15 +15,15 @@ export function AITeamMiniCard() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full flex flex-col"
+      className="flex h-full flex-col rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-lg">{t("title")}</h3>
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <h3 className="font-semibold text-base md:text-lg">{t("title")}</h3>
         <Badge variant="success">{t("active", { count: MOCK_AGENTS.length })}</Badge>
       </div>
       <div className="space-y-3 flex-1">
         {MOCK_AGENTS.map((agent) => (
-          <div key={agent.id} className="flex items-center gap-2 text-sm">
+          <div key={agent.id} className="flex min-h-[44px] items-center gap-2 text-sm">
             <span
               className="text-lg shrink-0"
               style={{ color: agent.color }}
@@ -42,7 +42,7 @@ export function AITeamMiniCard() {
           </div>
         ))}
       </div>
-      <Button variant="outline" className="w-full mt-4" asChild>
+      <Button variant="outline" className="mt-4 min-h-[44px] w-full" asChild>
         <Link href="/team">{t("openTeam")}</Link>
       </Button>
     </motion.div>

@@ -20,25 +20,25 @@ export function TopRisksCard() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.15 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card"
+      className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
-      <h3 className="font-semibold text-lg mb-6">{t("title")}</h3>
-      <div className="space-y-6">
+      <h3 className="mb-4 font-semibold text-base md:mb-6 md:text-lg">{t("title")}</h3>
+      <div className="space-y-3 md:space-y-6">
         {risks.map((risk) => (
-          <div key={risk.id} className="space-y-2">
-            <div className="flex items-center gap-2 flex-wrap">
+          <div key={risk.id} className="space-y-2 rounded-xl border border-border bg-surface-raised p-3 md:border-0 md:bg-transparent md:p-0">
+            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
               <span
                 className={`h-2 w-2 rounded-full ${severityDot[risk.severity]}`}
               />
-              <span className="font-medium text-sm">{risk.title}</span>
-              <Badge variant="outline" className="text-[10px]">
-                {risk.pillar}
-              </Badge>
-              <span className="font-mono text-xs text-danger ml-auto">
+              <span className="truncate text-sm font-medium">{risk.title}</span>
+              <span className="font-mono text-xs text-danger">
                 {formatCurrency(risk.impact)}
               </span>
+              <Badge variant="outline" className="col-start-2 w-fit text-[10px]">
+                {risk.pillar}
+              </Badge>
             </div>
-            <p className="text-xs text-text-secondary pl-4">{risk.description}</p>
+            <p className="line-clamp-2 pl-4 text-xs text-text-secondary md:line-clamp-none">{risk.description}</p>
             <Badge variant="info" className="ml-4 text-[10px]">
               {risk.agent}
             </Badge>

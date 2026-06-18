@@ -1,6 +1,6 @@
 "use client";
 
-import { FileText, GitBranch, CheckCircle, Pin } from "lucide-react";
+import { FileText, GitBranch, CheckCircle, Pin, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -24,23 +24,33 @@ export function BrainUploadActions() {
 
   return (
     <div className="space-y-4">
+      <label className="flex min-h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 text-sm font-medium text-accent md:hidden">
+        <Upload className="h-5 w-5" />
+        Tap to choose file
+        <input
+          type="file"
+          accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png"
+          className="sr-only"
+          onChange={() => handleClick("document")}
+        />
+      </label>
       {actions.map(({ key, icon: Icon }) => (
         <button
           key={key}
           type="button"
           onClick={() => handleClick(key)}
-          className="w-full text-left rounded-xl border border-border bg-surface p-5 hover:border-accent hover:scale-[1.01] transition-all duration-300"
+          className="w-full rounded-xl border border-border bg-surface p-4 text-left transition-all duration-300 hover:border-accent md:p-5 md:hover:scale-[1.01]"
         >
-          <div className="flex gap-4">
-            <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+          <div className="flex min-h-[44px] gap-3 md:gap-4">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
               <Icon className="h-5 w-5 text-accent" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="font-medium text-sm mb-1">{t(`${key}.label`)}</p>
               <p className="text-xs text-text-secondary mb-1">
                 {t(`${key}.description`)}
               </p>
-              <p className="text-xs text-text-muted">{t(`${key}.example`)}</p>
+              <p className="hidden text-xs text-text-muted sm:block">{t(`${key}.example`)}</p>
             </div>
           </div>
         </button>

@@ -61,18 +61,18 @@ export function AgentChatMock({ agent }: AgentChatMockProps) {
   };
 
   return (
-    <div className="flex flex-col h-[400px]">
-      <div className="flex-1 overflow-y-auto space-y-4 p-2">
+    <div className="flex h-[calc(100vh-260px)] min-h-[420px] flex-col md:h-[400px] md:min-h-0">
+      <div className="no-scrollbar flex-1 space-y-4 overflow-y-auto p-2">
         {messages.map((msg, i) => (
           <div
             key={i}
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm ${
+              className={`rounded-2xl px-4 py-3 text-[15px] leading-relaxed md:text-sm ${
                 msg.role === "user"
-                  ? "bg-accent text-background"
-                  : "bg-surface-raised border border-border text-text-secondary"
+                  ? "max-w-[80%] bg-[#C9923A]/20 text-text-primary md:bg-accent md:text-background"
+                  : "max-w-[85%] bg-zinc-900 text-text-secondary md:border md:border-border md:bg-surface-raised"
               }`}
             >
               {msg.content}
@@ -91,14 +91,15 @@ export function AgentChatMock({ agent }: AgentChatMockProps) {
           </div>
         )}
       </div>
-      <div className="flex gap-2 pt-4 border-t border-border">
+      <div className="sticky bottom-0 flex gap-2 border-t border-border bg-surface pt-3 md:pt-4">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t("askPlaceholder")}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
+          className="min-h-[44px] text-base"
         />
-        <Button variant="bronze" onClick={handleSend}>
+        <Button variant="bronze" onClick={handleSend} className="min-h-[44px] min-w-[44px] px-4">
           {t("send")}
         </Button>
       </div>

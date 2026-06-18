@@ -51,6 +51,7 @@
   body {
     @apply text-text-primary font-sans antialiased;
     background: transparent;
+    overflow-x: hidden;
   }
 
   input[type="number"]::-webkit-inner-spin-button,
@@ -68,6 +69,18 @@
 @layer utilities {
   .tabular-nums {
     font-variant-numeric: tabular-nums;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 

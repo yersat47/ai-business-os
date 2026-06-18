@@ -27,25 +27,25 @@ export function DocumentCard({
   const Icon = typeIcons[type] ?? FileText;
 
   return (
-    <div className="rounded-xl border border-border bg-surface p-4 hover:border-border-bright transition-colors">
-      <div className="flex items-start gap-3">
-        <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">
+    <div className="rounded-xl border border-border bg-surface p-3 transition-colors hover:border-border-bright md:p-4">
+      <div className="flex min-h-[52px] items-center gap-3 md:items-start">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10">
           <Icon className="h-5 w-5 text-accent" />
         </div>
         <div className="flex-1 min-w-0">
           <h4 className="font-medium text-sm truncate">{title}</h4>
-          <div className="flex items-center gap-2 mt-2">
+          <div className="mt-2 flex min-w-0 items-center gap-2">
             <Badge variant="outline" className="text-[10px]">
               {category}
             </Badge>
-            <span className="text-[10px] text-text-muted">{date}</span>
+            <span className="truncate text-[10px] text-text-muted">{date}</span>
           </div>
         </div>
       </div>
       <Button
         variant="ghost"
         size="sm"
-        className="w-full mt-3"
+        className="mt-3 hidden min-h-[44px] w-full md:inline-flex"
         onClick={() =>
           toast({
             title: "Document preview",

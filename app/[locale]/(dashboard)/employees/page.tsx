@@ -144,22 +144,22 @@ export default function EmployeesPage() {
 
   return (
     <DashboardShell title={t("title")}>
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center md:mb-8">
         <div>
-          <h2 className="text-2xl font-bold">{t("title")}</h2>
+          <h2 className="text-xl font-bold md:text-2xl">{t("title")}</h2>
           <Badge variant="accent" className="mt-2">
             {t("memberCount", { count: activeCount })}
           </Badge>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <ViewModeToggle viewMode={viewMode} onChange={setViewMode} />
-          <Button variant="bronze" onClick={() => openAddEmployee("operations")}>
+          <Button variant="bronze" className="min-h-[44px] flex-1 sm:flex-none" onClick={() => openAddEmployee("operations")}>
             {t("invite")}
           </Button>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-surface min-h-[420px]">
+      <div className="min-h-[420px] overflow-hidden rounded-2xl border border-border bg-surface">
         {viewMode === "tree" && (
           <OrgTree
             owner={owner}
@@ -172,7 +172,7 @@ export default function EmployeesPage() {
           />
         )}
         {viewMode === "grid" && (
-          <div className="p-6">
+          <div className="p-3 md:p-6">
             <EmployeeGridView
               employees={employees}
               departments={departments}
@@ -205,7 +205,7 @@ export default function EmployeesPage() {
       />
 
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-h-[90vh] max-w-md overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{t("addEmployee")}</DialogTitle>
           </DialogHeader>
@@ -213,7 +213,7 @@ export default function EmployeesPage() {
             <div>
               <Label>{t("form.name")}</Label>
               <Input
-                className="mt-1"
+                className="mt-1 min-h-[52px] text-base"
                 value={newEmp.name}
                 onChange={(e) => setNewEmp({ ...newEmp, name: e.target.value })}
               />
@@ -221,7 +221,7 @@ export default function EmployeesPage() {
             <div>
               <Label>{t("form.jobTitle")}</Label>
               <Input
-                className="mt-1"
+                className="mt-1 min-h-[52px] text-base"
                 placeholder={t("form.jobTitlePlaceholder")}
                 value={newEmp.jobTitle}
                 onChange={(e) =>
@@ -238,7 +238,7 @@ export default function EmployeesPage() {
                   setNewEmp({ ...newEmp, department: v });
                 }}
               >
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 min-h-[52px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -258,7 +258,7 @@ export default function EmployeesPage() {
                   setNewEmp({ ...newEmp, systemRole: v as UserRole })
                 }
               >
-                <SelectTrigger className="mt-1">
+                <SelectTrigger className="mt-1 min-h-[52px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -270,7 +270,7 @@ export default function EmployeesPage() {
                 </SelectContent>
               </Select>
             </div>
-            <Button variant="bronze" className="w-full" onClick={handleAddEmployee}>
+            <Button variant="bronze" className="min-h-[52px] w-full" onClick={handleAddEmployee}>
               {t("form.submit")}
             </Button>
           </div>
@@ -286,13 +286,13 @@ export default function EmployeesPage() {
             <div>
               <Label>{t("dept.nameLabel")}</Label>
               <Input
-                className="mt-1"
+                className="mt-1 min-h-[52px] text-base"
                 value={newDeptName}
                 placeholder={t("dept.namePlaceholder")}
                 onChange={(e) => setNewDeptName(e.target.value)}
               />
             </div>
-            <Button variant="bronze" className="w-full" onClick={handleAddDepartment}>
+            <Button variant="bronze" className="min-h-[52px] w-full" onClick={handleAddDepartment}>
               {t("dept.create")}
             </Button>
           </div>

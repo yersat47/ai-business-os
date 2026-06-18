@@ -54,7 +54,7 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
         )}
       </div>
       {field.type === "readonly" ? (
-        <div className="flex items-center gap-2 px-3 py-2 rounded-md bg-surface-raised text-sm border border-border">
+        <div className="flex min-h-[52px] items-center gap-2 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm">
           <span className="font-mono">{readonlyValue}</span>
           <span className="text-text-muted text-xs">
             ({tData("center.fromProfile")})
@@ -64,10 +64,11 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
         <Input
           type="text"
           inputMode="numeric"
+          pattern="[0-9]*"
           placeholder={field.placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="font-mono"
+          className="min-h-[52px] font-mono text-base"
         />
       )}
     </div>

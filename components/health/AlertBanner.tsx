@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Risk } from "@/lib/types/health.types";
@@ -22,27 +23,30 @@ export function AlertBanner({ risk, onViewAction }: AlertBannerProps) {
   return (
     <div
       className={cn(
-        "rounded-xl border p-4 flex flex-col sm:flex-row sm:items-center gap-4",
+        "flex min-h-[56px] items-center gap-3 rounded-xl border p-3 md:flex-row md:gap-4 md:p-4",
         severityStyles[risk.severity]
       )}
     >
-      <div className="flex-1">
-        <div className="flex items-center gap-2 mb-1">
+      <div className="min-w-0 flex-1">
+        <div className="flex min-w-0 items-center gap-2 md:mb-1">
           <span
             className={cn(
-              "h-2 w-2 rounded-full",
+              "h-2 w-2 shrink-0 rounded-full",
               risk.severity === "critical" ? "bg-danger" : "bg-warning"
             )}
           />
-          <span className="font-medium">{risk.title}</span>
-          <Badge variant="outline" className="text-[10px]">
+          <span className="truncate text-sm font-medium md:text-base">{risk.title}</span>
+          <Badge variant="outline" className="hidden text-[10px] sm:inline-flex">
             {risk.agent}
           </Badge>
         </div>
-        <p className="text-sm text-text-secondary">{risk.description}</p>
+        <p className="hidden text-sm text-text-secondary md:block">{risk.description}</p>
       </div>
-      <Button variant="outline" size="sm" onClick={onViewAction}>
+      <Button variant="outline" size="sm" className="hidden min-h-[44px] shrink-0 md:inline-flex" onClick={onViewAction}>
         {t("viewAction")}
+      </Button>
+      <Button variant="ghost" size="icon" className="min-h-[44px] min-w-[44px] shrink-0 md:hidden" onClick={onViewAction}>
+        <X className="h-4 w-4" />
       </Button>
     </div>
   );

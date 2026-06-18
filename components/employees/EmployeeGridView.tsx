@@ -37,18 +37,18 @@ export function EmployeeGridView({
   }
 
   return (
-    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
       {activeEmployees.map((emp) => (
         <button
           key={emp.id}
           type="button"
           onClick={() => onEmployeeClick(emp)}
-          className="rounded-2xl border border-border bg-surface p-5 text-left hover:border-accent/40 hover:scale-[1.02] transition-all duration-300"
+          className="min-h-[72px] rounded-2xl border border-border bg-surface p-3 text-left transition-all duration-300 hover:border-accent/40 md:p-5 md:hover:scale-[1.02]"
         >
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 md:gap-4">
             <div
               className={cn(
-                "w-14 h-14 rounded-full flex items-center justify-center text-sm font-semibold border-2 shrink-0 overflow-hidden",
+                "flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 text-sm font-semibold md:h-14 md:w-14",
                 emp.systemRole === "owner"
                   ? "border-accent bg-accent/20 text-accent"
                   : "border-border bg-surface-raised"
@@ -65,19 +65,19 @@ export function EmployeeGridView({
                 getInitials(emp.name)
               )}
             </div>
-            <div className="flex-1 min-w-0 space-y-1.5">
+            <div className="min-w-0 flex-1 space-y-1 md:space-y-1.5">
               <p className="font-medium truncate">{emp.name}</p>
               <p className="text-xs text-text-secondary truncate">{emp.jobTitle}</p>
-              <p className="text-xs text-text-muted truncate">
+              <p className="hidden text-xs text-text-muted truncate md:block">
                 {getDeptName(emp.department)}
               </p>
               <Badge
                 variant="outline"
-                className={cn("text-xs", getRoleBadgeColor(emp.systemRole))}
+                className={cn("text-[10px] md:text-xs", getRoleBadgeColor(emp.systemRole))}
               >
                 {tRoles(emp.systemRole)}
               </Badge>
-              <p className="font-mono text-xs text-accent">{emp.accessCode}</p>
+              <p className="hidden font-mono text-xs text-accent md:block">{emp.accessCode}</p>
               {emp.hasAI && emp.aiAgentName && (
                 <p className="text-xs text-text-secondary">{emp.aiAgentName}</p>
               )}

@@ -42,7 +42,8 @@
     "skip": "Skip",
     "retry": "Try again",
     "noData": "No data",
-    "demo": "demo"
+    "demo": "demo",
+    "more": "More"
   },
   "language": {
     "title": "Interface language",

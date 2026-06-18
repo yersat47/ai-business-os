@@ -37,7 +37,7 @@ export function DataSection({ config, icon }: DataSectionProps) {
 
   return (
     <div className="border border-border rounded-xl overflow-hidden bg-surface">
-      <div className="flex items-center justify-between p-4 gap-4">
+      <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-9 h-9 rounded-lg bg-surface-raised flex items-center justify-center shrink-0 text-accent">
             {icon}
@@ -60,6 +60,7 @@ export function DataSection({ config, icon }: DataSectionProps) {
           <Button
             size="sm"
             variant={isOpen ? "secondary" : "default"}
+            className="min-h-[44px]"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? t("collapse") : t("fillNow")}
@@ -68,7 +69,7 @@ export function DataSection({ config, icon }: DataSectionProps) {
       </div>
 
       {isOpen && (
-        <div className="border-t border-border p-4 space-y-4 animate-in slide-in-from-top-2 duration-200">
+        <div className="animate-in space-y-4 border-t border-border p-4 duration-200 slide-in-from-top-2">
           {config.fieldKeys.map((field) => (
             <DataField
               key={field.id}
@@ -77,11 +78,11 @@ export function DataSection({ config, icon }: DataSectionProps) {
               onChange={(v) => setFieldValue(config.id, field.id, v)}
             />
           ))}
-          <div className="flex gap-2 pt-2">
-            <Button variant="bronze" onClick={handleSave} disabled={justSaved}>
+          <div className="sticky bottom-[calc(5rem+env(safe-area-inset-bottom))] z-10 -mx-4 flex gap-2 border-t border-border bg-surface px-4 pt-3 md:static md:mx-0 md:border-0 md:bg-transparent md:px-0 md:pt-2">
+            <Button variant="bronze" className="min-h-[44px] flex-1 md:flex-none" onClick={handleSave} disabled={justSaved}>
               {justSaved ? `✓ ${t("saved")}` : t("save")}
             </Button>
-            <Button variant="ghost" onClick={() => setIsOpen(false)}>
+            <Button variant="ghost" className="min-h-[44px] flex-1 md:flex-none" onClick={() => setIsOpen(false)}>
               {t("cancel")}
             </Button>
           </div>

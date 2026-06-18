@@ -45,7 +45,7 @@ export default function DataPage() {
   return (
     <DashboardShell title={t("title")}>
       <Tabs value={tab} onValueChange={setTab}>
-        <TabsList>
+        <TabsList className="no-scrollbar mb-4 w-full justify-start overflow-x-auto">
           <TabsTrigger value="metrics">{t("tabs.metrics")}</TabsTrigger>
           <TabsTrigger value="import">{t("tabs.import")}</TabsTrigger>
           <TabsTrigger value="integrations">{t("tabs.integrations")}</TabsTrigger>
@@ -57,9 +57,23 @@ export default function DataPage() {
         </TabsContent>
 
         <TabsContent value="import">
-          <div className="rounded-2xl border border-border bg-surface p-8">
+          <div className="rounded-2xl border border-border bg-surface p-4 md:p-8">
+            <label
+              className="mb-4 flex min-h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 text-sm font-medium text-accent md:hidden"
+              onClick={() =>
+                toast({
+                  title: t("toast.importQueued"),
+                  description: t("toast.connectSoon"),
+                })
+              }
+              }
+            >
+              <Upload className="h-5 w-5" />
+              {t("import.dropzone")}
+              <input type="file" accept=".csv,.xlsx,.xls,image/*" capture="environment" className="sr-only" />
+            </label>
             <div
-              className="border-2 border-dashed border-border rounded-xl p-12 text-center mb-6 cursor-pointer hover:border-accent"
+              className="mb-6 hidden cursor-pointer rounded-xl border-2 border-dashed border-border p-12 text-center hover:border-accent md:block"
               onClick={() =>
                 toast({
                   title: t("toast.importQueued"),
@@ -67,11 +81,12 @@ export default function DataPage() {
                 })
               }
             >
-              <Upload className="h-8 w-8 text-text-muted mx-auto mb-3" />
+              <Upload className="mx-auto mb-3 h-8 w-8 text-text-muted" />
               <p className="text-text-secondary">{t("import.dropzone")}</p>
             </div>
             <Button
               variant="outline"
+              className="min-h-[44px] w-full md:w-auto"
               onClick={() =>
                 toast({
                   title: t("import.downloadTemplate"),
@@ -93,27 +108,29 @@ export default function DataPage() {
         </TabsContent>
 
         <TabsContent value="integrations">
-          <div className="rounded-xl border border-info/30 bg-info/5 p-4 mb-6 text-sm text-text-secondary">
+          <div className="mb-4 rounded-xl border border-info/30 bg-info/5 p-4 text-sm text-text-secondary md:mb-6">
             {t("integrations.banner")}
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3 lg:gap-4">
             {integrations.map((name) => (
               <div
                 key={name}
-                className="rounded-xl border border-border bg-surface p-6"
+                className="flex min-h-[72px] items-center gap-3 rounded-xl border border-border bg-surface p-4 md:block md:p-6"
               >
-                <div className="h-12 w-12 rounded-lg bg-surface-raised flex items-center justify-center text-sm font-bold text-accent mb-4">
+                <div className="mb-0 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-raised text-sm font-bold text-accent md:mb-4 md:h-12 md:w-12">
                   {name.slice(0, 2)}
                 </div>
-                <h4 className="font-medium mb-2">{name}</h4>
-                <div className="flex items-center gap-2 mb-4">
+                <div className="min-w-0 flex-1">
+                  <h4 className="mb-1 truncate font-medium md:mb-2">{name}</h4>
+                  <div className="mb-0 flex items-center gap-2 md:mb-4">
                   <span className="h-2 w-2 rounded-full bg-text-muted" />
                   <span className="text-xs text-text-muted">{tCommon("notConnected")}</span>
+                  </div>
                 </div>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full"
+                  className="min-h-[44px] shrink-0 md:w-full"
                   onClick={() =>
                     toast({
                       title: name,
@@ -129,14 +146,18 @@ export default function DataPage() {
         </TabsContent>
 
         <TabsContent value="quality">
-          <div className="rounded-2xl border border-border bg-surface p-6">
-            <div className="text-center mb-8">
-              <span className="text-5xl font-mono font-bold text-accent">
+          <div className="rounded-2xl border border-border bg-surface p-4 md:p-6">
+            <div className="mb-6 text-center md:mb-8">
+              <span className="text-4xl font-mono font-bold text-accent md:text-5xl">
                 {completeness}%
               </span>
               <p className="text-text-secondary mt-2">{t("quality.completeness")}</p>
+              <div className="mt-3 h-2 overflow-hidden rounded-full bg-border">
+                <div className="h-full rounded-full bg-accent" style={{ width: `${completeness}%` }} />
+              </div>
             </div>
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+            <table className="w-full min-w-[520px] text-sm">
               <thead>
                 <tr className="border-b border-border text-text-muted text-left">
                   <th className="pb-3">{t("quality.table.field")}</th>
@@ -171,6 +192,7 @@ export default function DataPage() {
                 })}
               </tbody>
             </table>
+            </div>
           </div>
         </TabsContent>
       </Tabs>

@@ -58,7 +58,7 @@ export default function SettingsPage() {
 
   return (
     <DashboardShell title={t("title")}>
-      <div className="mb-8 max-w-lg space-y-8">
+      <div className="mb-6 max-w-lg space-y-6 md:mb-8 md:space-y-8">
         <div>
           <h3 className="font-semibold mb-4">{tLang("title")}</h3>
           <LanguageSwitcher variant="full" />
@@ -67,7 +67,7 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="profile">
-        <TabsList>
+        <TabsList className="no-scrollbar mb-4 w-full justify-start overflow-x-auto">
           <TabsTrigger value="profile">{t("tabs.profile")}</TabsTrigger>
           <TabsTrigger value="company">{t("tabs.company")}</TabsTrigger>
           <TabsTrigger value="ai-team">{t("tabs.aiTeam")}</TabsTrigger>
@@ -76,22 +76,22 @@ export default function SettingsPage() {
         </TabsList>
 
         <TabsContent value="profile">
-          <div className="rounded-2xl border border-border bg-surface p-6 max-w-lg space-y-4">
+          <div className="max-w-lg space-y-4 rounded-2xl border border-border bg-surface p-4 md:p-6">
             <div>
               <Label>{t("profile.name")}</Label>
-              <Input className="mt-1.5" defaultValue={user?.name ?? "Ersat"} />
+              <Input className="mt-1.5 min-h-[52px] text-base" defaultValue={user?.name ?? "Ersat"} />
             </div>
             <div>
               <Label>{t("profile.email")}</Label>
               <Input
-                className="mt-1.5"
+                className="mt-1.5 min-h-[52px] text-base"
                 defaultValue={user?.email ?? "ersat@urbanmode.kz"}
               />
             </div>
             <div>
               <Label>{t("profile.role")}</Label>
               <Input
-                className="mt-1.5"
+                className="mt-1.5 min-h-[52px] text-base"
                 value={tRoles("owner")}
                 readOnly
                 disabled
@@ -103,7 +103,7 @@ export default function SettingsPage() {
                 value={user?.role ?? "owner"}
                 onValueChange={(v) => setRole(v as UserRole)}
               >
-                <SelectTrigger className="mt-1.5">
+                <SelectTrigger className="mt-1.5 min-h-[52px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -118,18 +118,18 @@ export default function SettingsPage() {
                 {t("profile.viewAsHint")}
               </p>
             </div>
-            <Button variant="bronze" onClick={save}>
+            <Button variant="bronze" className="min-h-[52px] w-full sm:w-auto" onClick={save}>
               {tCommon("saveChanges")}
             </Button>
           </div>
         </TabsContent>
 
         <TabsContent value="company">
-          <div className="rounded-2xl border border-border bg-surface p-6 max-w-lg space-y-4">
+          <div className="max-w-lg space-y-4 rounded-2xl border border-border bg-surface p-4 md:p-6">
             <div>
               <Label>{t("company.name")}</Label>
               <Input
-                className="mt-1.5"
+                className="mt-1.5 min-h-[52px] text-base"
                 value={company.name}
                 onChange={(e) => updateCompany({ name: e.target.value })}
               />
@@ -137,7 +137,7 @@ export default function SettingsPage() {
             <div>
               <Label>{t("company.industry")}</Label>
               <Input
-                className="mt-1.5"
+                className="mt-1.5 min-h-[52px] text-base"
                 value={company.industry}
                 onChange={(e) => updateCompany({ industry: e.target.value })}
               />
@@ -145,7 +145,7 @@ export default function SettingsPage() {
             <div>
               <Label>{t("company.city")}</Label>
               <Input
-                className="mt-1.5"
+                className="mt-1.5 min-h-[52px] text-base"
                 value={company.city}
                 onChange={(e) => updateCompany({ city: e.target.value })}
               />
@@ -156,27 +156,27 @@ export default function SettingsPage() {
                 {company.salesChannels.join(", ")}
               </p>
             </div>
-            <Button variant="bronze" onClick={save}>
+            <Button variant="bronze" className="min-h-[52px] w-full sm:w-auto" onClick={save}>
               {tCommon("saveChanges")}
             </Button>
           </div>
         </TabsContent>
 
         <TabsContent value="ai-team">
-          <div className="rounded-2xl border border-border bg-surface p-6 space-y-4 max-w-lg">
+          <div className="max-w-lg space-y-3 rounded-2xl border border-border bg-surface p-4 md:space-y-4 md:p-6">
             <p className="text-sm text-text-secondary mb-4">
               {t("aiTeam.deactivateHint")}
             </p>
             {MOCK_AGENTS.map((agent) => (
               <div
                 key={agent.id}
-                className="flex items-center justify-between p-4 rounded-xl border border-border"
+                className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-border p-3 md:p-4"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   <span style={{ color: agent.color }}>{agent.icon}</span>
-                  <div>
-                    <p className="font-medium text-sm">{agent.name}</p>
-                    <p className="text-xs text-text-muted">{agent.role}</p>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">{agent.name}</p>
+                    <p className="truncate text-xs text-text-muted">{agent.role}</p>
                   </div>
                 </div>
                 <Switch defaultChecked />
@@ -186,11 +186,11 @@ export default function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="notifications">
-          <div className="rounded-2xl border border-border bg-surface p-6 space-y-4 max-w-lg">
+          <div className="max-w-lg space-y-2 rounded-2xl border border-border bg-surface p-4 md:space-y-4 md:p-6">
             {notificationKeys.map((key) => (
               <div
                 key={key}
-                className="flex items-center justify-between py-2"
+                className="flex min-h-[56px] items-center justify-between gap-3 border-b border-border/40 py-2 last:border-0"
               >
                 <span className="text-sm">{t(`notifications.${key}`)}</span>
                 <Switch defaultChecked />
@@ -201,7 +201,7 @@ export default function SettingsPage() {
 
         <TabsContent value="billing">
           <div className="space-y-6">
-            <div className="rounded-2xl border border-accent/30 bg-accent/5 p-6 flex items-center justify-between">
+            <div className="flex flex-col gap-4 rounded-2xl border border-accent/30 bg-accent/5 p-4 md:flex-row md:items-center md:justify-between md:p-6">
               <div>
                 <p className="font-semibold">{t("billing.currentPlan")}</p>
                 <p className="text-sm text-text-secondary mt-1">
@@ -210,6 +210,7 @@ export default function SettingsPage() {
               </div>
               <Button
                 variant="bronze"
+                className="min-h-[52px] w-full md:w-auto"
                 onClick={() =>
                   toast({
                     title: t("billing.upgradeToast"),
@@ -220,7 +221,7 @@ export default function SettingsPage() {
                 {t("billing.upgrade")}
               </Button>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid gap-4 md:grid-cols-3">
               {planKeys.map((planKey) => (
                 <div
                   key={planKey}

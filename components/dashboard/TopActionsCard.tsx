@@ -18,14 +18,14 @@ export function TopActionsCard() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
-      className="rounded-2xl border border-border bg-surface p-6 shadow-card"
+      className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
-      <h3 className="font-semibold text-lg mb-6">{t("title")}</h3>
-      <div className="space-y-6">
+      <h3 className="mb-4 font-semibold text-base md:mb-6 md:text-lg">{t("title")}</h3>
+      <div className="space-y-2 md:space-y-6">
         {actions.map((action) => (
           <div
             key={action.id}
-            className="group flex gap-3 cursor-pointer"
+            className="group flex min-h-[56px] cursor-pointer items-center gap-3 rounded-xl border border-border bg-surface-raised p-3 md:min-h-0 md:items-start md:border-0 md:bg-transparent md:p-0"
             onClick={() =>
               toast({
                 title: t("queued"),
@@ -33,28 +33,28 @@ export function TopActionsCard() {
               })
             }
           >
-            <div className="h-7 w-7 rounded-full bg-accent/20 text-accent flex items-center justify-center text-xs font-bold shrink-0">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/20 text-xs font-bold text-accent md:h-7 md:w-7">
               {action.priority}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-medium text-sm">{action.title}</span>
+                <span className="truncate text-sm font-medium">{action.title}</span>
                 <Badge
                   variant="outline"
-                  className={`text-[10px] ${getEffortColor(action.effort)}`}
+                  className={`hidden shrink-0 text-[10px] sm:inline-flex ${getEffortColor(action.effort)}`}
                 >
                   {tEffort(action.effort.toLowerCase() as "low" | "medium" | "high")}
                 </Badge>
-                <ArrowRight className="h-4 w-4 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+                <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-text-muted md:opacity-0 md:transition-opacity md:group-hover:opacity-100" />
               </div>
-              <p className="text-xs text-text-secondary mb-2">
+              <p className="mb-2 hidden text-xs text-text-secondary sm:block">
                 {action.description}
               </p>
-              <div className="flex items-center gap-2">
+              <div className="flex min-w-0 items-center gap-2">
                 <span className="text-xs text-success font-mono">
                   {formatCurrency(action.estimatedRecovery)}
                 </span>
-                <Badge variant="outline" className="text-[10px]">
+                <Badge variant="outline" className="hidden text-[10px] sm:inline-flex">
                   {action.agent}
                 </Badge>
               </div>
