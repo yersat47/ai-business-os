@@ -1,0 +1,45 @@
+export const glass = {
+  card: {
+    background: "rgba(6, 6, 14, 0.72)",
+    border: "0.5px solid rgba(255, 255, 255, 0.1)",
+    borderRadius: "12px",
+    backdropFilter: "blur(20px)",
+    WebkitBackdropFilter: "blur(20px)",
+  },
+  cardLight: {
+    background: "rgba(6, 6, 14, 0.55)",
+    border: "0.5px solid rgba(255, 255, 255, 0.08)",
+    borderRadius: "12px",
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
+  },
+  input: {
+    background: "rgba(255, 255, 255, 0.05)",
+    border: "0.5px solid rgba(255, 255, 255, 0.12)",
+    borderRadius: "8px",
+    backdropFilter: "blur(8px)",
+    WebkitBackdropFilter: "blur(8px)",
+    color: "#EDE8E0",
+  },
+  logoPill: {
+    background: "rgba(6, 6, 14, 0.6)",
+    border: "0.5px solid rgba(201, 150, 58, 0.2)",
+    borderRadius: "10px",
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
+    padding: "12px 28px",
+    textAlign: "center" as const,
+  },
+  topbar: {
+    background: "rgba(6, 6, 14, 0.8)",
+    borderBottom: "0.5px solid rgba(255, 255, 255, 0.06)",
+    backdropFilter: "blur(24px)",
+    WebkitBackdropFilter: "blur(24px)",
+  },
+  sidebar: {
+    background: "rgba(6, 6, 14, 0.85)",
+    borderRight: "0.5px solid rgba(255, 255, 255, 0.06)",
+    backdropFilter: "blur(28px)",
+    WebkitBackdropFilter: "blur(28px)",
+  },
+} as const;

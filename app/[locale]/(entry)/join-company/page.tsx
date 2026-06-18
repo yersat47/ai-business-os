@@ -53,7 +53,7 @@ export default function JoinCompanyPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-background">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         <Link
           href="/entry"

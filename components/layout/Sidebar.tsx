@@ -19,6 +19,7 @@ import { useAuthStore } from "@/lib/stores/auth.store";
 import { canAccess } from "@/lib/utils/permissions";
 import { MOCK_BRAIN } from "@/lib/mock/mock-brain";
 import { Button } from "@/components/ui/button";
+import { glass } from "@/lib/glass.styles";
 
 const navItems = [
   { id: "dashboard", key: "dashboard" as const, href: "/dashboard", icon: LayoutDashboard },
@@ -62,10 +63,11 @@ export function Sidebar({
       )}
       <aside
         className={cn(
-          "fixed md:sticky top-0 left-0 z-50 h-screen bg-sidebar border-r border-border flex flex-col transition-all duration-300",
+          "fixed md:sticky top-0 left-0 z-50 h-screen flex flex-col transition-all duration-300",
           collapsed ? "w-16" : "w-60",
           mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         )}
+        style={glass.sidebar}
       >
         <div className="p-4 border-b border-border">
           <Link href="/dashboard" className="flex items-center gap-2">

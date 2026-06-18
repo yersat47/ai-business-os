@@ -12,6 +12,7 @@ import { TopBarIndicators } from "./TopBarIndicators";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { useRouter } from "@/i18n/navigation";
+import { glass } from "@/lib/glass.styles";
 
 interface TopBarProps {
   onMenuClick?: () => void;
@@ -44,7 +45,10 @@ export function TopBar({ onMenuClick }: TopBarProps) {
   };
 
   return (
-    <header className="h-14 border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+    <header
+      className="h-14 sticky top-0 z-50"
+      style={glass.topbar}
+    >
       <div className="flex items-center justify-between h-full px-4 gap-3">
         <div className="flex items-center gap-3 min-w-0">
           <Button

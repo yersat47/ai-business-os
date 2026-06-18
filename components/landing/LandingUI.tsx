@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { type Locale } from "@/i18n/routing";
 import { persistLocale } from "@/lib/i18n/locale-storage";
+import { glass } from "@/lib/glass.styles";
 
 const fadeUp = (delay: number) => ({
   initial: { opacity: 0, y: 16 },
@@ -34,18 +35,20 @@ export function LandingUI() {
     <>
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-6 z-10 px-4">
         <motion.div className="text-center" {...fadeUp(0.1)}>
-          <h1
-            className="text-4xl sm:text-5xl font-light tracking-tight"
-            style={{ color: "#EDE8E0" }}
-          >
-            AI Business OS
-          </h1>
-          <p
-            className="text-[11px] tracking-[3px] uppercase mt-2"
-            style={{ color: "rgba(201,150,58,0.75)" }}
-          >
-            {t("tagline")}
-          </p>
+          <div style={glass.logoPill}>
+            <h1
+              className="text-3xl sm:text-[34px] font-light tracking-tight"
+              style={{ color: "#EDE8E0" }}
+            >
+              AI Business OS
+            </h1>
+            <p
+              className="text-[10px] tracking-[3px] uppercase mt-2"
+              style={{ color: "rgba(201,150,58,0.75)" }}
+            >
+              {t("tagline")}
+            </p>
+          </div>
         </motion.div>
 
         <motion.div className="flex flex-wrap justify-center gap-3" {...fadeUp(0.3)}>

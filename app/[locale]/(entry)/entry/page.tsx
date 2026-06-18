@@ -9,7 +9,7 @@ export default function EntryPage() {
   const t = useTranslations("onboarding.entry");
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-background">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <div className="max-w-3xl w-full">
         <div className="text-center mb-12">
           <h1 className="text-3xl font-bold mb-3">{t("heading")}</h1>

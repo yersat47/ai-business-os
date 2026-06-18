@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { glass } from "@/lib/glass.styles";
 import { StepIndicator } from "./StepIndicator";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { Step1Identity } from "./Step1Identity";
@@ -42,12 +43,18 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
   }
 
   return (
-    <div className="min-h-screen flex bg-background">
-      <aside className="hidden lg:block w-[280px] border-r border-border p-6 bg-sidebar">
+    <div className="min-h-screen flex">
+      <aside
+        className="hidden lg:block w-[280px] border-r border-border/50 p-6"
+        style={glass.sidebar}
+      >
         <StepIndicator currentStep={currentStep} />
       </aside>
       <div className="flex-1 flex flex-col">
-        <div className="border-b border-border px-6 py-4 flex items-center justify-between">
+        <div
+          className="border-b border-border/50 px-6 py-4 flex items-center justify-between"
+          style={glass.topbar}
+        >
           <div>
             <p className="text-sm text-text-secondary">{t("settingUp")}</p>
             <p className="font-semibold">{wizardData.name || t("yourCompany")}</p>

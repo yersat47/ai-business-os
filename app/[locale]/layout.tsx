@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthHydration } from "@/components/providers/AuthHydration";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { CityBackgroundProvider } from "@/components/layout/CityBackgroundProvider";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -63,13 +64,15 @@ export default async function LocaleLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider messages={messages}>
-            <TooltipProvider>
-              <AuthHydration />
-              {children}
-              <Toaster />
-            </TooltipProvider>
-          </NextIntlClientProvider>
+          <CityBackgroundProvider>
+            <NextIntlClientProvider messages={messages}>
+              <TooltipProvider>
+                <AuthHydration />
+                {children}
+                <Toaster />
+              </TooltipProvider>
+            </NextIntlClientProvider>
+          </CityBackgroundProvider>
         </ThemeProvider>
       </body>
     </html>

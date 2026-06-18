@@ -24,7 +24,7 @@ export function StepComplete() {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background overflow-hidden relative p-6">
+    <div className="min-h-screen flex items-center justify-center overflow-hidden relative p-6">
       <ShanyrakArc className="absolute w-[500px] h-[500px] opacity-[0.04] pointer-events-none" />
       <BusinessCompletionScore
         data={completion}
