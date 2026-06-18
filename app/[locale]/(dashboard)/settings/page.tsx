@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { LanguageSwitcher } from "@/components/shared/LanguageSwitcher";
+import { ThemeSettings } from "@/components/layout/ThemeSettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -57,9 +58,12 @@ export default function SettingsPage() {
 
   return (
     <DashboardShell title={t("title")}>
-      <div className="mb-8 max-w-lg">
-        <h3 className="font-semibold mb-4">{tLang("title")}</h3>
-        <LanguageSwitcher variant="full" />
+      <div className="mb-8 max-w-lg space-y-8">
+        <div>
+          <h3 className="font-semibold mb-4">{tLang("title")}</h3>
+          <LanguageSwitcher variant="full" />
+        </div>
+        <ThemeSettings />
       </div>
 
       <Tabs defaultValue="profile">

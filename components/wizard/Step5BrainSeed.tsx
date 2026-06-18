@@ -1,51 +1,48 @@
 "use client";
 
+import { Brain } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useWizardStore } from "@/lib/stores/wizard.store";
-import { OnboardingTip } from "./OnboardingTip";
 import { RoleAwareHint } from "./RoleAwareHint";
-import { toast } from "@/hooks/use-toast";
+
+const brainItemKeys = ["documents", "processes", "decisions", "rules"] as const;
 
 export function Step5BrainSeed() {
-  const t = useTranslations("wizard.brainSeed");
-  const { wizardData, setStepData } = useWizardStore();
-
-  const handleUpload = () => {
-    setStepData({ brainSeeded: true });
-    toast({
-      title: t("uploadSuccess"),
-      description: t("uploadSuccessDesc"),
-    });
-  };
+  const t = useTranslations("wizard.brainInfo");
+  const { wizardData, nextStep } = useWizardStore();
 
   return (
-    <div className="max-w-lg">
-      <h2 className="text-2xl font-bold mb-2">{t("title")}</h2>
-      <p className="text-text-secondary mb-2">{t("subtitle")}</p>
-      <OnboardingTip text={t("why")} gain={t("gain")} />
-
-      <RoleAwareHint section="brain" teamRoles={wizardData.teamRoles} />
-
-      <div
-        className="mt-8 border-2 border-dashed border-border rounded-2xl p-12 text-center hover:border-accent transition-colors cursor-pointer"
-        onClick={handleUpload}
-      >
-        <Upload className="h-8 w-8 text-text-muted mx-auto mb-3" />
-        <p className="text-sm text-text-secondary mb-4">{t("dropzone")}</p>
-        <Button variant="bronze" type="button" onClick={handleUpload}>
-          {t("uploadBtn")}
-        </Button>
+    <div className="max-w-lg mx-auto text-center space-y-6">
+      <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto">
+        <Brain className="text-accent" size={28} />
       </div>
 
-      {wizardData.brainSeeded && (
-        <p className="mt-4 text-sm text-success text-center">
-          ✓ {t("seeded")}
-        </p>
-      )}
+      <div>
+        <h2 className="text-2xl font-bold">{t("title")}</h2>
+        <p className="text-text-secondary mt-2">{t("subtitle")}</p>
+      </div>
 
-      <p className="mt-6 text-xs text-text-muted text-center">{t("skipHint")}</p>
+      <RoleAwareHint section="brain" selectedRoles={wizardData.selectedRoles} />
+
+      <div className="grid grid-cols-2 gap-3 text-left">
+        {brainItemKeys.map((key) => (
+          <div
+            key={key}
+            className="p-3 rounded-lg border border-border bg-surface"
+          >
+            <span className="text-xl">{t(`items.${key}.icon`)}</span>
+            <p className="font-medium mt-1 text-sm">{t(`items.${key}.title`)}</p>
+            <p className="text-xs text-text-muted">{t(`items.${key}.desc`)}</p>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-sm text-text-muted">{t("addLater")}</p>
+
+      <Button variant="bronze" type="button" onClick={nextStep}>
+        {t("continue")}
+      </Button>
     </div>
   );
 }

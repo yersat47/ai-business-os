@@ -5,16 +5,9 @@ import { Upload, Download } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { useCompanyStore } from "@/lib/stores/company.store";
-import {
-  formatCurrencyInput,
-  parseCurrencyInput,
-} from "@/lib/utils/formatters";
 import { toast } from "@/hooks/use-toast";
 import { DataCenterGuided } from "@/components/data/DataCenterGuided";
 
@@ -33,54 +26,15 @@ const dataQualityFieldKeys = [
   { key: "marketingSpend", provided: true },
   { key: "inventoryValue", provided: true },
   { key: "deadStock", provided: true },
-  { key: null, label: "Customer Feedback", provided: false },
-  { key: null, label: "Financial Statements", provided: false },
-  { key: null, label: "Supplier Contracts", provided: false },
+  { key: "customerFeedback", provided: false },
+  { key: "financialStatements", provided: false },
+  { key: "supplierContracts", provided: false },
 ] as const;
-
-function CurrencyInput({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: number;
-  onChange: (v: number) => void;
-}) {
-  return (
-    <div>
-      <Label className="text-xs">{label}</Label>
-      <div className="relative mt-1">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm">
-          ₸
-        </span>
-        <Input
-          className="pl-8 font-mono text-sm"
-          value={value ? formatCurrencyInput(value) : ""}
-          onChange={(e) => onChange(parseCurrencyInput(e.target.value))}
-        />
-      </div>
-    </div>
-  );
-}
 
 export default function DataPage() {
   const t = useTranslations("data");
   const tCommon = useTranslations("common");
-  const company = useCompanyStore((s) => s.company);
-  const updateCompany = useCompanyStore((s) => s.updateCompany);
-  const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState("metrics");
-
-  const handleSave = async () => {
-    setSaving(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setSaving(false);
-    toast({
-      title: t("toast.updated"),
-      description: t("toast.updatedDesc", { score: 74 }),
-    });
-  };
 
   const completeness = Math.round(
     (dataQualityFieldKeys.filter((f) => f.provided).length /
@@ -192,10 +146,9 @@ export default function DataPage() {
               </thead>
               <tbody>
                 {dataQualityFieldKeys.map((row) => {
-                  const fieldLabel =
-                    row.key !== null ? t(`fields.${row.key}`) : row.label;
+                  const fieldLabel = t(`fields.${row.key}`);
                   return (
-                    <tr key={fieldLabel} className="border-b border-border/50">
+                    <tr key={row.key} className="border-b border-border/50">
                       <td className="py-3">{fieldLabel}</td>
                       <td className="py-3">
                         <Badge variant={row.provided ? "success" : "warning"}>

@@ -2,14 +2,43 @@
 
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { CurrencyDisplay } from "@/components/shared/CurrencyDisplay";
 import { ConfidenceBadge } from "@/components/shared/ConfidenceBadge";
-import { MOCK_PROFIT } from "@/lib/mock/mock-profit";
+import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils/formatters";
+import { useCompanyStore } from "@/lib/stores/company.store";
+import { useProfitStore } from "@/lib/stores/profit.store";
+import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
 
 export function ProfitPotentialWidget() {
   const t = useTranslations("dashboard.profit");
-  const maxAmount = Math.max(...MOCK_PROFIT.breakdown.map((b) => b.amount));
+  const tDash = useTranslations("dashboard");
+  const company = useCompanyStore((s) => s.company);
+  const profit = useProfitStore((s) => s.profit);
+  const isAIGenerated = useProfitStore((s) => s.isAIGenerated);
+  const hasData = hasBusinessMetrics(company);
+
+  if (!hasData) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.05 }}
+        className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full"
+      >
+        <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
+        <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
+        <p className="text-3xl font-mono font-bold text-text-muted mb-4">—</p>
+        <p className="text-text-secondary text-sm mb-4">{tDash("noDataDesc")}</p>
+        <Button variant="outline" size="sm" asChild>
+          <Link href="/data">{tDash("fillData")}</Link>
+        </Button>
+      </motion.div>
+    );
+  }
+
+  const maxAmount = Math.max(...profit.breakdown.map((b) => b.amount));
 
   return (
     <motion.div
@@ -18,21 +47,28 @@ export function ProfitPotentialWidget() {
       transition={{ delay: 0.05 }}
       className="rounded-2xl border border-border bg-surface p-6 shadow-card h-full"
     >
-      <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
+      <div className="flex items-center justify-between mb-1">
+        <h3 className="font-semibold text-lg">{t("title")}</h3>
+        {isAIGenerated && (
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-accent/10 text-accent">
+            AI
+          </span>
+        )}
+      </div>
       <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
-      <CurrencyDisplay
-        amount={MOCK_PROFIT.totalRecoverable}
-        size="lg"
-        animated
-      />
+      <CurrencyDisplay amount={profit.totalRecoverable} size="lg" animated />
       <p className="text-success text-sm mt-2 mb-6">
-        + {MOCK_PROFIT.growthPotentialPct}% growth potential
+        {t("growthPotential", { pct: profit.growthPotentialPct })}
       </p>
       <div className="space-y-4">
-        {MOCK_PROFIT.breakdown.map((item, i) => (
+        {profit.breakdown.map((item, i) => (
           <div key={item.category}>
             <div className="flex justify-between text-sm mb-1">
-              <span className="text-text-secondary">{item.category}</span>
+              <span className="text-text-secondary">
+                {item.categoryKey
+                  ? t(`breakdown.${item.categoryKey}` as "breakdown.deadStock")
+                  : item.category}
+              </span>
               <span className="font-mono text-accent">
                 {formatCurrency(item.amount)}
               </span>
@@ -52,7 +88,7 @@ export function ProfitPotentialWidget() {
         ))}
       </div>
       <p className="text-xs text-text-muted mt-6">
-        {t("vsLastMonth")} · {formatCurrency(MOCK_PROFIT.monthlyRevenue)}
+        {t("vsLastMonth")} · {formatCurrency(company.monthlyRevenue || profit.monthlyRevenue)}
       </p>
     </motion.div>
   );

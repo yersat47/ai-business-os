@@ -16,14 +16,16 @@ interface WizardState {
 }
 
 const initialData: WizardData = {
-  name: "Urban Mode",
-  businessType: "Retail + Online",
-  size: "16-30",
-  city: "Astana",
+  name: "",
+  businessType: "",
+  size: "",
+  city: "",
   country: "KZ",
   currency: "₸",
-  employeeCount: 14,
-  teamRoles: ["Owner", "Manager", "Marketer / SMM", "Accountant"],
+  employeeCount: 0,
+  selectedRoles: [],
+  customRoles: [],
+  teamRoles: [],
 };
 
 export const useWizardStore = create<WizardState>()((set, get) => ({
@@ -48,14 +50,22 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
     const companyStore = useCompanyStore.getState();
     const healthStore = useHealthStore.getState();
 
+    const selectedRoles = wizardData.selectedRoles ?? [];
+    const customRoles = wizardData.customRoles ?? [];
+    const hasMetrics = (wizardData.monthlyRevenue ?? 0) > 0;
+
     const merged = {
       ...companyStore.company,
       ...wizardData,
-      id: companyStore.company.id || "urban-mode-001",
-      name: wizardData.name || "Urban Mode",
-      industry: wizardData.industry || "Fashion Retail",
-      businessType: wizardData.businessType || "Retail + Online",
-      size: wizardData.size || "11-30",
+      id: companyStore.company.id || "company-001",
+      name: wizardData.name || companyStore.company.name,
+      industry: wizardData.industry || companyStore.company.industry,
+      businessType: wizardData.businessType || companyStore.company.businessType,
+      size: wizardData.size || companyStore.company.size,
+      selectedRoles,
+      customRoles,
+      teamRoles: [...selectedRoles, ...customRoles],
+      metricsEntered: hasMetrics,
       setupComplete: true,
     };
 

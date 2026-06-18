@@ -35,13 +35,17 @@ export interface Company {
   strategicGoals: string[];
   mainProblems: string[];
   setupComplete: boolean;
+  metricsEntered?: boolean;
   tagline?: string;
   teamRoles?: string[];
+  selectedRoles?: string[];
+  customRoles?: string[];
 }
 
 export interface WizardData extends Partial<Company> {
   step?: number;
   brainSeeded?: boolean;
+  monthlyTransactions?: number;
 }
 
 export interface EmployeeRecord {

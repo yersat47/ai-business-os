@@ -3,12 +3,16 @@
 import { motion } from "framer-motion";
 import { Info } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { ScoreRing } from "@/components/shared/ScoreRing";
 import { TrendBadge } from "@/components/shared/TrendBadge";
+import { Button } from "@/components/ui/button";
 import { useHealthStore } from "@/lib/stores/health.store";
+import { useCompanyStore } from "@/lib/stores/company.store";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { getVisiblePillars } from "@/lib/utils/permissions";
 import { getStatusColor } from "@/lib/utils/formatters";
+import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
 import {
   Tooltip,
   TooltipContent,
@@ -30,17 +34,45 @@ const statusColors: Record<string, string> = {
 
 export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) {
   const t = useTranslations("dashboard.health");
-  const tPillars = useTranslations("mock.pillars");
+  const tDash = useTranslations("dashboard");
+  const tPillars = useTranslations("health.pillars");
   const tStatus = useTranslations("status");
   const tCommon = useTranslations("common");
   const health = useHealthStore((s) => s.health);
+  const company = useCompanyStore((s) => s.company);
   const role = useAuthStore((s) => s.user?.role ?? "owner");
   const visiblePillars = getVisiblePillars(role);
+  const hasData = hasBusinessMetrics(company);
+  const displayScore = hasData ? health.masterScore : null;
 
   const pillars =
     visiblePillars === "all"
       ? health.pillars
       : health.pillars.filter((p) => visiblePillars.includes(p.id));
+
+  if (!hasData) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="relative rounded-2xl border border-border bg-surface p-6 shadow-card"
+      >
+        <h3 className="font-semibold text-lg mb-4">{t("title")}</h3>
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <ScoreRing score={null} size={expanded ? "lg" : "md"} animated={false} />
+          <div className="flex-1 text-center md:text-left">
+            <p className="text-warning text-sm font-medium mb-2">
+              ⚠️ {tDash("noData")}
+            </p>
+            <p className="text-text-secondary text-sm mb-4">{tDash("noDataDesc")}</p>
+            <Button variant="bronze" size="sm" asChild>
+              <Link href="/data">{tDash("fillData")}</Link>
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div
@@ -57,14 +89,12 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
           <TooltipTrigger>
             <Info className="h-4 w-4 text-text-muted" />
           </TooltipTrigger>
-          <TooltipContent>
-            Composite score across 8 business pillars
-          </TooltipContent>
+          <TooltipContent>{t("tooltip")}</TooltipContent>
         </Tooltip>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-8">
         <ScoreRing
-          score={health.masterScore}
+          score={displayScore}
           size={expanded ? "lg" : "md"}
           animated
         />

@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { YurtRoom } from "@/components/team/YurtRoom";
-import { AgentChatMock } from "@/components/team/AgentChatMock";
+import { AgentChat } from "@/components/team/AgentChat";
 import { AgentAvatar } from "@/components/team/AgentAvatar";
 import { MOCK_AGENTS } from "@/lib/mock/mock-agents";
 import type { Agent } from "@/lib/types/agents.types";
@@ -90,7 +90,7 @@ export default function TeamPage() {
                     </TabsTrigger>
                   </TabsList>
                   <TabsContent value="chat">
-                    <AgentChatMock agent={selectedAgent} />
+                    <AgentChat agent={selectedAgent} />
                   </TabsContent>
                   <TabsContent value="insights">
                     <p className="text-sm text-text-secondary p-4 rounded-xl bg-surface-raised border border-border">

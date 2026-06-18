@@ -1,6 +1,8 @@
 import type { Company } from "@/lib/types/company.types";
 import type { HealthData } from "@/lib/types/health.types";
 import { MOCK_HEALTH } from "@/lib/mock/mock-health";
+import { EMPTY_HEALTH } from "@/lib/mock/empty-health";
+import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
 
 function clamp(score: number): number {
   return Math.max(0, Math.min(100, Math.round(score)));
@@ -14,8 +16,12 @@ function adjustPillar(
 }
 
 export function calculateHealth(company?: Partial<Company>): HealthData {
-  if (!company || !company.monthlyRevenue) {
-    return { ...MOCK_HEALTH };
+  if (!company || !hasBusinessMetrics(company)) {
+    return { ...EMPTY_HEALTH };
+  }
+
+  if (!company.monthlyRevenue) {
+    return { ...EMPTY_HEALTH };
   }
 
   const deadStockRatio =
