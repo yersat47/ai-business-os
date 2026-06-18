@@ -5,9 +5,12 @@ AI-powered Decision Intelligence Platform for SMB companies.
 ## Quick start
 
 ```bash
+cp .env.example .env.local
 npm install
 npm run dev
 ```
+
+The app runs in **mock-data mode** with no env vars set. For Sprint 2 (Supabase), add your project keys to `.env.local`.
 
 Open [http://localhost:3000](http://localhost:3000).
 
