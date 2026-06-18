@@ -81,6 +81,13 @@
     "critical": "Сыни"
   },
   "landing": {
+    "home": {
+      "tagline": "Бизнестің операциялық жүйесі",
+      "login": "Кіру",
+      "register": "Тіркелу",
+      "employeeText": "Компания қызметкері?",
+      "employeeLink": "Кодпен кіру"
+    },
     "nav": {
       "signIn": "Кіру",
       "getStartedFree": "Тегін бастау"

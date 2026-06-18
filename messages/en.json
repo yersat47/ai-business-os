@@ -81,6 +81,13 @@
     "critical": "Critical"
   },
   "landing": {
+    "home": {
+      "tagline": "Business Operating System",
+      "login": "Sign in",
+      "register": "Create account",
+      "employeeText": "Company employee?",
+      "employeeLink": "Enter with code"
+    },
     "nav": {
       "signIn": "Sign in",
       "getStartedFree": "Get Started Free"
