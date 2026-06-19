@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { routing } from "./i18n/routing";
+
+const locales = ["ru", "kk", "en"] as const;
+const defaultLocale = "ru";
 
 const protectedRoutes = [
   "/dashboard",
@@ -19,16 +21,16 @@ const authRoutes = ["/login", "/register"];
 
 function getLocaleFromPath(pathname: string): string {
   const segment = pathname.split("/")[1];
-  if (routing.locales.includes(segment as (typeof routing.locales)[number])) {
+  if (locales.includes(segment as (typeof locales)[number])) {
     return segment;
   }
-  return routing.defaultLocale;
+  return defaultLocale;
 }
 
 function stripLocale(pathname: string): string {
   const segments = pathname.split("/");
   if (
-    routing.locales.includes(segments[1] as (typeof routing.locales)[number])
+    locales.includes(segments[1] as (typeof locales)[number])
   ) {
     const rest = segments.slice(2).join("/");
     return rest ? `/${rest}` : "/";
@@ -48,9 +50,9 @@ export default function middleware(request: NextRequest) {
 
   if (pathname === "/") {
     const url = request.nextUrl.clone();
-    url.pathname = `/${routing.defaultLocale}`;
+    url.pathname = `/${defaultLocale}`;
     const response = NextResponse.redirect(url);
-    response.cookies.set("NEXT_LOCALE", routing.defaultLocale, {
+    response.cookies.set("NEXT_LOCALE", defaultLocale, {
       maxAge: 60 * 60 * 24 * 365,
       sameSite: "lax",
       path: "/",
