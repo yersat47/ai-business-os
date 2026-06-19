@@ -1,9 +1,6 @@
-import createIntlMiddleware from "next-intl/middleware";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { routing } from "./i18n/routing";
-
-const intlMiddleware = createIntlMiddleware(routing);
 
 const protectedRoutes = [
   "/dashboard",
@@ -40,12 +37,6 @@ function stripLocale(pathname: string): string {
 }
 
 export default function middleware(request: NextRequest) {
-  const intlResponse = intlMiddleware(request);
-
-  if (intlResponse.headers.get("location")) {
-    return intlResponse;
-  }
-
   const pathname = request.nextUrl.pathname;
   const locale = getLocaleFromPath(pathname);
   const pathWithoutLocale = stripLocale(pathname);
@@ -55,6 +46,18 @@ export default function middleware(request: NextRequest) {
   const isSetupComplete =
     request.cookies.get("ai-bos-setup")?.value === "true";
 
+  if (pathname === "/") {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${routing.defaultLocale}`;
+    const response = NextResponse.redirect(url);
+    response.cookies.set("NEXT_LOCALE", routing.defaultLocale, {
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: "lax",
+      path: "/",
+    });
+    return response;
+  }
+
   const isProtected = protectedRoutes.some(
     (route) =>
       pathWithoutLocale === route ||
@@ -63,24 +66,24 @@ export default function middleware(request: NextRequest) {
   const isAuthRoute = authRoutes.includes(pathWithoutLocale);
 
   if (isProtected && !isAuthenticated) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/login`, request.url)
-    );
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}/login`;
+    return NextResponse.redirect(url);
   }
 
   if (pathWithoutLocale === "/" && isAuthenticated && isSetupComplete) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/dashboard`, request.url)
-    );
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}/dashboard`;
+    return NextResponse.redirect(url);
   }
 
   if (isAuthRoute && isAuthenticated) {
-    return NextResponse.redirect(
-      new URL(`/${locale}/entry`, request.url)
-    );
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}/entry`;
+    return NextResponse.redirect(url);
   }
 
-  return intlResponse;
+  return NextResponse.next();
 }
 
 export const config = {
