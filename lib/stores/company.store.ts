@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Company } from "@/lib/types/company.types";
 import { MOCK_COMPANY } from "@/lib/mock/mock-company";
+import { safeLocalStorage } from "./safe-storage";
 
 interface CompanyState {
   company: Company;
@@ -33,6 +34,6 @@ export const useCompanyStore = create<CompanyState>()(
         }
       },
     }),
-    { name: "ai-bos-company" }
+    { name: "ai-bos-company", storage: safeLocalStorage }
   )
 );

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { WizardData } from "@/lib/types/company.types";
+import { useAuthStore } from "./auth.store";
 import { useCompanyStore } from "./company.store";
 import { useHealthStore } from "./health.store";
 
@@ -72,6 +73,24 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
     companyStore.setCompany(merged);
     companyStore.completeSetup();
     healthStore.recalculate(merged);
+
+    const authStore = useAuthStore.getState();
+    if (!authStore.isAuthenticated) {
+      const ownerName = wizardData.name?.trim() || "Owner";
+      useAuthStore.setState({
+        user: {
+          name: ownerName,
+          email: "demo@aibos.kz",
+          role: "owner",
+        },
+        isAuthenticated: true,
+        isLoading: false,
+      });
+      if (typeof document !== "undefined") {
+        document.cookie = "ai-bos-auth=true; path=/; max-age=604800";
+      }
+    }
+
     set({ isComplete: true, currentStep: 6 });
   },
   reset: () =>

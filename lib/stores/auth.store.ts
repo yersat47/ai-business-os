@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { AuthUser, UserRole } from "@/lib/types/company.types";
+import { safeLocalStorage } from "./safe-storage";
 
 interface AuthState {
   user: AuthUser | null;
@@ -45,6 +46,6 @@ export const useAuthStore = create<AuthState>()(
         set({ user: null, isAuthenticated: false });
       },
     }),
-    { name: "ai-bos-auth" }
+    { name: "ai-bos-auth", storage: safeLocalStorage }
   )
 );
