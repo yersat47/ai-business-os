@@ -21,6 +21,13 @@ const positions = [
   "bottom-[8%] left-[50%] -translate-x-1/2",
 ];
 
+import { useMockAgent } from "@/hooks/use-mock-translations";
+
+function YurtAgentLabel({ agentId }: { agentId: string }) {
+  const agent = useMockAgent(agentId);
+  return <>{agent.name}</>;
+}
+
 export function YurtRoom({ agents, selectedId, onSelect }: YurtRoomProps) {
   const t = useTranslations("agents.yurt");
 
@@ -54,7 +61,7 @@ export function YurtRoom({ agents, selectedId, onSelect }: YurtRoomProps) {
               selectedId === agent.id ? "text-accent" : "text-text-secondary"
             }`}
           >
-            {agent.name}
+            <YurtAgentLabel agentId={agent.id} />
           </span>
         </motion.div>
       ))}

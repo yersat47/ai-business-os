@@ -19,6 +19,7 @@ interface AlertBannerProps {
 
 export function AlertBanner({ risk, onViewAction }: AlertBannerProps) {
   const t = useTranslations("health");
+  const tMock = useTranslations("mock.risks");
 
   return (
     <div
@@ -35,17 +36,31 @@ export function AlertBanner({ risk, onViewAction }: AlertBannerProps) {
               risk.severity === "critical" ? "bg-danger" : "bg-warning"
             )}
           />
-          <span className="truncate text-sm font-medium md:text-base">{risk.title}</span>
+          <span className="truncate text-sm font-medium md:text-base">
+            {tMock(`${risk.id}.title`)}
+          </span>
           <Badge variant="outline" className="hidden text-[10px] sm:inline-flex">
-            {risk.agent}
+            {tMock(`${risk.id}.agent`)}
           </Badge>
         </div>
-        <p className="hidden text-sm text-text-secondary md:block">{risk.description}</p>
+        <p className="hidden text-sm text-text-secondary md:block">
+          {tMock(`${risk.id}.description`)}
+        </p>
       </div>
-      <Button variant="outline" size="sm" className="hidden min-h-[44px] shrink-0 md:inline-flex" onClick={onViewAction}>
+      <Button
+        variant="outline"
+        size="sm"
+        className="hidden min-h-[44px] shrink-0 md:inline-flex"
+        onClick={onViewAction}
+      >
         {t("viewAction")}
       </Button>
-      <Button variant="ghost" size="icon" className="min-h-[44px] min-w-[44px] shrink-0 md:hidden" onClick={onViewAction}>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="min-h-[44px] min-w-[44px] shrink-0 md:hidden"
+        onClick={onViewAction}
+      >
         <X className="h-4 w-4" />
       </Button>
     </div>

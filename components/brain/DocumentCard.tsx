@@ -1,6 +1,7 @@
 "use client";
 
 import { FileText, BarChart3, GitBranch } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
@@ -12,18 +13,19 @@ const typeIcons: Record<string, React.ElementType> = {
 };
 
 interface DocumentCardProps {
-  title: string;
+  itemId: string;
   type: string;
   date: string;
-  category: string;
+  categoryId: string;
 }
 
 export function DocumentCard({
-  title,
+  itemId,
   type,
   date,
-  category,
+  categoryId,
 }: DocumentCardProps) {
+  const t = useTranslations("mock.brain");
   const Icon = typeIcons[type] ?? FileText;
 
   return (
@@ -33,10 +35,10 @@ export function DocumentCard({
           <Icon className="h-5 w-5 text-accent" />
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className="font-medium text-sm truncate">{title}</h4>
+          <h4 className="font-medium text-sm truncate">{t(`items.${itemId}`)}</h4>
           <div className="mt-2 flex min-w-0 items-center gap-2">
             <Badge variant="outline" className="text-[10px]">
-              {category}
+              {t(`itemCategories.${categoryId}`)}
             </Badge>
             <span className="truncate text-[10px] text-text-muted">{date}</span>
           </div>
@@ -48,12 +50,12 @@ export function DocumentCard({
         className="mt-3 hidden min-h-[44px] w-full md:inline-flex"
         onClick={() =>
           toast({
-            title: "Document preview",
-            description: "Full document viewer available in the next release.",
+            title: t("documentPreview"),
+            description: t("documentPreviewDesc"),
           })
         }
       >
-        View
+        {t("view")}
       </Button>
     </div>
   );

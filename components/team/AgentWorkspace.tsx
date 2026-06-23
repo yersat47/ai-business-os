@@ -13,33 +13,14 @@ import {
 import { AgentChatMock } from "./AgentChatMock";
 import type { Agent } from "@/lib/types/agents.types";
 import { toast } from "@/hooks/use-toast";
+import { useMockAgent } from "@/hooks/use-mock-translations";
 
-const mockInsights: Record<string, { title: string; body: string; confidence: number }[]> = {
-  marketer: [
-    {
-      title: "CAC Optimization Opportunity",
-      body: "Narrowing Instagram targeting could reduce CAC by 35% within 14 days.",
-      confidence: 78,
-    },
-    {
-      title: "Clearance Campaign ROI",
-      body: "Dead stock clearance at 30-50% discount projects ₸750K recovery.",
-      confidence: 85,
-    },
-  ],
-  analyst: [
-    {
-      title: "Dead Stock Pattern",
-      body: "78% of dead stock is from Spring 2025 collection — size M and L overrepresented.",
-      confidence: 92,
-    },
-  ],
+const insightKeys: Record<string, string[]> = {
+  marketer: ["cacOptimization", "clearanceRoi"],
+  analyst: ["deadStockPattern"],
 };
 
-const mockTasks = [
-  { title: "Build clearance campaign plan", status: "in progress", priority: "High", due: "Jun 5" },
-  { title: "Analyze Q1 ad performance", status: "pending", priority: "Medium", due: "Jun 8" },
-];
+const taskKeys = ["clearancePlan", "adAnalysis"] as const;
 
 interface AgentWorkspaceProps {
   agent: Agent | null;
@@ -49,17 +30,14 @@ interface AgentWorkspaceProps {
 
 export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
   const t = useTranslations("agents.workspace");
+  const tMock = useTranslations("mock");
   const tCommon = useTranslations("common");
+  const localized = useMockAgent(agent?.id ?? "ceo");
 
   if (!agent) return null;
 
-  const insights = mockInsights[agent.id] ?? [
-    {
-      title: "Business Overview",
-      body: `${agent.name} is monitoring your ${agent.specialty.join(", ")} metrics.`,
-      confidence: 75,
-    },
-  ];
+  const keys = insightKeys[agent.id] ?? ["overview"];
+  const insightNs = insightKeys[agent.id] ? `insights.${agent.id}` : "insights.default";
 
   return (
     <Sheet open={open} onOpenChange={onClose}>
@@ -70,8 +48,8 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
               {agent.icon}
             </span>
             <div>
-              <SheetTitle>{agent.name}</SheetTitle>
-              <p className="text-sm text-text-secondary">{agent.role}</p>
+              <SheetTitle>{localized.name}</SheetTitle>
+              <p className="text-sm text-text-secondary">{localized.role}</p>
             </div>
           </div>
         </SheetHeader>
@@ -85,15 +63,24 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
             <AgentChatMock agent={agent} />
           </TabsContent>
           <TabsContent value="insights" className="space-y-4">
-            {insights.map((insight, i) => (
+            {keys.map((key) => (
               <div
-                key={i}
+                key={key}
                 className="rounded-xl border border-border bg-surface p-4"
               >
-                <h4 className="font-medium mb-2">{insight.title}</h4>
-                <p className="text-sm text-text-secondary mb-3">{insight.body}</p>
+                <h4 className="font-medium mb-2">
+                  {tMock(`${insightNs}.${key}.title`)}
+                </h4>
+                <p className="text-sm text-text-secondary mb-3">
+                  {key === "overview"
+                    ? tMock("insights.default.overview.body", {
+                        agentName: localized.name,
+                        specialty: localized.specialty.join(", "),
+                      })
+                    : tMock(`${insightNs}.${key}.body`)}
+                </p>
                 <div className="flex items-center justify-between">
-                  <Badge variant="accent">{tCommon("confidence", { pct: insight.confidence })}</Badge>
+                  <Badge variant="accent">{tCommon("confidence", { pct: 85 })}</Badge>
                   <Button
                     variant="outline"
                     size="sm"
@@ -111,22 +98,30 @@ export function AgentWorkspace({ agent, open, onClose }: AgentWorkspaceProps) {
             ))}
           </TabsContent>
           <TabsContent value="tasks" className="space-y-3">
-            {mockTasks.map((task, i) => (
-              <div
-                key={i}
-                className="rounded-xl border border-border p-4 flex items-center justify-between"
-              >
-                <div>
-                  <p className="font-medium text-sm">{task.title}</p>
-                  <p className="text-xs text-text-muted">
-                    {task.status} · {task.priority} · {t("due")} {task.due}
-                  </p>
+            {taskKeys.map((taskKey) => {
+              const status = tMock(`tasks.${taskKey}.status`) as string;
+              const priority = tMock(`tasks.${taskKey}.priority`) as string;
+              return (
+                <div
+                  key={taskKey}
+                  className="rounded-xl border border-border p-4 flex items-center justify-between"
+                >
+                  <div>
+                    <p className="font-medium text-sm">
+                      {tMock(`tasks.${taskKey}.title`)}
+                    </p>
+                    <p className="text-xs text-text-muted">
+                      {tMock(`taskStatus.${status}`)} ·{" "}
+                      {tMock(`taskPriority.${priority}`)} · {t("due")}{" "}
+                      {tMock(`tasks.${taskKey}.due`)}
+                    </p>
+                  </div>
+                  <Badge variant={status === "inProgress" ? "accent" : "outline"}>
+                    {tMock(`taskStatus.${status}`)}
+                  </Badge>
                 </div>
-                <Badge variant={task.status === "in progress" ? "accent" : "outline"}>
-                  {task.status}
-                </Badge>
-              </div>
-            ))}
+              );
+            })}
           </TabsContent>
         </Tabs>
       </SheetContent>

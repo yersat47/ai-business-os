@@ -15,57 +15,67 @@ const roleMetricValues: Record<UserRole, Record<string, string>> = {
   administrator: { dataCompleteness: "72%", missingFields: "14", tasks: "6" },
 };
 
+const roleAgentIds: Record<UserRole, string> = {
+  owner: "analyst",
+  manager: "manager",
+  marketer: "marketer",
+  smm: "smm",
+  accountant: "accountant",
+  salesperson: "manager",
+  administrator: "analyst",
+};
+
 const roleConfig: Record<
   UserRole,
-  { titleKey: string; metrics: string[]; agent: string }
+  { titleKey: string; metrics: string[] }
 > = {
   owner: {
     titleKey: "owner",
     metrics: ["healthScore", "profitPotential", "allKpis"],
-    agent: "AI Analyst",
   },
   manager: {
     titleKey: "manager",
     metrics: ["conversion", "teamPerformance", "inventory"],
-    agent: "AI Manager",
   },
   marketer: {
     titleKey: "marketer",
     metrics: ["cac", "roas", "retention"],
-    agent: "AI Marketer",
   },
   smm: {
     titleKey: "smm",
     metrics: ["engagement", "storyViews", "dmConversion"],
-    agent: "AI SMM",
   },
   accountant: {
     titleKey: "accountant",
     metrics: ["grossMargin", "cashReserve", "breakeven"],
-    agent: "AI Accountant",
   },
   salesperson: {
     titleKey: "salesperson",
     metrics: ["personalRevenue", "dailyTarget", "upt"],
-    agent: "AI Manager",
   },
   administrator: {
     titleKey: "administrator",
     metrics: ["dataCompleteness", "missingFields", "tasks"],
-    agent: "AI Administrator",
   },
 };
 
 export function RoleDashboardView() {
   const t = useTranslations("roleDashboard");
+  const tAgents = useTranslations("mock.agents");
+  const tRoleDash = useTranslations("mock.roleDashboard");
   const role = useAuthStore((s) => s.user?.role ?? "owner");
   const config = roleConfig[role];
+  const agentId = roleAgentIds[role];
+  const agentLabel =
+    role === "administrator"
+      ? tRoleDash("administrator")
+      : tAgents(`${agentId}.name`);
 
   return (
     <div className="rounded-2xl border border-accent/20 bg-accent/5 p-4 md:p-6 mb-4 md:mb-6">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h3 className="font-semibold text-sm md:text-base">{t(`titles.${config.titleKey}`)}</h3>
-        <Badge variant="accent">{config.agent}</Badge>
+        <Badge variant="accent">{agentLabel}</Badge>
       </div>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-3">
         {config.metrics.map((metric) => (

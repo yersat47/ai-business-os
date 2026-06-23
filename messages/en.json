@@ -319,26 +319,26 @@
     "toastUpload": "Upload",
     "toastUploadDesc": "File upload available after AI connection is configured.",
     "uploadActions": {
-      "toastDesc": "Загрузка будет доступна после подключения AI.",
+      "toastDesc": "Upload will be available after AI is connected.",
       "document": {
-        "label": "Добавить документ",
-        "description": "Загрузите PDF, Word или таблицу",
-        "example": "Пример: прайс-лист, каталог товаров"
+        "label": "Add document",
+        "description": "Upload a PDF, Word file, or spreadsheet",
+        "example": "Example: price list, product catalog"
       },
       "process": {
-        "label": "Добавить процесс",
-        "description": "Опишите бизнес-процесс или инструкцию",
-        "example": "Пример: порядок приёмки товара"
+        "label": "Add process",
+        "description": "Describe a business process or instruction",
+        "example": "Example: goods receiving procedure"
       },
       "decision": {
-        "label": "Добавить решение",
-        "description": "Зафиксируйте принятое бизнес-решение",
-        "example": "Пример: решение сменить поставщика"
+        "label": "Add decision",
+        "description": "Record a business decision that was made",
+        "example": "Example: decision to change supplier"
       },
       "rule": {
-        "label": "Добавить правило",
-        "description": "Установите правило для сотрудников",
-        "example": "Пример: скидки только с разрешения директора"
+        "label": "Add rule",
+        "description": "Set a rule for employees",
+        "example": "Example: discounts only with director approval"
       }
     }
   },
@@ -363,14 +363,14 @@
       "aiConnection": "This feature requires AI connection. Available in the next release.",
       "greeting": "Hello! I'm {name}. I'm currently working on: {task}",
       "due": "Due",
-      "tasksPlaceholder": "Задачи агента появятся здесь"
+      "tasksPlaceholder": "Agent tasks will appear here"
     },
-    "active": "Активен",
+    "active": "Active",
     "yurt": {
-      "subtitle": "Цифровая юрта — войдите в комнату вашей AI-команды",
-      "roomLabel": "Цифровая юрта",
-      "hint": "Выберите агента, чтобы открыть рабочую область",
-      "backToRoom": "Вернуться в юрту"
+      "subtitle": "Digital yurt — enter your AI team room",
+      "roomLabel": "Digital yurt",
+      "hint": "Select an agent to open their workspace",
+      "backToRoom": "Back to yurt"
     }
   },
   "employees": {
@@ -693,6 +693,212 @@
       "low": "Low",
       "medium": "Medium",
       "high": "High"
+    },
+    "risks": {
+      "r1": {
+        "title": "Dead Stock",
+        "description": "₸1.1M tied up in unsold inventory older than 90 days",
+        "agent": "AI Analyst"
+      },
+      "r2": {
+        "title": "CAC Too High",
+        "description": "Cost per customer at ₸4,800 — 60% above fashion retail benchmark",
+        "agent": "AI Marketer"
+      },
+      "r3": {
+        "title": "Net Margin Below Target",
+        "description": "Net margin at 11% vs 18–22% industry benchmark",
+        "agent": "AI Accountant"
+      }
+    },
+    "actions": {
+      "a1": {
+        "title": "Launch Dead Stock Clearance Campaign",
+        "description": "Run a 30-day clearance: discount 30–50%, Instagram stories + Kaspi promo",
+        "agent": "AI Marketer"
+      },
+      "a2": {
+        "title": "Create a Referral Program",
+        "description": "Existing customers refer friends → reduce CAC from ₸4,800 to ₸2,200",
+        "agent": "AI Marketer"
+      },
+      "a3": {
+        "title": "Run Expense Audit",
+        "description": "Review all monthly expenses. Target: find ₸200K in reducible costs",
+        "agent": "AI Accountant"
+      }
+    },
+    "briefing": {
+      "body": "{company} is in {status} health at {score}/100, improving by {trendDelta} points since last month. Your strongest area is Team Performance ({teamScore}). Critical attention required: ₸1.1M in dead stock is your biggest drag on inventory health. Marketing CAC at ₸4,800 is 60% above industry benchmark. Recommended focus this week: launch clearance campaign to recover ₸750K and start referral program to cut CAC."
+    },
+    "agents": {
+      "ceo": {
+        "name": "AI CEO",
+        "role": "Strategic Advisor",
+        "description": "Synthesizes all business intelligence into executive decisions",
+        "currentTask": "Preparing monthly executive briefing",
+        "specialty": [
+          "Strategy",
+          "Risk",
+          "Opportunities"
+        ],
+        "lastActivity": "2 min ago"
+      },
+      "analyst": {
+        "name": "AI Analyst",
+        "role": "Business Intelligence",
+        "description": "Monitors KPIs, detects anomalies, surfaces insights from data",
+        "currentTask": "Analyzing dead stock patterns",
+        "specialty": [
+          "KPIs",
+          "Trends",
+          "Forecasting"
+        ],
+        "lastActivity": "5 min ago"
+      },
+      "marketer": {
+        "name": "AI Marketer",
+        "role": "Marketing & Growth",
+        "description": "Plans campaigns, optimizes CAC, manages acquisition funnels",
+        "currentTask": "Building clearance campaign plan",
+        "specialty": [
+          "Instagram",
+          "CAC",
+          "Campaigns"
+        ],
+        "lastActivity": "12 min ago"
+      },
+      "accountant": {
+        "name": "AI Accountant",
+        "role": "Financial Control",
+        "description": "Tracks margins, cash flow, expenses, and financial health",
+        "currentTask": "Monthly expense analysis",
+        "specialty": [
+          "Margins",
+          "Cash Flow",
+          "Expenses"
+        ],
+        "lastActivity": "1 hr ago"
+      },
+      "manager": {
+        "name": "AI Manager",
+        "role": "Operations & Team",
+        "description": "Coordinates tasks, tracks team performance, manages processes",
+        "currentTask": "Reviewing team targets for June",
+        "specialty": [
+          "Tasks",
+          "Team",
+          "SOP"
+        ],
+        "lastActivity": "3 hr ago"
+      },
+      "smm": {
+        "name": "AI SMM",
+        "role": "Social Media & Content",
+        "description": "Plans content calendar, analyzes engagement, drives organic reach",
+        "currentTask": "Creating June content calendar",
+        "specialty": [
+          "Instagram",
+          "Content",
+          "Engagement"
+        ],
+        "lastActivity": "30 min ago"
+      }
+    },
+    "brain": {
+      "categories": {
+        "products": "Products & Inventory",
+        "sales": "Sales & Pricing",
+        "marketing": "Marketing & Campaigns",
+        "team": "Team & Processes"
+      },
+      "items": {
+        "catalog": "Product Catalogue Spring 2026",
+        "ads": "Instagram Ads Performance Q1",
+        "pricing": "Pricing Rules 2026",
+        "onboarding": "Staff Onboarding SOP"
+      },
+      "itemCategories": {
+        "products": "Products",
+        "marketing": "Marketing",
+        "sales": "Sales",
+        "team": "Team"
+      },
+      "missing": {
+        "feedback": "Customer feedback / reviews",
+        "financials": "Financial statements",
+        "suppliers": "Supplier contracts",
+        "history": "Historical sales data"
+      },
+      "coverageLabel": "Brain coverage — {pct}% populated",
+      "dataCompleteness": "Data completeness: {pct}%",
+      "tapToChoose": "Tap to choose file",
+      "documentPreview": "Document preview",
+      "documentPreviewDesc": "Full document viewer available in the next release.",
+      "view": "View"
+    },
+    "profit": {
+      "deadStock": "Dead Stock Recovery",
+      "cacOptimization": "CAC Optimization",
+      "marginImprovement": "Margin Improvement",
+      "repeatPurchase": "Repeat Purchase Uplift",
+      "period": "per month"
+    },
+    "company": {
+      "name": "Urban Mode",
+      "industry": "Fashion Retail",
+      "businessType": "Retail + Online"
+    },
+    "roleDashboard": {
+      "analyst": "AI Analyst",
+      "manager": "AI Manager",
+      "administrator": "AI Administrator"
+    },
+    "insights": {
+      "marketer": {
+        "cacOptimization": {
+          "title": "CAC Optimization Opportunity",
+          "body": "Narrowing Instagram targeting could reduce CAC by 35% within 14 days."
+        },
+        "clearanceRoi": {
+          "title": "Clearance Campaign ROI",
+          "body": "Dead stock clearance at 30-50% discount projects ₸750K recovery."
+        }
+      },
+      "analyst": {
+        "deadStockPattern": {
+          "title": "Dead Stock Pattern",
+          "body": "78% of dead stock is from Spring 2025 collection — size M and L overrepresented."
+        }
+      },
+      "default": {
+        "overview": {
+          "title": "Business Overview",
+          "body": "{agentName} is monitoring your {specialty} metrics."
+        }
+      }
+    },
+    "tasks": {
+      "clearancePlan": {
+        "title": "Build clearance campaign plan",
+        "status": "inProgress",
+        "priority": "high",
+        "due": "Jun 5"
+      },
+      "adAnalysis": {
+        "title": "Analyze Q1 ad performance",
+        "status": "pending",
+        "priority": "medium",
+        "due": "Jun 8"
+      }
+    },
+    "taskStatus": {
+      "inProgress": "In progress",
+      "pending": "Pending"
+    },
+    "taskPriority": {
+      "high": "High",
+      "medium": "Medium"
     }
   },
   "wizard": {
@@ -865,12 +1071,12 @@
       "openDashboard": "Open your Dashboard →"
     },
     "onboardingSteps": {
-      "1": "Идентичность компании",
-      "2": "Тип бизнеса",
-      "3": "Ваша команда",
-      "4": "Бизнес-показатели",
-      "5": "База знаний",
-      "6": "Готово"
+      "1": "Company identity",
+      "2": "Business type",
+      "3": "Your team",
+      "4": "Business metrics",
+      "5": "Knowledge base",
+      "6": "Complete"
     },
     "onboarding": {
       "step1Why": "Your name and description are the foundation of Company Brain. The system will remember who you are.",
@@ -915,6 +1121,18 @@
           "desc": "Standards for the team"
         }
       }
+    },
+    "brainSeed": {
+      "title": "Knowledge base",
+      "subtitle": "Upload 1–3 documents to seed Company Brain",
+      "why": "Documents become company memory for smarter AI recommendations.",
+      "gain": "The more knowledge you add, the more accurate the advice.",
+      "dropzone": "Drag PDF, Word, or spreadsheet here",
+      "uploadBtn": "Upload document",
+      "seeded": "Document added to knowledge base",
+      "skipHint": "You can skip and add documents later",
+      "uploadSuccess": "Document accepted",
+      "uploadSuccessDesc": "The file will be processed after AI is connected."
     }
   },
   "roleDashboard": {

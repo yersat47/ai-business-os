@@ -20,6 +20,28 @@ import { Badge } from "@/components/ui/badge";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { MOCK_AGENTS } from "@/lib/mock/mock-agents";
+import { useMockAgent } from "@/hooks/use-mock-translations";
+
+function SettingsAgentRow({
+  agentId,
+  icon,
+  color,
+}: {
+  agentId: string;
+  icon: string;
+  color: string;
+}) {
+  const agent = useMockAgent(agentId);
+  return (
+    <div className="flex min-w-0 items-center gap-3">
+      <span style={{ color }}>{icon}</span>
+      <div className="min-w-0">
+        <p className="truncate text-sm font-medium">{agent.name}</p>
+        <p className="truncate text-xs text-text-muted">{agent.role}</p>
+      </div>
+    </div>
+  );
+}
 import type { UserRole } from "@/lib/types/company.types";
 import { toast } from "@/hooks/use-toast";
 
@@ -172,13 +194,11 @@ export default function SettingsPage() {
                 key={agent.id}
                 className="flex min-h-[56px] items-center justify-between gap-3 rounded-xl border border-border p-3 md:p-4"
               >
-                <div className="flex min-w-0 items-center gap-3">
-                  <span style={{ color: agent.color }}>{agent.icon}</span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium">{agent.name}</p>
-                    <p className="truncate text-xs text-text-muted">{agent.role}</p>
-                  </div>
-                </div>
+                <SettingsAgentRow
+                  agentId={agent.id}
+                  icon={agent.icon}
+                  color={agent.color}
+                />
                 <Switch defaultChecked />
               </div>
             ))}

@@ -14,6 +14,23 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { useMockAgent } from "@/hooks/use-mock-translations";
+
+function AgentLabel({ agentId }: { agentId: string }) {
+  const agent = useMockAgent(agentId);
+  return <>{agent.name}</>;
+}
+
+function AgentRoleLabel({ agentId }: { agentId: string }) {
+  const agent = useMockAgent(agentId);
+  return <>{agent.role}</>;
+}
+
+function AgentTaskLabel({ agentId }: { agentId: string }) {
+  const agent = useMockAgent(agentId);
+  return <>{agent.currentTask}</>;
+}
+
 export default function TeamPage() {
   const t = useTranslations("agents");
   const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
@@ -46,7 +63,7 @@ export default function TeamPage() {
                 >
                   <AgentAvatar agent={agent} size="sm" />
                   <span className="line-clamp-2 text-center text-[10px] leading-tight text-text-secondary">
-                    {agent.name}
+                    <AgentLabel agentId={agent.id} />
                   </span>
                   <span className="h-1.5 w-1.5 rounded-full bg-success" />
                 </button>
@@ -82,8 +99,12 @@ export default function TeamPage() {
             <div className="grid gap-4 md:grid-cols-[200px_1fr] md:gap-8">
               <div className="hidden flex-col items-center text-center md:flex">
                 <AgentAvatar agent={selectedAgent} selected size="lg" />
-                <h3 className="font-bold text-lg mt-4">{selectedAgent.name}</h3>
-                <p className="text-sm text-text-secondary">{selectedAgent.role}</p>
+                <h3 className="font-bold text-lg mt-4">
+                  <AgentLabel agentId={selectedAgent.id} />
+                </h3>
+                <p className="text-sm text-text-secondary">
+                  <AgentRoleLabel agentId={selectedAgent.id} />
+                </p>
                 <p className="text-xs text-accent mt-1">
                   {selectedAgent.avatarAnimal}
                 </p>
@@ -96,8 +117,12 @@ export default function TeamPage() {
                 <div className="mb-3 flex items-center gap-3 rounded-xl border border-border bg-surface-raised p-3 md:hidden">
                   <AgentAvatar agent={selectedAgent} selected size="sm" />
                   <div className="min-w-0">
-                    <h3 className="truncate font-semibold">{selectedAgent.name}</h3>
-                    <p className="truncate text-xs text-text-secondary">{selectedAgent.role}</p>
+                    <h3 className="truncate font-semibold">
+                      <AgentLabel agentId={selectedAgent.id} />
+                    </h3>
+                    <p className="truncate text-xs text-text-secondary">
+                      <AgentRoleLabel agentId={selectedAgent.id} />
+                    </p>
                   </div>
                 </div>
                 <Tabs defaultValue="chat">
@@ -117,7 +142,7 @@ export default function TeamPage() {
                   </TabsContent>
                   <TabsContent value="insights">
                     <p className="text-sm text-text-secondary p-4 rounded-xl bg-surface-raised border border-border">
-                      {selectedAgent.currentTask}
+                      <AgentTaskLabel agentId={selectedAgent.id} />
                     </p>
                   </TabsContent>
                   <TabsContent value="tasks">

@@ -6,6 +6,7 @@ import { Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import type { Agent } from "@/lib/types/agents.types";
+import { useMockAgent } from "@/hooks/use-mock-translations";
 
 const mockChats: Record<string, { role: string; content: string }[]> = {
   marketer: [
@@ -37,13 +38,17 @@ interface AgentChatMockProps {
 export function AgentChatMock({ agent }: AgentChatMockProps) {
   const t = useTranslations("agents");
   const tWs = useTranslations("agents.workspace");
+  const localized = useMockAgent(agent.id);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const [messages, setMessages] = useState(
     mockChats[agent.id] ?? [
       {
         role: "agent",
-        content: tWs("greeting", { name: agent.name, task: agent.currentTask }),
+        content: tWs("greeting", {
+          name: localized.name,
+          task: localized.currentTask,
+        }),
       },
     ]
   );
@@ -82,7 +87,7 @@ export function AgentChatMock({ agent }: AgentChatMockProps) {
         {typing && (
           <div className="flex items-center gap-2 text-text-muted text-sm">
             <Loader2 className="h-4 w-4 animate-spin" />
-            {tWs("typing", { name: agent.name })}
+            {tWs("typing", { name: localized.name })}
           </div>
         )}
         {showInfo && (
