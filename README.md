@@ -9,7 +9,11 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000/ru](http://localhost:3000/ru).
+
+**Stable local setup (no Cloudflare tunnels):** see [LOCAL_SETUP.md](./LOCAL_SETUP.md) (RU).
+
+**Windows:** double-click `scripts/start-local.bat`
 
 ## Demo flow
 
