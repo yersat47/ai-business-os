@@ -1,5 +1,22 @@
 # Локальный запуск (без туннелей)
 
+## Постоянная ссылка (GitHub Pages)
+
+После деплоя сайт доступен по стабильному адресу:
+
+**https://yersat47.github.io/ai-business-os/ru/**
+
+| Страница | URL |
+|---|---|
+| Главная (RU) | https://yersat47.github.io/ai-business-os/ru/ |
+| Старт | https://yersat47.github.io/ai-business-os/ru/entry/ |
+| Дашборд | https://yersat47.github.io/ai-business-os/ru/dashboard/ |
+| AI-команда | https://yersat47.github.io/ai-business-os/ru/team/ |
+
+Эта ссылка не падает и не меняется (в отличие от trycloudflare.com).
+
+---
+
 Туннели Cloudflare (`trycloudflare.com`) нестабильны и часто падают с ошибками 1033/530.
 **Локальный запуск на вашем компьютере работает стабильно** — сайт доступен по `http://localhost:3000`.
 
