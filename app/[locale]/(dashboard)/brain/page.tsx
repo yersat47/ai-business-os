@@ -12,6 +12,7 @@ import { MOCK_BRAIN } from "@/lib/mock/mock-brain";
 
 export default function BrainPage() {
   const t = useTranslations("brain");
+  const tMock = useTranslations("mock.brain");
   const tCommon = useTranslations("common");
 
   return (
@@ -37,9 +38,11 @@ export default function BrainPage() {
           </div>
           <div className="space-y-3 md:space-y-4">
             {MOCK_BRAIN.categories.map((cat) => (
-              <div key={cat.name}>
+              <div key={cat.id}>
                 <div className="mb-1 flex justify-between gap-2 text-sm">
-                  <span className="min-w-0 truncate">{cat.name}</span>
+                  <span className="min-w-0 truncate">
+                    {tMock(`categories.${cat.id}`)}
+                  </span>
                   <span className="text-text-muted">
                     {tCommon("items", { count: cat.count })}
                   </span>
@@ -59,7 +62,7 @@ export default function BrainPage() {
           <h3 className="font-semibold text-base md:text-lg mb-4">{t("recentKnowledge")}</h3>
           <div className="grid gap-3 md:grid-cols-2 md:gap-4">
             {MOCK_BRAIN.recentItems.map((item) => (
-              <DocumentCard key={item.title} {...item} />
+              <DocumentCard key={item.id} itemId={item.id} {...item} />
             ))}
           </div>
         </div>
@@ -77,7 +80,7 @@ export default function BrainPage() {
               >
                 <div className="flex min-w-0 items-center gap-2">
                   <span className="h-2 w-2 shrink-0 rounded-full bg-warning" />
-                  <span className="truncate text-sm">{area}</span>
+                  <span className="truncate text-sm">{tMock(`missing.${area}`)}</span>
                 </div>
                 <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto" asChild>
                   <Link href="/data">{t("addData")}</Link>

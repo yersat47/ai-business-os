@@ -10,6 +10,7 @@ import { toast } from "@/hooks/use-toast";
 
 export function TopActionsCard() {
   const t = useTranslations("dashboard.actions");
+  const tMock = useTranslations("mock.actions");
   const tEffort = useTranslations("mock.effort");
   const actions = useHealthStore((s) => s.health.topActions);
 
@@ -38,7 +39,9 @@ export function TopActionsCard() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="truncate text-sm font-medium">{action.title}</span>
+                <span className="truncate text-sm font-medium">
+                  {tMock(`${action.id}.title`)}
+                </span>
                 <Badge
                   variant="outline"
                   className={`hidden shrink-0 text-[10px] sm:inline-flex ${getEffortColor(action.effort)}`}
@@ -48,14 +51,14 @@ export function TopActionsCard() {
                 <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-text-muted md:opacity-0 md:transition-opacity md:group-hover:opacity-100" />
               </div>
               <p className="mb-2 hidden text-xs text-text-secondary sm:block">
-                {action.description}
+                {tMock(`${action.id}.description`)}
               </p>
               <div className="flex min-w-0 items-center gap-2">
                 <span className="text-xs text-success font-mono">
                   {formatCurrency(action.estimatedRecovery)}
                 </span>
                 <Badge variant="outline" className="hidden text-[10px] sm:inline-flex">
-                  {action.agent}
+                  {tMock(`${action.id}.agent`)}
                 </Badge>
               </div>
             </div>

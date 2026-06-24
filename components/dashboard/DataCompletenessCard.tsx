@@ -9,6 +9,7 @@ import { useHealthStore } from "@/lib/stores/health.store";
 
 export function DataCompletenessCard() {
   const t = useTranslations("dashboard.brain");
+  const tMock = useTranslations("mock.brain");
   const completeness = useHealthStore((s) => s.health.dataCompleteness);
 
   return (
@@ -36,11 +37,11 @@ export function DataCompletenessCard() {
       </p>
       <ul className="text-xs text-text-secondary space-y-1 mb-4">
         {MOCK_BRAIN.missingAreas.slice(0, 3).map((area) => (
-          <li key={area}>• {area}</li>
+          <li key={area}>• {tMock(`missing.${area}`)}</li>
         ))}
       </ul>
       <p className="text-xs text-text-muted mb-4">
-        Data completeness: {completeness}%
+        {tMock("dataCompleteness", { pct: completeness })}
       </p>
       <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto" asChild>
         <Link href="/data">{t("completeBrain")}</Link>

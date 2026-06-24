@@ -5,14 +5,28 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
+import { useCompanyStore } from "@/lib/stores/company.store";
 import { formatCurrency } from "@/lib/utils/formatters";
 
 export function ExecutiveBriefing() {
   const t = useTranslations("dashboard.briefing");
+  const tMock = useTranslations("mock.briefing");
+  const tAction = useTranslations("mock.actions");
+  const tCompany = useTranslations("mock.company");
+  const tStatus = useTranslations("status");
   const tCommon = useTranslations("common");
   const health = useHealthStore((s) => s.health);
+  const company = useCompanyStore((s) => s.company);
+  const companyName = company.name || tCompany("name");
+  const teamPillar = health.pillars.find((p) => p.id === "team");
 
-  const briefing = `Urban Mode is in Stable health at ${health.masterScore}/100, improving by ${health.trendDelta} points since last month. Your strongest area is Team Performance (83). Critical attention required: ₸1.1M in dead stock is your biggest drag on inventory health. Marketing CAC at ₸4,800 is 60% above industry benchmark. Recommended focus this week: launch clearance campaign to recover ₸750K and start referral program to cut CAC.`;
+  const briefing = tMock("body", {
+    company: companyName,
+    status: tStatus(health.status),
+    score: health.masterScore,
+    trendDelta: health.trendDelta,
+    teamScore: teamPillar?.score ?? 0,
+  });
 
   return (
     <motion.div
@@ -41,11 +55,15 @@ export function ExecutiveBriefing() {
             variant="outline"
             className="max-w-full cursor-default truncate border-accent/30 text-accent"
           >
-            {action.title} · {formatCurrency(action.estimatedRecovery)}
+            {tAction(`${action.id}.title`)} ·{" "}
+            {formatCurrency(action.estimatedRecovery)}
           </Badge>
         ))}
       </div>
-      <Link href="/team" className="inline-flex min-h-[44px] items-center text-sm text-accent hover:underline">
+      <Link
+        href="/team"
+        className="inline-flex min-h-[44px] items-center text-sm text-accent hover:underline"
+      >
         {t("viewTeam")}
       </Link>
     </motion.div>

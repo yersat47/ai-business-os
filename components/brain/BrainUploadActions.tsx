@@ -14,6 +14,7 @@ const actions = [
 
 export function BrainUploadActions() {
   const t = useTranslations("brain.uploadActions");
+  const tMock = useTranslations("mock.brain");
 
   const handleClick = (key: string) => {
     toast({
@@ -26,7 +27,7 @@ export function BrainUploadActions() {
     <div className="space-y-4">
       <label className="flex min-h-[52px] w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-accent/30 bg-accent/10 px-4 text-sm font-medium text-accent md:hidden">
         <Upload className="h-5 w-5" />
-        Tap to choose file
+        {tMock("tapToChoose")}
         <input
           type="file"
           accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png"
