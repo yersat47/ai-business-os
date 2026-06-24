@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 import {
   AlertTriangle,
   DollarSign,
@@ -9,9 +10,12 @@ import {
   ShoppingBag,
   Users,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { DATA_SECTION_CONFIGS } from "@/lib/types/data-center.types";
 import { useDataCenterStore } from "@/lib/stores/data-center.store";
+import { useMetricsStore } from "@/lib/stores/metrics.store";
 import { DataSection } from "./DataSection";
+import { toast } from "@/hooks/use-toast";
 
 const sectionIcons: Record<string, React.ReactNode> = {
   finance: <DollarSign size={18} />,
@@ -23,10 +27,25 @@ const sectionIcons: Record<string, React.ReactNode> = {
 
 export function DataCenterGuided() {
   const t = useTranslations("data.center");
+  const tData = useTranslations("data");
+  const router = useRouter();
 
   const completedCount = useDataCenterStore((s) => s.getCompletedCount());
   const totalSections = useDataCenterStore((s) => s.getTotalSections());
-  const fillPercent = Math.round((completedCount / totalSections) * 100);
+  const dataCompletenessPct = useMetricsStore((s) => s.dataCompletenessPct);
+  const submitMonth = useMetricsStore((s) => s.submitMonth);
+  const hasRevenue = useMetricsStore((s) => !!s.currentMonthMetrics.monthly_revenue);
+
+  const fillPercent = dataCompletenessPct;
+
+  const handleSubmitAll = () => {
+    submitMonth();
+    toast({
+      title: tData("submitSuccess"),
+      description: tData("submitSuccessDesc"),
+    });
+    router.push("/dashboard");
+  };
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -52,10 +71,7 @@ export function DataCenterGuided() {
 
       {fillPercent < 50 && (
         <div className="flex gap-2 p-3 rounded-lg bg-warning/10 border border-warning/20 text-sm mb-6">
-          <AlertTriangle
-            size={16}
-            className="text-warning shrink-0 mt-0.5"
-          />
+          <AlertTriangle size={16} className="text-warning shrink-0 mt-0.5" />
           <p className="text-text-secondary">{t("limitedModeWarning")}</p>
         </div>
       )}
@@ -68,6 +84,20 @@ export function DataCenterGuided() {
             icon={sectionIcons[config.id]}
           />
         ))}
+      </div>
+
+      <div className="mt-6 sticky bottom-[calc(5rem+env(safe-area-inset-bottom))] z-10 md:static">
+        <Button
+          variant="bronze"
+          className="min-h-[48px] w-full"
+          onClick={handleSubmitAll}
+          disabled={!hasRevenue}
+        >
+          {tData("submitMonth")}
+        </Button>
+        <p className="text-xs text-text-muted text-center mt-2">
+          {tData("submitMonthHint")}
+        </p>
       </div>
     </div>
   );

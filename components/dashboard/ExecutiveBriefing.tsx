@@ -5,14 +5,22 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
+import { useFeedbackStore } from "@/lib/stores/feedback.store";
 import { formatCurrency } from "@/lib/utils/formatters";
 
 export function ExecutiveBriefing() {
   const t = useTranslations("dashboard.briefing");
   const tCommon = useTranslations("common");
   const health = useHealthStore((s) => s.health);
+  const analystMessage = useFeedbackStore((s) =>
+    s.messages.find((m) => m.agentId === "analyst")
+  );
 
-  const briefing = `Urban Mode is in Stable health at ${health.masterScore}/100, improving by ${health.trendDelta} points since last month. Your strongest area is Team Performance (83). Critical attention required: ₸1.1M in dead stock is your biggest drag on inventory health. Marketing CAC at ₸4,800 is 60% above industry benchmark. Recommended focus this week: launch clearance campaign to recover ₸750K and start referral program to cut CAC.`;
+  const briefing =
+    analystMessage?.text ??
+    (health.masterScore > 0
+      ? t("emptyWithScore", { score: health.masterScore })
+      : t("empty"));
 
   return (
     <motion.div

@@ -6,8 +6,8 @@ import { Link } from "@/i18n/navigation";
 import { CurrencyDisplay } from "@/components/shared/CurrencyDisplay";
 import { ConfidenceBadge } from "@/components/shared/ConfidenceBadge";
 import { Button } from "@/components/ui/button";
-import { MOCK_PROFIT } from "@/lib/mock/mock-profit";
 import { formatCurrency } from "@/lib/utils/formatters";
+import { useMetricsStore } from "@/lib/stores/metrics.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
 
@@ -15,9 +15,10 @@ export function ProfitPotentialWidget() {
   const t = useTranslations("dashboard.profit");
   const tDash = useTranslations("dashboard");
   const company = useCompanyStore((s) => s.company);
-  const hasData = hasBusinessMetrics(company);
+  const profitOutput = useMetricsStore((s) => s.profitOutput);
+  const hasData = hasBusinessMetrics(company) && profitOutput !== null;
 
-  if (!hasData) {
+  if (!hasData || !profitOutput) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -36,7 +37,15 @@ export function ProfitPotentialWidget() {
     );
   }
 
-  const maxAmount = Math.max(...MOCK_PROFIT.breakdown.map((b) => b.amount));
+  const { monthlyProfitPotential, findings } = profitOutput;
+  const breakdownItems = [
+    { key: "retention", amount: monthlyProfitPotential.breakdown.retention },
+    { key: "deadStock", amount: monthlyProfitPotential.breakdown.inventoryRecovery },
+    { key: "cac", amount: monthlyProfitPotential.breakdown.marketingWasteRecovery },
+    { key: "margin", amount: monthlyProfitPotential.breakdown.marginRecovery },
+  ].filter((b) => b.amount > 0);
+
+  const maxAmount = Math.max(...breakdownItems.map((b) => b.amount), 1);
 
   return (
     <motion.div
@@ -47,22 +56,21 @@ export function ProfitPotentialWidget() {
     >
       <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
       <p className="text-sm text-text-secondary mb-4 md:mb-6">{t("subtitle")}</p>
-      <CurrencyDisplay
-        amount={MOCK_PROFIT.totalRecoverable}
-        size="lg"
-        animated
-      />
+      <CurrencyDisplay amount={monthlyProfitPotential.net} size="lg" animated />
       <p className="text-success text-sm mt-2 mb-6">
-        {t("growthPotential", { pct: MOCK_PROFIT.growthPotentialPct })}
+        {t("growthPotential", {
+          pct:
+            company.monthlyRevenue > 0
+              ? ((monthlyProfitPotential.net / company.monthlyRevenue) * 100).toFixed(1)
+              : "0",
+        })}
       </p>
       <div className="space-y-4">
-        {MOCK_PROFIT.breakdown.map((item, i) => (
-          <div key={item.category}>
+        {breakdownItems.map((item, i) => (
+          <div key={item.key}>
             <div className="flex justify-between gap-2 text-sm mb-1">
               <span className="min-w-0 truncate text-text-secondary">
-                {item.categoryKey
-                  ? t(`breakdown.${item.categoryKey}` as "breakdown.deadStock")
-                  : item.category}
+                {t(`breakdown.${item.key}` as "breakdown.deadStock")}
               </span>
               <span className="shrink-0 text-right font-mono text-accent">
                 {formatCurrency(item.amount)}
@@ -76,14 +84,15 @@ export function ProfitPotentialWidget() {
                 transition={{ delay: 0.2 + i * 0.1, duration: 0.8 }}
               />
             </div>
-            <div className="mt-1">
-              <ConfidenceBadge confidence={item.confidence} />
-            </div>
           </div>
         ))}
       </div>
+      <div className="mt-4">
+        <ConfidenceBadge confidence={monthlyProfitPotential.confidence === "high" ? 85 : monthlyProfitPotential.confidence === "medium" ? 65 : 45} />
+      </div>
       <p className="text-xs text-text-muted mt-6">
-        {t("vsLastMonth")} · {formatCurrency(company.monthlyRevenue || MOCK_PROFIT.monthlyRevenue)}
+        {t("vsLastMonth")} · {formatCurrency(company.monthlyRevenue)}
+        {findings.length > 0 && ` · ${findings.length} ${t("findings")}`}
       </p>
     </motion.div>
   );

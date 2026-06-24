@@ -313,13 +313,19 @@
         "deadStock": "Возврат из неликвида",
         "cacOptimization": "Оптимизация CAC",
         "marginImprovement": "Улучшение маржи",
-        "repeatPurchase": "Рост повторных покупок"
-      }
+        "repeatPurchase": "Рост повторных покупок",
+        "retention": "Удержание клиентов",
+        "cac": "Снижение CAC",
+        "margin": "Восстановление маржи"
+      },
+      "findings": "находок"
     },
     "briefing": {
       "title": "Бизнес-брифинг",
       "viewTeam": "Открыть AI-команду →",
-      "agentName": "AI CEO"
+      "agentName": "AI CEO",
+      "empty": "Введите данные за этот месяц в Центре данных, чтобы получить персональный брифинг от AI-аналитика.",
+      "emptyWithScore": "Индекс здоровья {score}/100. Заполните больше данных для детального брифинга."
     },
     "risks": {
       "title": "Главные риски"
@@ -570,6 +576,10 @@
     "collapse": "Свернуть",
     "incomplete": "Не заполнено",
     "complete": "Заполнено",
+    "submitMonth": "Сохранить и обновить дашборд",
+    "submitMonthHint": "Рассчитает Health Score, Profit Engine и AI-брифинг",
+    "submitSuccess": "Данные сохранены",
+    "submitSuccessDesc": "Дашборд обновлён — показатели пересчитаны",
     "center": {
       "progressLabel": "Заполнено разделов",
       "progressCount": "{done} из {total}",
@@ -599,38 +609,51 @@
       },
       "fields": {
         "finance": {
-          "revenue": "Ежемесячный оборот (₸)",
-          "grossMargin": "Валовая маржа (%)",
-          "netMargin": "Чистая маржа (%)",
+          "monthlyRevenue": "Выручка за этот месяц (₸)",
+          "monthlyRevenueHint": "Общая выручка за текущий месяц — основа всех расчётов",
+          "revenuePriorMonth": "Выручка за прошлый месяц (₸)",
+          "revenuePriorMonthHint": "Нужна для расчёта динамики и трендов",
+          "cogs": "Себестоимость товаров — COGS (₸)",
+          "cogsHint": "Сколько вы заплатили поставщикам за проданные товары",
           "monthlyExpenses": "Общие расходы в месяц (₸)",
-          "rent": "Аренда (₸/мес)",
-          "payroll": "ФОТ (₸/мес)",
-          "cashReserveMonths": "Кэш-резерв (месяцев)"
+          "monthlyExpensesHint": "Аренда, зарплаты, коммуналка и прочие операционные расходы",
+          "rent": "Аренда в месяц (₸)",
+          "rentHint": "Стоимость аренды торговой точки или склада",
+          "payroll": "ФОТ — зарплаты (₸/мес)",
+          "payrollHint": "Общая сумма зарплат всех сотрудников",
+          "cashOnHand": "Деньги на счету / наличные (₸)",
+          "cashOnHandHint": "Свободные средства для операционной подушки"
         },
         "sales": {
-          "monthlyTransactions": "Транзакций в месяц",
-          "avgOrderValue": "Средний чек (₸)",
-          "conversionRate": "Конверсия (%)",
-          "upt": "UPT (единиц в чеке)"
+          "monthlyTransactions": "Количество транзакций за месяц",
+          "monthlyTransactionsHint": "Сколько чеков/продаж было за месяц",
+          "repeatCustomers": "Количество повторных клиентов",
+          "repeatCustomersHint": "Клиенты, которые купили повторно в этом месяце",
+          "newCustomersMonthly": "Новых клиентов в месяц",
+          "newCustomersMonthlyHint": "Клиенты, которые купили впервые",
+          "upt": "UPT — единиц в чеке",
+          "uptHint": "Среднее количество товаров в одном чеке"
         },
         "marketing": {
-          "adSpend": "Рекламный бюджет (₸/мес)",
-          "cac": "Стоимость привлечения клиента — CAC (₸)",
-          "roas": "ROAS",
-          "repeatRate": "Доля повторных покупок (%)",
-          "newCustomersMonthly": "Новых клиентов в месяц"
+          "adSpend": "Расходы на маркетинг (₸/мес)",
+          "adSpendHint": "Реклама, таргет, блогеры, продвижение",
+          "adRevenue": "Выручка от рекламы (₸)",
+          "adRevenueHint": "Продажи, которые пришли через рекламные каналы"
         },
         "inventory": {
-          "inventoryValue": "Стоимость запасов (₸)",
-          "inventoryValueHint": "Это общая стоимость всех товаров на складе или в торговом зале. Нужно для расчёта оборачиваемости.",
+          "totalInventoryValue": "Общая стоимость склада (₸)",
+          "totalInventoryValueHint": "Все товары на складе и в торговом зале",
+          "deadStockValue": "Стоимость неликвидного товара (₸)",
+          "deadStockValueHint": "Товары без продаж более 90 дней",
           "skuCount": "Количество SKU (артикулов)",
-          "turnover": "Оборачиваемость (раз в год)",
-          "deadStockPct": "Доля мёртвого стока (%)"
+          "skuCountHint": "Сколько уникальных позиций в ассортименте"
         },
         "team": {
           "employeeCount": "Количество сотрудников",
           "salesStaffCount": "Из них продавцов",
-          "staffTurnover": "Текучесть кадров (%/год)"
+          "salesStaffCountHint": "Сотрудники, работающие с клиентами в зале",
+          "staffTurnover": "Текучесть кадров (%/год)",
+          "staffTurnoverHint": "Доля сотрудников, уволившихся за год"
         }
       }
     },

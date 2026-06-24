@@ -9,6 +9,9 @@ const basePath = isGithubPages ? "/ai-business-os" : "";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: ["*.loca.lt", "*.trycloudflare.com"],
+  env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
+  },
   ...(isGithubPages
     ? {
         output: "export" as const,

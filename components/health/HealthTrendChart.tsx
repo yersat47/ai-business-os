@@ -9,16 +9,22 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { MOCK_HEALTH_TREND } from "@/lib/mock/mock-health";
+import { useHealthStore } from "@/lib/stores/health.store";
 
 const monthKeys = ["jan", "feb", "mar", "apr", "may", "jun"] as const;
 
 export function HealthTrendChart() {
   const t = useTranslations("mock.months");
-  const data = MOCK_HEALTH_TREND.map((score, i) => ({
-    month: t(monthKeys[i]),
+  const trend = useHealthStore((s) => s.healthTrend);
+
+  const scores = trend.length > 0 ? trend : [0];
+  const data = scores.map((score, i) => ({
+    month: t(monthKeys[i % monthKeys.length]),
     score,
   }));
+
+  const min = Math.max(0, Math.min(...scores) - 10);
+  const max = Math.min(100, Math.max(...scores) + 10);
 
   return (
     <div className="h-[180px] w-full md:h-56">
@@ -32,7 +38,7 @@ export function HealthTrendChart() {
             axisLine={false}
           />
           <YAxis
-            domain={[60, 80]}
+            domain={[min, max]}
             stroke="#4A5568"
             fontSize={10}
             tickLine={false}
