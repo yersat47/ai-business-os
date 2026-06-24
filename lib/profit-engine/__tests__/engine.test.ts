@@ -56,7 +56,9 @@ describe("Profit Potential formula", () => {
       dead_stock_value: 1_100_000,
       total_inventory_value: 4_200_000,
       cogs: 4_200_000,
-      monthly_expenses: 1_800_000,
+      monthly_rent: 350_000,
+      monthly_payroll: 680_000,
+      other_monthly_expenses: 770_000,
       cash_on_hand: 900_000,
     };
 

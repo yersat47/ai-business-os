@@ -506,53 +506,55 @@
       },
       "fields": {
         "finance": {
-          "monthlyRevenue": "Revenue this month (₸)",
-          "monthlyRevenueHint": "Total revenue for the current month",
-          "revenuePriorMonth": "Revenue last month (₸)",
-          "revenuePriorMonthHint": "Needed for trend and growth calculations",
-          "cogs": "Cost of goods sold — COGS (₸)",
-          "cogsHint": "What you paid suppliers for sold goods",
-          "monthlyExpenses": "Total monthly expenses (₸)",
-          "monthlyExpensesHint": "Rent, payroll, utilities and other operating costs",
-          "rent": "Monthly rent (₸)",
-          "rentHint": "Store or warehouse rent",
-          "payroll": "Payroll (₸/mo)",
-          "payrollHint": "Total salaries for all employees",
-          "cashOnHand": "Cash on hand (₸)",
-          "cashOnHandHint": "Available funds for operations"
+          "monthlyRevenue": "How much money came in from sales this month?",
+          "monthlyRevenueHint": "All revenue — every tenge customers paid you for goods",
+          "cogs": "How much did you pay suppliers for goods sold this month?",
+          "cogsInfo": "What you pay the supplier for items you sell. Example: bought a dress for ₸5,000, sold for ₸12,000 — enter ₸5,000 here.",
+          "rent": "How much do you pay for rent each month?",
+          "payroll": "How much goes to employee salaries each month?",
+          "payrollHint": "Include your own salary from the business if you pay yourself",
+          "otherExpenses": "How much do you spend on everything else each month?",
+          "otherExpensesHint": "Ads, utilities, taxes, delivery, small expenses — not stock, rent, or salaries",
+          "cashOnHand": "How much cash is in the register or business account right now?",
+          "cashOnHandInfo": "Money available to the business today — cash plus bank balance. Do not include money customers owe you.",
+          "revenuePriorMonth": "How much came in from sales last month?",
+          "revenuePriorMonthHint": "Helps see if business is growing. Approximate is fine"
         },
         "sales": {
-          "monthlyTransactions": "Transactions this month",
-          "monthlyTransactionsHint": "Number of sales/receipts in the month",
-          "repeatCustomers": "Repeat customers",
-          "repeatCustomersHint": "Customers who bought again this month",
-          "newCustomersMonthly": "New customers per month",
-          "newCustomersMonthlyHint": "First-time buyers this month",
-          "upt": "UPT — units per transaction",
-          "uptHint": "Average items per receipt"
+          "transactions": "How many purchases were made this month?",
+          "transactionsHint": "Count each receipt or sale",
+          "visitors": "How many people visited the store this month?",
+          "visitorsHint": "Approximate foot traffic, even if not everyone bought",
+          "repeatCustomers": "How many customers bought from you again this month?",
+          "repeatCustomersHint": "People who had bought before and came back",
+          "newCustomers": "How many new customers bought for the first time?",
+          "newCustomersHint": "People who never bought from you before",
+          "itemsPerPurchase": "How many items do customers buy on average per purchase?",
+          "itemsPerPurchaseHint": "E.g. usually 1 dress, or dress + bag = 2"
         },
         "marketing": {
-          "adSpend": "Marketing spend (₸/mo)",
-          "adSpendHint": "Ads, influencers, promotions",
-          "adRevenue": "Revenue from ads (₸)",
-          "adRevenueHint": "Sales attributed to advertising channels"
+          "spend": "How much did you spend on ads and promotion this month?",
+          "spendHint": "Instagram, targeting, influencers, Kaspi promotion — all customer acquisition spend",
+          "adSales": "How much did customers who came from ads spend?",
+          "adSalesHint": "Sales from people who found you through ads or social media"
         },
         "inventory": {
-          "totalInventoryValue": "Total inventory value (₸)",
-          "totalInventoryValueHint": "All goods in store and warehouse",
-          "deadStockValue": "Dead stock value (₸)",
-          "deadStockValueHint": "Items with no sales for 90+ days",
-          "skuCount": "SKU count",
-          "skuCountHint": "Unique product positions"
+          "totalValue": "What is all your stock worth right now?",
+          "totalValueHint": "If you sold everything at cost price — roughly how much",
+          "deadStock": "What is unsold stock worth (not selling for 3+ months)?",
+          "deadStockHint": "Items sitting unsold — their cost value",
+          "skuCount": "Roughly how many different products (models) do you carry?",
+          "skuCountHint": "Different models, not individual pieces"
         },
         "team": {
-          "employeeCount": "Employee count",
-          "salesStaffCount": "Sales staff",
-          "salesStaffCountHint": "Floor staff working with customers",
-          "staffTurnover": "Staff turnover (%/year)",
-          "staffTurnoverHint": "Share of employees who left in a year"
+          "employeeCount": "Total employees in the company",
+          "salesStaff": "How many salespeople work in the store?",
+          "salesStaffHint": "Staff who serve customers and make sales",
+          "employeesLeft": "How many employees left in the last 3 months?",
+          "employeesLeftHint": "Quit or were let go — exclude normal seasonal layoffs if that's your pattern"
         }
-      }
+      },
+      "approximateNote": "Approximate is fine — exact numbers are not required"
     },
     "tabs": {
       "metrics": "Monthly Metrics",

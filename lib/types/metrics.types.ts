@@ -2,8 +2,10 @@ export type MetricKey =
   | "monthly_revenue"
   | "revenue_prior_month"
   | "monthly_transactions"
+  | "store_visitors"
   | "repeat_customers"
   | "new_customers_monthly"
+  | "items_per_purchase"
   | "cogs"
   | "marketing_spend"
   | "ad_revenue"
@@ -11,12 +13,11 @@ export type MetricKey =
   | "total_inventory_value"
   | "cash_on_hand"
   | "monthly_rent"
-  | "monthly_expenses"
-  | "payroll"
+  | "monthly_payroll"
+  | "other_monthly_expenses"
   | "sku_count"
   | "sales_staff_count"
-  | "staff_turnover"
-  | "upt";
+  | "employees_left_quarter";
 
 export type BusinessMetrics = Partial<Record<MetricKey, number>>;
 

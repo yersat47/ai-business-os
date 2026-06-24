@@ -1,17 +1,12 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { HelpCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import type { DataFieldConfig } from "@/lib/types/data-center.types";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { useEmployeesStore } from "@/lib/stores/employees.store";
+import { FieldHelp } from "./FieldHelp";
 
 interface DataFieldProps {
   field: DataFieldConfig;
@@ -23,9 +18,12 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
   const t = useTranslations("data.center.fields");
   const tData = useTranslations("data");
 
-  const label = t(field.labelKey as "finance.revenue");
+  const label = t(field.labelKey as "finance.monthlyRevenue");
   const hint = field.hintKey
-    ? t(field.hintKey as "inventory.inventoryValueHint")
+    ? t(field.hintKey as "finance.monthlyRevenueHint")
+    : undefined;
+  const info = field.infoKey
+    ? t(field.infoKey as "finance.cogsInfo")
     : undefined;
 
   const company = useCompanyStore((s) => s.company);
@@ -39,20 +37,21 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
       : "—";
 
   return (
-    <div>
-      <div className="flex items-center gap-1 mb-1">
-        <Label className="text-sm font-normal">{label}</Label>
-        {hint && (
-          <Tooltip>
-            <TooltipTrigger type="button">
-              <HelpCircle size={13} className="text-text-muted" />
-            </TooltipTrigger>
-            <TooltipContent className="max-w-xs">
-              <p className="text-xs">{hint}</p>
-            </TooltipContent>
-          </Tooltip>
-        )}
+    <div className="space-y-1.5">
+      <div className="flex items-start gap-1.5">
+        <Label className="text-sm font-normal leading-snug flex-1">
+          {label}
+        </Label>
+        {info && <FieldHelp text={info} className="mt-0.5 shrink-0" />}
       </div>
+      {hint && (
+        <p className="text-xs text-text-muted leading-relaxed">{hint}</p>
+      )}
+      {field.showApproximateNote && field.type === "number" && (
+        <p className="text-[11px] text-text-muted/80 italic">
+          {tData("center.approximateNote")}
+        </p>
+      )}
       {field.type === "readonly" ? (
         <div className="flex min-h-[52px] items-center gap-2 rounded-md border border-border bg-surface-raised px-3 py-2 text-sm">
           <span className="font-mono">{readonlyValue}</span>
@@ -63,8 +62,7 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
       ) : (
         <Input
           type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
+          inputMode="decimal"
           placeholder={field.placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}

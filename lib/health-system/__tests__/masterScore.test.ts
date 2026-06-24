@@ -6,6 +6,7 @@ const urbanMetrics = {
   monthly_revenue: 8_450_000,
   revenue_prior_month: 7_900_000,
   monthly_transactions: 420,
+  store_visitors: 1200,
   repeat_customers: 95,
   new_customers_monthly: 55,
   cogs: 4_200_000,
@@ -13,12 +14,12 @@ const urbanMetrics = {
   ad_revenue: 800_000,
   dead_stock_value: 1_100_000,
   total_inventory_value: 4_200_000,
-  monthly_expenses: 1_800_000,
   monthly_rent: 350_000,
-  payroll: 680_000,
+  monthly_payroll: 680_000,
+  other_monthly_expenses: 770_000,
   cash_on_hand: 2_100_000,
   sales_staff_count: 4,
-  staff_turnover: 25,
+  employees_left_quarter: 1,
 };
 
 describe("Business Health master score", () => {

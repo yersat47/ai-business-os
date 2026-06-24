@@ -15,37 +15,26 @@ function currentMonthKey(): string {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
 }
 
+import {
+  grossMarginPct,
+  netMarginPct,
+  averageOrderValue,
+  cac,
+  repeatCustomerRate,
+} from "@/lib/profit-engine/formulas";
+
 function metricsToCompanyPartial(metrics: BusinessMetrics): Record<string, number | boolean> {
   return {
     metricsEntered: true,
     monthlyRevenue: metrics.monthly_revenue ?? 0,
-    averageOrderValue:
-      metrics.monthly_revenue && metrics.monthly_transactions
-        ? metrics.monthly_revenue / metrics.monthly_transactions
-        : 0,
+    averageOrderValue: averageOrderValue(metrics) ?? 0,
     marketingSpend: metrics.marketing_spend ?? 0,
     inventoryValue: metrics.total_inventory_value ?? 0,
     deadStockValue: metrics.dead_stock_value ?? 0,
-    cac:
-      metrics.marketing_spend && metrics.new_customers_monthly
-        ? metrics.marketing_spend / metrics.new_customers_monthly
-        : 0,
-    repeatPurchaseRate:
-      metrics.repeat_customers && metrics.new_customers_monthly
-        ? (metrics.repeat_customers /
-            (metrics.repeat_customers + metrics.new_customers_monthly)) *
-          100
-        : 0,
-    grossMarginPct:
-      metrics.monthly_revenue && metrics.cogs
-        ? ((metrics.monthly_revenue - metrics.cogs) / metrics.monthly_revenue) * 100
-        : 0,
-    netMarginPct:
-      metrics.monthly_revenue && metrics.cogs && metrics.monthly_expenses
-        ? ((metrics.monthly_revenue - metrics.cogs - metrics.monthly_expenses) /
-            metrics.monthly_revenue) *
-          100
-        : 0,
+    cac: cac(metrics) ?? 0,
+    repeatPurchaseRate: repeatCustomerRate(metrics) ?? 0,
+    grossMarginPct: grossMarginPct(metrics) ?? 0,
+    netMarginPct: netMarginPct(metrics) ?? 0,
   };
 }
 

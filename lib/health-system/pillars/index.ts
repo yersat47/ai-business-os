@@ -11,6 +11,8 @@ import {
   cac,
   roas,
   revenueGrowthMom,
+  staffTurnoverPct,
+  conversionRate,
 } from "@/lib/profit-engine/formulas";
 import { FASHION_BENCHMARKS } from "@/lib/profit-engine/benchmarks.fashion";
 import { scoreToStatus } from "@/lib/health-system/scoreBands";
@@ -61,11 +63,14 @@ export function calculateSalesPillar(metrics: BusinessMetrics): PillarResult {
   const missing: string[] = [];
   const aov = averageOrderValue(metrics);
   const tx = metrics.monthly_transactions;
+  const conv = conversionRate(metrics);
   const scores: number[] = [];
   if (aov !== null) scores.push(scoreFromRatio(aov, 15000)!);
   else missing.push("aov");
   if (tx !== undefined) scores.push(clamp(50 + (tx / 200) * 30));
   else missing.push("transactions");
+  if (conv !== null) scores.push(scoreFromRatio(conv, 28)!);
+  else missing.push("conversion");
 
   const score = scores.length ? clamp(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
   return { id: "sales", score, weight: 0.25, status: scoreToStatus(score), missingSubMetrics: missing };
@@ -100,11 +105,11 @@ export function calculateMarketingPillar(metrics: BusinessMetrics): PillarResult
 }
 
 export function calculateTeamPillar(metrics: BusinessMetrics): PillarResult {
-  const turnover = metrics.staff_turnover;
+  const turnover = staffTurnoverPct(metrics);
   const staff = metrics.sales_staff_count;
   const missing: string[] = [];
   const scores: number[] = [];
-  if (turnover !== undefined) scores.push(scoreFromRatio(turnover, 25, false)!);
+  if (turnover !== null) scores.push(scoreFromRatio(turnover, 25, false)!);
   else missing.push("staff_turnover");
   if (staff !== undefined) scores.push(clamp(55 + staff * 5));
   else missing.push("sales_staff");

@@ -7,6 +7,7 @@ import {
   roas,
   deadStockPct,
   cashReserveMonths,
+  totalMonthlyExpenses,
 } from "@/lib/profit-engine/formulas";
 
 export const PE_REV_001: ProfitEngineRule = {
@@ -167,14 +168,14 @@ export const PE_MRG_001: ProfitEngineRule = {
 export const PE_CASH_001: ProfitEngineRule = {
   id: "PE-CASH-001",
   name: "Low Cash Reserve",
-  requiredInputs: ["cash_on_hand", "monthly_expenses"],
+  requiredInputs: ["cash_on_hand", "cogs", "monthly_rent"],
   assignedAgent: "accountant",
   detect: (m, b) => {
     const months = cashReserveMonths(m);
     return months !== null && months < b.cashReserveMonths;
   },
   calculateImpact: (m, b) => {
-    const expenses = m.monthly_expenses ?? 0;
+    const expenses = totalMonthlyExpenses(m) ?? 0;
     const cash = m.cash_on_hand ?? 0;
     const target = expenses * b.cashReserveMonths;
     return Math.round(Math.max(0, target - cash));
