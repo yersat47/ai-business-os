@@ -9,12 +9,6 @@ import { useHealthStore } from "@/lib/stores/health.store";
 import { useFeedbackStore } from "@/lib/stores/feedback.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { dataCompletenessPct } from "@/lib/profit-engine/formulas";
-
-function currentMonthKey(): string {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-}
-
 import {
   grossMarginPct,
   netMarginPct,
@@ -22,6 +16,11 @@ import {
   cac,
   repeatCustomerRate,
 } from "@/lib/profit-engine/formulas";
+
+function currentMonthKey(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
 
 function metricsToCompanyPartial(metrics: BusinessMetrics): Record<string, number | boolean> {
   return {
@@ -44,9 +43,13 @@ interface MetricsState {
   profitOutput: ProfitEngineOutput | null;
   dataCompletenessPct: number;
   lastSubmittedMonth: string | null;
+  editingMonthKey: string | null;
   setMetric: (key: keyof BusinessMetrics, value: number | undefined) => void;
   setMetrics: (metrics: BusinessMetrics) => void;
   getMetricsForMonth: (monthKey: string) => BusinessMetrics | undefined;
+  loadMonth: (monthKey: string) => void;
+  clearEditingMonth: () => void;
+  getActiveMonthKey: () => string;
   submitMonth: (monthKey?: string) => void;
   recalculateFromCurrent: () => void;
 }
@@ -59,6 +62,7 @@ export const useMetricsStore = create<MetricsState>()(
       profitOutput: null,
       dataCompletenessPct: 0,
       lastSubmittedMonth: null,
+      editingMonthKey: null,
 
       setMetric: (key, value) => {
         set((state) => {
@@ -81,9 +85,30 @@ export const useMetricsStore = create<MetricsState>()(
 
       getMetricsForMonth: (monthKey) => get().metricsHistory[monthKey],
 
+      getActiveMonthKey: () => get().editingMonthKey ?? currentMonthKey(),
+
+      loadMonth: (monthKey) => {
+        const stored = get().metricsHistory[monthKey];
+        set({
+          editingMonthKey: monthKey,
+          currentMonthMetrics: stored ? { ...stored } : {},
+          dataCompletenessPct: dataCompletenessPct(stored ?? {}),
+        });
+        get().recalculateFromCurrent();
+      },
+
+      clearEditingMonth: () => {
+        const monthKey = currentMonthKey();
+        const stored = get().metricsHistory[monthKey];
+        set({
+          editingMonthKey: null,
+          currentMonthMetrics: stored ? { ...stored } : get().currentMonthMetrics,
+        });
+      },
+
       recalculateFromCurrent: () => {
         const { currentMonthMetrics, metricsHistory } = get();
-        const monthKey = currentMonthKey();
+        const monthKey = get().getActiveMonthKey();
         const prevMonth = Object.keys(metricsHistory).sort().at(-1);
         const prevMetrics = prevMonth ? metricsHistory[prevMonth] : undefined;
         const prevScore =
@@ -105,9 +130,12 @@ export const useMetricsStore = create<MetricsState>()(
         useFeedbackStore.getState().setMessages(result.feedback);
       },
 
-      submitMonth: (monthKey = currentMonthKey()) => {
+      submitMonth: (monthKey?) => {
+        const activeKey = monthKey ?? get().getActiveMonthKey();
         const { currentMonthMetrics, metricsHistory } = get();
-        const prevKeys = Object.keys(metricsHistory).sort();
+        const prevKeys = Object.keys(metricsHistory)
+          .filter((k) => k !== activeKey)
+          .sort();
         const prevMonth = prevKeys.at(-1);
         const prevMetrics = prevMonth ? metricsHistory[prevMonth] : undefined;
         const prevScore =
@@ -115,16 +143,17 @@ export const useMetricsStore = create<MetricsState>()(
 
         const result = runCalculationPipeline(
           currentMonthMetrics,
-          monthKey,
+          activeKey,
           prevMetrics,
           prevScore
         );
 
         set({
-          metricsHistory: { ...metricsHistory, [monthKey]: { ...currentMonthMetrics } },
+          metricsHistory: { ...metricsHistory, [activeKey]: { ...currentMonthMetrics } },
           profitOutput: result.profitOutput,
           dataCompletenessPct: result.profitOutput.dataCompletenessPct,
-          lastSubmittedMonth: monthKey,
+          lastSubmittedMonth: activeKey,
+          editingMonthKey: null,
         });
 
         useHealthStore.getState().setHealth(result.health, result.timelineEntry);

@@ -530,7 +530,13 @@
           "newCustomers": "How many new customers bought for the first time?",
           "newCustomersHint": "People who never bought from you before",
           "itemsPerPurchase": "How many items do customers buy on average per purchase?",
-          "itemsPerPurchaseHint": "E.g. usually 1 dress, or dress + bag = 2"
+          "itemsPerPurchaseHint": "E.g. usually 1 dress, or dress + bag = 2",
+          "weekdaySplitGroup": "How is revenue spread across the week? (optional)",
+          "weekdaySplitGroupHint": "If you roughly know which days sell more — enter it. Helps see if the business depends too much on weekends.",
+          "weekdayRevenue": "Weekday revenue, Mon–Thu (₸, for the whole month)",
+          "weekdayRevenueHint": "Sales from Monday to Thursday — approximate is fine",
+          "weekendRevenue": "Weekend revenue, Fri–Sun (₸, for the whole month)",
+          "weekendRevenueHint": "Sales from Friday to Sunday"
         },
         "marketing": {
           "spend": "How much did you spend on ads and promotion this month?",
@@ -557,12 +563,17 @@
       "approximateNote": "Approximate is fine — exact numbers are not required"
     },
     "tabs": {
+      "history": "Data history",
       "metrics": "Monthly Metrics",
       "import": "Import Data",
       "integrations": "Integrations",
       "quality": "Data Quality"
     },
-    "metricsTitle": "{month} — Business Numbers",
+    "history": {
+      "title": "Data history",
+      "description": "Click any day in a month to open or edit that month's data.",
+      "editingMonth": "Editing data for {month}"
+    },
     "sections": {
       "revenue": "Revenue",
       "inventory": "Inventory",
@@ -1038,5 +1049,56 @@
     "potential": "Potential",
     "noData": "No data",
     "fillData": "Fill in"
+  },
+  "widgets": {
+    "heatmap": {
+      "title": "Sales by day of week",
+      "emptyPrompt": "Fill in weekday/weekend revenue split to see this chart",
+      "fillData": "Go to Data Center",
+      "legendLess": "less",
+      "legendMore": "more",
+      "estimatedNote": "Approximate distribution — calculated from weekday/weekend split, not per-day data",
+      "riskCaption": "{pct}% of revenue falls on Fri–Sun — weekend dependency risk",
+      "balancedCaption": "Revenue is spread relatively evenly across the week",
+      "emptyCaption": "No day-of-week distribution data",
+      "days": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      }
+    },
+    "calendar": {
+      "prevMonth": "Previous month",
+      "nextMonth": "Next month",
+      "weekdays": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
+      },
+      "legend": {
+        "filled": "Complete",
+        "partial": "Partial",
+        "empty": "Empty"
+      }
+    },
+    "smmCalendar": {
+      "title": "Content calendar",
+      "subtitle": "AI SMM posting recommendations by date",
+      "postsForDay": "Posts for this day",
+      "types": {
+        "product": "Product",
+        "story": "Stories",
+        "reel": "Reels",
+        "promo": "Promo"
+      }
+    }
   }
 }

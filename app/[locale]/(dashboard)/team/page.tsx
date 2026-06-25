@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { DashboardShell } from "@/components/layout/DashboardShell";
 import { YurtRoom } from "@/components/team/YurtRoom";
 import { AgentChatMock } from "@/components/team/AgentChatMock";
+import { SmmContentCalendar } from "@/components/team/SmmContentCalendar";
 import { AgentAvatar } from "@/components/team/AgentAvatar";
 import { MOCK_AGENTS } from "@/lib/mock/mock-agents";
 import type { Agent } from "@/lib/types/agents.types";
@@ -116,9 +117,20 @@ export default function TeamPage() {
                     <AgentChatMock agent={selectedAgent} />
                   </TabsContent>
                   <TabsContent value="insights">
-                    <p className="text-sm text-text-secondary p-4 rounded-xl bg-surface-raised border border-border">
-                      {selectedAgent.currentTask}
-                    </p>
+                    {selectedAgent.id === "smm" ? (
+                      <div className="space-y-4">
+                        <div className="rounded-xl border border-border bg-surface-raised p-4">
+                          <p className="text-sm text-text-secondary">
+                            {selectedAgent.currentTask}
+                          </p>
+                        </div>
+                        <SmmContentCalendar />
+                      </div>
+                    ) : (
+                      <p className="text-sm text-text-secondary p-4 rounded-xl bg-surface-raised border border-border">
+                        {selectedAgent.currentTask}
+                      </p>
+                    )}
                   </TabsContent>
                   <TabsContent value="tasks">
                     <p className="text-sm text-text-secondary">

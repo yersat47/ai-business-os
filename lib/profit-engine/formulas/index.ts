@@ -100,6 +100,20 @@ export function expenseRatio(metrics: BusinessMetrics): number | null {
   return (total / revenue) * 100;
 }
 
+export function weekdayWeekendTotal(metrics: BusinessMetrics): number | null {
+  const weekday = num(metrics.weekday_revenue);
+  const weekend = num(metrics.weekend_revenue);
+  if (weekday === null || weekend === null) return null;
+  return weekday + weekend;
+}
+
+export function weekendRevenueSharePct(metrics: BusinessMetrics): number | null {
+  const total = weekdayWeekendTotal(metrics);
+  const weekend = num(metrics.weekend_revenue);
+  if (total === null || weekend === null || total <= 0) return null;
+  return (weekend / total) * 100;
+}
+
 export function staffTurnoverPct(
   metrics: BusinessMetrics,
   employeeCount?: number

@@ -11,4 +11,6 @@ export const FASHION_BENCHMARKS: BenchmarkMap = {
   revenueGrowthMom: 5,
   cashReserveMonths: 3,
   inventoryTurnover: 5,
+  /** Max healthy share of revenue on Fri–Sun (above = weekend dependency risk). */
+  weekendRevenueSharePct: 55,
 };

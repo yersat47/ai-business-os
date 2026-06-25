@@ -7,7 +7,7 @@ export type DataSectionId =
   | "inventory"
   | "team";
 
-export type DataFieldType = "number" | "readonly";
+export type DataFieldType = "number" | "readonly" | "group_header";
 
 export interface DataFieldConfig {
   id: string;
@@ -146,6 +146,30 @@ export const DATA_SECTION_CONFIGS: DataSectionConfig[] = [
         type: "number",
         placeholder: "2",
         hintKey: "sales.itemsPerPurchaseHint",
+        showApproximateNote: true,
+      },
+      {
+        id: "weekday_split_group",
+        labelKey: "sales.weekdaySplitGroup",
+        type: "group_header",
+        hintKey: "sales.weekdaySplitGroupHint",
+      },
+      {
+        id: "weekday_revenue",
+        metricKey: "weekday_revenue",
+        labelKey: "sales.weekdayRevenue",
+        type: "number",
+        placeholder: "1 800 000",
+        hintKey: "sales.weekdayRevenueHint",
+        showApproximateNote: true,
+      },
+      {
+        id: "weekend_revenue",
+        metricKey: "weekend_revenue",
+        labelKey: "sales.weekendRevenue",
+        type: "number",
+        placeholder: "700 000",
+        hintKey: "sales.weekendRevenueHint",
         showApproximateNote: true,
       },
     ],

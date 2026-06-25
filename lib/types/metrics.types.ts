@@ -17,7 +17,9 @@ export type MetricKey =
   | "other_monthly_expenses"
   | "sku_count"
   | "sales_staff_count"
-  | "employees_left_quarter";
+  | "employees_left_quarter"
+  | "weekday_revenue"
+  | "weekend_revenue";
 
 export type BusinessMetrics = Partial<Record<MetricKey, number>>;
 

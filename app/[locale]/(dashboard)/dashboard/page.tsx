@@ -10,6 +10,7 @@ import { ProfitPotentialWidget } from "@/components/dashboard/ProfitPotentialWid
 import { ExecutiveBriefing } from "@/components/dashboard/ExecutiveBriefing";
 import { TopRisksCard } from "@/components/dashboard/TopRisksCard";
 import { TopActionsCard } from "@/components/dashboard/TopActionsCard";
+import { SalesHeatmapWidget } from "@/components/widgets/SalesHeatmapWidget";
 import { AITeamMiniCard } from "@/components/dashboard/AITeamMiniCard";
 import { DataCompletenessCard } from "@/components/dashboard/DataCompletenessCard";
 import { RoleDashboardView } from "@/components/dashboard/RoleDashboardView";
@@ -72,6 +73,8 @@ export default function DashboardPage() {
           <TopRisksCard />
           <TopActionsCard />
         </div>
+
+        <SalesHeatmapWidget />
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 lg:gap-6">
           <DataCompletenessCard />

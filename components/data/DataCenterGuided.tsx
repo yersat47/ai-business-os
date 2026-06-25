@@ -28,12 +28,14 @@ const sectionIcons: Record<string, React.ReactNode> = {
 export function DataCenterGuided() {
   const t = useTranslations("data.center");
   const tData = useTranslations("data");
+  const tHistory = useTranslations("data.history");
   const router = useRouter();
 
   const completedCount = useDataCenterStore((s) => s.getCompletedCount());
   const totalSections = useDataCenterStore((s) => s.getTotalSections());
   const dataCompletenessPct = useMetricsStore((s) => s.dataCompletenessPct);
   const submitMonth = useMetricsStore((s) => s.submitMonth);
+  const editingMonthKey = useMetricsStore((s) => s.editingMonthKey);
   const hasRevenue = useMetricsStore((s) => !!s.currentMonthMetrics.monthly_revenue);
 
   const fillPercent = dataCompletenessPct;
@@ -68,6 +70,12 @@ export function DataCenterGuided() {
           {fillPercent}%
         </div>
       </div>
+
+      {editingMonthKey && (
+        <div className="mb-4 rounded-lg border border-accent/30 bg-accent/10 px-3 py-2 text-sm text-accent">
+          {tHistory("editingMonth", { month: editingMonthKey })}
+        </div>
+      )}
 
       {fillPercent < 50 && (
         <div className="flex gap-2 p-3 rounded-lg bg-warning/10 border border-warning/20 text-sm mb-6">

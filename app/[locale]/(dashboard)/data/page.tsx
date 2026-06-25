@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { toast } from "@/hooks/use-toast";
 import { DataCenterGuided } from "@/components/data/DataCenterGuided";
+import { DataHistoryPanel } from "@/components/data/DataHistoryPanel";
 
 const integrations = [
   "Google Sheets",
@@ -46,6 +47,7 @@ export default function DataPage() {
     <DashboardShell title={t("title")}>
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList className="no-scrollbar mb-4 w-full justify-start overflow-x-auto">
+          <TabsTrigger value="history">{t("tabs.history")}</TabsTrigger>
           <TabsTrigger value="metrics">{t("tabs.metrics")}</TabsTrigger>
           <TabsTrigger value="import">{t("tabs.import")}</TabsTrigger>
           <TabsTrigger value="integrations">{t("tabs.integrations")}</TabsTrigger>
@@ -54,6 +56,12 @@ export default function DataPage() {
 
         <TabsContent value="metrics">
           <DataCenterGuided />
+        </TabsContent>
+
+        <TabsContent value="history">
+          <DataHistoryPanel
+            onMonthSelected={() => setTab("metrics")}
+          />
         </TabsContent>
 
         <TabsContent value="import">
