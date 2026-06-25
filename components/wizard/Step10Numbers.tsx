@@ -3,35 +3,32 @@
 import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NumericInput } from "@/components/ui/NumericInput";
 import { useWizardStore } from "@/lib/stores/wizard.store";
-import {
-  formatCurrencyInput,
-  parseCurrencyInput,
-} from "@/lib/utils/formatters";
 
 function CurrencyField({
   label,
   value,
-  onChange,
+  onCommit,
   placeholder,
 }: {
   label: string;
   value?: number;
-  onChange: (v: number) => void;
+  onCommit: (v: number | undefined) => void;
   placeholder: string;
 }) {
   return (
     <div>
       <Label>{label}</Label>
       <div className="relative mt-1.5">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm">
+        <span className="absolute left-3 top-1/2 z-10 -translate-y-1/2 text-text-muted text-sm">
           ₸
         </span>
-        <Input
-          className="pl-8 font-mono"
-          value={value ? formatCurrencyInput(value) : ""}
-          onChange={(e) => onChange(parseCurrencyInput(e.target.value))}
+        <NumericInput
+          value={value}
+          onCommit={onCommit}
           placeholder={placeholder}
+          className="pl-8 font-mono"
         />
       </div>
     </div>
@@ -51,25 +48,25 @@ export function Step10Numbers() {
         <CurrencyField
           label={t("monthlyRevenue")}
           value={wizardData.monthlyRevenue}
-          onChange={(v) => setStepData({ monthlyRevenue: v })}
+          onCommit={(v) => setStepData({ monthlyRevenue: v ?? 0 })}
           placeholder="8,450,000"
         />
         <CurrencyField
           label={t("avgOrderValue")}
           value={wizardData.averageOrderValue}
-          onChange={(v) => setStepData({ averageOrderValue: v })}
+          onCommit={(v) => setStepData({ averageOrderValue: v ?? 0 })}
           placeholder="24,500"
         />
         <CurrencyField
           label={t("marketingSpend")}
           value={wizardData.marketingSpend}
-          onChange={(v) => setStepData({ marketingSpend: v })}
+          onCommit={(v) => setStepData({ marketingSpend: v ?? 0 })}
           placeholder="620,000"
         />
         <CurrencyField
           label={t("inventoryValue")}
           value={wizardData.inventoryValue}
-          onChange={(v) => setStepData({ inventoryValue: v })}
+          onCommit={(v) => setStepData({ inventoryValue: v ?? 0 })}
           placeholder="4,200,000"
         />
         <div>

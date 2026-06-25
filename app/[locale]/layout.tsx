@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthHydration } from "@/components/providers/AuthHydration";
+import { BuildVersionGuard } from "@/components/providers/BuildVersionGuard";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CityBackgroundProvider } from "@/components/layout/CityBackgroundProvider";
 import { routing } from "@/i18n/routing";
@@ -68,6 +69,7 @@ export default async function LocaleLayout({
             <NextIntlClientProvider messages={messages}>
               <TooltipProvider>
                 <AuthHydration />
+                <BuildVersionGuard />
                 {children}
                 <Toaster />
               </TooltipProvider>

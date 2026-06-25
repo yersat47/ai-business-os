@@ -1,17 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { NumericInput } from "@/components/ui/NumericInput";
 import type { DataFieldConfig } from "@/lib/types/data-center.types";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { useEmployeesStore } from "@/lib/stores/employees.store";
 import { useMetricsStore } from "@/lib/stores/metrics.store";
-import {
-  formatCurrencyInput,
-  parseCurrencyInput,
-} from "@/lib/utils/formatters";
 import { FieldHelp } from "./FieldHelp";
 
 interface DataFieldProps {
@@ -30,41 +25,10 @@ function NumericDataInput({
   const setMetric = useMetricsStore((s) => s.setMetric);
   const recalculate = useMetricsStore((s) => s.recalculateFromCurrent);
 
-  const [draft, setDraft] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
-
-  useEffect(() => {
-    if (!isFocused) {
-      setDraft(
-        metricValue !== undefined ? formatCurrencyInput(metricValue) : ""
-      );
-    }
-  }, [metricValue, isFocused]);
-
-  const handleFocus = () => {
-    setIsFocused(true);
-    setDraft(
-      metricValue !== undefined && metricValue > 0 ? String(metricValue) : ""
-    );
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDraft(e.target.value.replace(/\D/g, ""));
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    const parsed = draft ? parseCurrencyInput(draft) : undefined;
-    setMetric(metricKey, parsed && parsed > 0 ? parsed : undefined);
+  const handleCommit = (value: number | undefined) => {
+    setMetric(metricKey, value);
     recalculate();
-    setDraft(parsed ? formatCurrencyInput(parsed) : "");
   };
-
-  const displayValue = isFocused
-    ? draft
-    : metricValue !== undefined
-      ? formatCurrencyInput(metricValue)
-      : "";
 
   return (
     <>
@@ -73,14 +37,10 @@ function NumericDataInput({
           {tData("center.approximateNote")}
         </p>
       )}
-      <Input
-        type="text"
-        inputMode="numeric"
+      <NumericInput
+        value={metricValue}
+        onCommit={handleCommit}
         placeholder={field.placeholder}
-        value={displayValue}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        onBlur={handleBlur}
         className="min-h-[52px] font-mono text-base"
       />
     </>

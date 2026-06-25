@@ -2,47 +2,37 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { NumericInput } from "@/components/ui/NumericInput";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { OnboardingTip } from "./OnboardingTip";
 import { RoleAwareHint } from "./RoleAwareHint";
-import {
-  formatCurrencyInput,
-  parseCurrencyInput,
-} from "@/lib/utils/formatters";
 
-function NumericField({
+function CurrencyField({
   label,
   value,
-  onChange,
+  onCommit,
   placeholder,
-  prefix,
 }: {
   label: string;
-  value: string;
-  onChange: (v: string) => void;
+  value?: number;
+  onCommit: (v: number | undefined) => void;
   placeholder: string;
-  prefix?: string;
 }) {
   return (
     <div>
       <Label>{label}</Label>
-      <div className={prefix ? "relative mt-1.5" : "mt-1.5"}>
-        {prefix && (
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm">
-            {prefix}
-          </span>
-        )}
-        <Input
-          className={prefix ? "pl-8 font-mono" : "font-mono"}
-          inputMode="numeric"
-          type="text"
+      <div className="relative mt-1.5">
+        <span className="absolute left-3 top-1/2 z-10 -translate-y-1/2 text-text-muted text-sm">
+          ₸
+        </span>
+        <NumericInput
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onCommit={onCommit}
           placeholder={placeholder}
+          className="pl-8 font-mono"
         />
       </div>
     </div>
@@ -58,19 +48,6 @@ export function OnboardingStep4Metrics() {
 
   const hasMetrics = (wizardData.monthlyRevenue ?? 0) > 0;
   const showForm = showMetricsForm || hasMetrics;
-
-  const revenueStr =
-    wizardData.monthlyRevenue && wizardData.monthlyRevenue > 0
-      ? formatCurrencyInput(wizardData.monthlyRevenue)
-      : "";
-  const aovStr =
-    wizardData.averageOrderValue && wizardData.averageOrderValue > 0
-      ? formatCurrencyInput(wizardData.averageOrderValue)
-      : "";
-  const transactionsStr =
-    wizardData.monthlyTransactions && wizardData.monthlyTransactions > 0
-      ? String(wizardData.monthlyTransactions)
-      : "";
 
   const handleSaveMetrics = () => {
     recalculate(wizardData);
@@ -110,34 +87,31 @@ export function OnboardingStep4Metrics() {
 
       {showForm && (
         <div className="mt-6 space-y-4 animate-in slide-in-from-top-2">
-          <NumericField
+          <CurrencyField
             label={t10("monthlyRevenue")}
-            value={revenueStr}
-            onChange={(v) =>
-              setStepData({ monthlyRevenue: parseCurrencyInput(v) })
-            }
+            value={wizardData.monthlyRevenue}
+            onCommit={(v) => setStepData({ monthlyRevenue: v ?? 0 })}
             placeholder="2 500 000"
-            prefix="₸"
           />
-          <NumericField
+          <CurrencyField
             label={t10("avgOrderValue")}
-            value={aovStr}
-            onChange={(v) =>
-              setStepData({ averageOrderValue: parseCurrencyInput(v) })
-            }
+            value={wizardData.averageOrderValue}
+            onCommit={(v) => setStepData({ averageOrderValue: v ?? 0 })}
             placeholder="15 000"
-            prefix="₸"
           />
-          <NumericField
-            label={t10("monthlyTransactions")}
-            value={transactionsStr}
-            onChange={(v) =>
-              setStepData({
-                monthlyTransactions: parseInt(v.replace(/\D/g, ""), 10) || 0,
-              })
-            }
-            placeholder="180"
-          />
+          <div>
+            <Label>{t10("monthlyTransactions")}</Label>
+            <div className="mt-1.5">
+              <NumericInput
+                value={wizardData.monthlyTransactions}
+                onCommit={(v) =>
+                  setStepData({ monthlyTransactions: v ?? 0 })
+                }
+                placeholder="180"
+                className="font-mono"
+              />
+            </div>
+          </div>
 
           <div className="p-3 rounded-lg bg-surface-raised border border-border text-sm">
             {t10("employeeCountFromSettings")}{" "}

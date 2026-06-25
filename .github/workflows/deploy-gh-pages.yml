@@ -29,6 +29,7 @@ jobs:
         run: GITHUB_PAGES=true npm run build
         env:
           NODE_ENV: production
+          NEXT_PUBLIC_BUILD_VERSION: ${{ github.run_id }}
 
       - name: Add SPA fallback
         run: |
@@ -39,7 +40,9 @@ jobs:
           find out -name "*.html" -print0 | while IFS= read -r -d '' file; do
             sed -i 's|<head>|<head><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Expires" content="0" />|' "$file"
           done
-          echo "build=$(date -u +%Y-%m-%dT%H:%M:%SZ)" > out/build-version.txt
+          BUILD_TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "build=${BUILD_TS}" > out/build-version.txt
+          echo "${BUILD_TS}" > out/build-id.txt
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
