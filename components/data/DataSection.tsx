@@ -21,8 +21,6 @@ export function DataSection({ config, icon }: DataSectionProps) {
   const [justSaved, setJustSaved] = useState(false);
 
   const isComplete = useDataCenterStore((s) => s.isSectionComplete(config.id));
-  const setFieldValue = useDataCenterStore((s) => s.setFieldValue);
-  const getFieldValue = useDataCenterStore((s) => s.getFieldValue);
   const saveSection = useDataCenterStore((s) => s.saveSection);
 
   const title = tCenter(`${config.id}.title` as "finance.title");
@@ -71,12 +69,7 @@ export function DataSection({ config, icon }: DataSectionProps) {
       {isOpen && (
         <div className="animate-in space-y-4 border-t border-border p-4 duration-200 slide-in-from-top-2">
           {config.fieldKeys.map((field) => (
-            <DataField
-              key={field.id}
-              field={field}
-              value={getFieldValue(config.id, field.id)}
-              onChange={(v) => setFieldValue(config.id, field.id, v)}
-            />
+            <DataField key={field.id} field={field} />
           ))}
           <div className="sticky bottom-[calc(5rem+env(safe-area-inset-bottom))] z-10 -mx-4 flex gap-2 border-t border-border bg-surface px-4 pt-3 md:static md:mx-0 md:border-0 md:bg-transparent md:px-0 md:pt-2">
             <Button variant="bronze" className="min-h-[44px] flex-1 md:flex-none" onClick={handleSave} disabled={justSaved}>
