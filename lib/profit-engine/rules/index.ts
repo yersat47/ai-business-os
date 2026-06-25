@@ -9,6 +9,9 @@ import {
   cashReserveMonths,
   totalMonthlyExpenses,
 } from "@/lib/profit-engine/formulas";
+import { PE_REV_002 } from "@/lib/profit-engine/rules/pe-rev-002";
+
+export { PE_REV_002 };
 
 export const PE_REV_001: ProfitEngineRule = {
   id: "PE-REV-001",
@@ -194,6 +197,7 @@ export const PE_CASH_001: ProfitEngineRule = {
 
 export const ALL_PROFIT_RULES: ProfitEngineRule[] = [
   PE_REV_001,
+  PE_REV_002,
   PE_RET_001,
   PE_MKT_001,
   PE_INV_001,

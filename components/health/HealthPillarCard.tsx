@@ -18,10 +18,11 @@ const statusBarColors: Record<string, string> = {
 
 interface HealthPillarCardProps {
   pillar: PillarScore;
+  expandedContent?: React.ReactNode;
 }
 
-export function HealthPillarCard({ pillar }: HealthPillarCardProps) {
-  const [open, setOpen] = useState(false);
+export function HealthPillarCard({ pillar, expandedContent }: HealthPillarCardProps) {
+  const [open, setOpen] = useState(pillar.id === "sales");
   const t = useTranslations("health.pillars");
   const tStatus = useTranslations("status");
 
@@ -33,7 +34,10 @@ export function HealthPillarCard({ pillar }: HealthPillarCardProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex min-h-[44px] w-full items-center gap-3 text-left md:pointer-events-none md:min-h-0"
+        className={cn(
+          "flex min-h-[44px] w-full items-center gap-3 text-left md:min-h-0",
+          !expandedContent && "md:pointer-events-none"
+        )}
         aria-expanded={open}
       >
         <span className={cn("h-2.5 w-2.5 shrink-0 rounded-full", statusBarColors[pillar.status])} />
@@ -45,7 +49,8 @@ export function HealthPillarCard({ pillar }: HealthPillarCardProps) {
         </span>
         <ChevronDown
           className={cn(
-            "h-4 w-4 shrink-0 text-text-muted transition-transform md:hidden",
+            "h-4 w-4 shrink-0 text-text-muted transition-transform",
+            expandedContent ? "md:block" : "md:hidden",
             open && "rotate-180"
           )}
         />
@@ -80,6 +85,11 @@ export function HealthPillarCard({ pillar }: HealthPillarCardProps) {
         )}
       </AnimatePresence>
       <p className="hidden text-xs text-text-secondary md:block">{statusLabel}</p>
+      {expandedContent && (open || pillar.id === "sales") && (
+        <div className="mt-4 border-t border-border pt-4">
+          {expandedContent}
+        </div>
+      )}
     </div>
   );
 }

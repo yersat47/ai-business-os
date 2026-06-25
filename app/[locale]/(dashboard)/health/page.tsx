@@ -6,6 +6,7 @@ import { HealthScoreWidget } from "@/components/dashboard/HealthScoreWidget";
 import { HealthPillarCard } from "@/components/health/HealthPillarCard";
 import { AlertBanner } from "@/components/health/AlertBanner";
 import { HealthTrendChart } from "@/components/health/HealthTrendChart";
+import { SalesHeatmapWidget } from "@/components/widgets/SalesHeatmapWidget";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { toast } from "@/hooks/use-toast";
 
@@ -52,7 +53,13 @@ export default function HealthPage() {
 
         <div className="grid gap-3 md:grid-cols-2 md:gap-4">
           {health.pillars.map((pillar) => (
-            <HealthPillarCard key={pillar.id} pillar={pillar} />
+            <HealthPillarCard
+              key={pillar.id}
+              pillar={pillar}
+              expandedContent={
+                pillar.id === "sales" ? <SalesHeatmapWidget compact /> : undefined
+              }
+            />
           ))}
         </div>
       </div>

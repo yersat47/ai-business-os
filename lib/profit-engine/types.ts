@@ -13,6 +13,7 @@ export interface BenchmarkMap {
   revenueGrowthMom: number;
   cashReserveMonths: number;
   inventoryTurnover: number;
+  weekendRevenueSharePct: number;
 }
 
 export interface ProfitEngineRule {

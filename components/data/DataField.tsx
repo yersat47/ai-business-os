@@ -36,6 +36,17 @@ export function DataField({ field, value, onChange }: DataFieldProps) {
       ? String(company.employeeCount || employeeCount || "—")
       : "—";
 
+  if (field.type === "group_header") {
+    return (
+      <div className="space-y-1.5 rounded-lg border border-border/60 bg-surface-raised/40 p-3 mt-2">
+        <p className="text-sm font-medium text-text-primary">{label}</p>
+        {hint && (
+          <p className="text-xs text-text-muted leading-relaxed">{hint}</p>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-1.5">
       <div className="flex items-start gap-1.5">
