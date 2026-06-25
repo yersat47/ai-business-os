@@ -2,26 +2,25 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { BusinessMetrics } from "@/lib/types/metrics.types";
 import type { ProfitEngineOutput } from "@/lib/profit-engine/types";
-import type { AgentMessage } from "@/lib/agents/types";
 import { safeLocalStorage } from "@/lib/stores/safe-storage";
 import { runCalculationPipeline } from "@/lib/calculation/pipeline";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { useFeedbackStore } from "@/lib/stores/feedback.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
-import { dataCompletenessPct } from "@/lib/profit-engine/formulas";
-
-function currentMonthKey(): string {
-  const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-}
-
 import {
+  dataCompletenessPct,
   grossMarginPct,
   netMarginPct,
   averageOrderValue,
   cac,
   repeatCustomerRate,
 } from "@/lib/profit-engine/formulas";
+import type { AnalysisReport } from "@/lib/types/analysis-report.types";
+
+function currentMonthKey(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
 
 function metricsToCompanyPartial(metrics: BusinessMetrics): Record<string, number | boolean> {
   return {
@@ -44,6 +43,7 @@ interface MetricsState {
   profitOutput: ProfitEngineOutput | null;
   dataCompletenessPct: number;
   lastSubmittedMonth: string | null;
+  latestReport: AnalysisReport | null;
   setMetric: (key: keyof BusinessMetrics, value: number | undefined) => void;
   setMetrics: (metrics: BusinessMetrics) => void;
   getMetricsForMonth: (monthKey: string) => BusinessMetrics | undefined;
@@ -59,6 +59,7 @@ export const useMetricsStore = create<MetricsState>()(
       profitOutput: null,
       dataCompletenessPct: 0,
       lastSubmittedMonth: null,
+      latestReport: null,
 
       setMetric: (key, value) => {
         set((state) => {
@@ -120,11 +121,28 @@ export const useMetricsStore = create<MetricsState>()(
           prevScore
         );
 
+        const report: AnalysisReport = {
+          monthKey,
+          generatedAt: result.timelineEntry.date,
+          metrics: { ...currentMonthMetrics },
+          traces: result.traces,
+          profitOutput: result.profitOutput,
+          health: result.health,
+          feedback: result.feedback,
+          timelineEntry: result.timelineEntry,
+          prevMetrics,
+          prevHealthScore: prevScore,
+          prevGrossMargin: prevMetrics ? grossMarginPct(prevMetrics) : null,
+          prevNetMargin: prevMetrics ? netMarginPct(prevMetrics) : null,
+          prevRevenue: prevMetrics?.monthly_revenue ?? null,
+        };
+
         set({
           metricsHistory: { ...metricsHistory, [monthKey]: { ...currentMonthMetrics } },
           profitOutput: result.profitOutput,
           dataCompletenessPct: result.profitOutput.dataCompletenessPct,
           lastSubmittedMonth: monthKey,
+          latestReport: report,
         });
 
         useHealthStore.getState().setHealth(result.health, result.timelineEntry);

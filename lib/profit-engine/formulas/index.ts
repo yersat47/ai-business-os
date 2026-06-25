@@ -100,6 +100,13 @@ export function expenseRatio(metrics: BusinessMetrics): number | null {
   return (total / revenue) * 100;
 }
 
+export function rentShareOfExpenses(metrics: BusinessMetrics): number | null {
+  const rent = num(metrics.monthly_rent);
+  const total = totalMonthlyExpenses(metrics);
+  if (rent === null || total === null || total <= 0) return null;
+  return (rent / total) * 100;
+}
+
 export function staffTurnoverPct(
   metrics: BusinessMetrics,
   employeeCount?: number

@@ -6,12 +6,15 @@ import { runProfitEngine } from "@/lib/profit-engine/engine";
 import { calculateMasterHealth } from "@/lib/health-system/masterScore";
 import { generateFeedback } from "@/lib/agents/generateFeedback";
 import type { BusinessMetrics } from "@/lib/types/metrics.types";
+import { collectCalculationTraces } from "@/lib/calculation/collectTraces";
+import type { CalculationTraceRow } from "@/lib/calculation/trace.types";
 
 export interface CalculationResult {
   profitOutput: ProfitEngineOutput;
   health: HealthData;
   feedback: AgentMessage[];
   timelineEntry: HealthTimelineEntry;
+  traces: CalculationTraceRow[];
 }
 
 export function runCalculationPipeline(
@@ -47,5 +50,7 @@ export function runCalculationPipeline(
       .map((p) => p.id),
   };
 
-  return { profitOutput, health, feedback, timelineEntry };
+  const traces = collectCalculationTraces(metrics);
+
+  return { profitOutput, health, feedback, timelineEntry, traces };
 }

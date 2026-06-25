@@ -44,7 +44,7 @@ export function DataCenterGuided() {
       title: tData("submitSuccess"),
       description: tData("submitSuccessDesc"),
     });
-    router.push("/dashboard");
+    router.push("/data/analysis");
   };
 
   return (
