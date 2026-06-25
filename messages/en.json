@@ -477,6 +477,7 @@
     "submitMonthHint": "AI reads your data and shows a report with calculations and recommendations",
     "submitSuccess": "Data saved",
     "submitSuccessDesc": "Opening your data analysis report",
+    "submitReminder": "↓ Scroll down and tap «Save and get analysis» so AI processes your data and updates the dashboard",
     "analysis": {
       "pageTitle": "Data Analysis",
       "loading": "Loading report…",

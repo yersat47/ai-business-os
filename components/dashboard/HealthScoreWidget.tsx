@@ -12,7 +12,7 @@ import { useCompanyStore } from "@/lib/stores/company.store";
 import { useAuthStore } from "@/lib/stores/auth.store";
 import { getVisiblePillars } from "@/lib/utils/permissions";
 import { getStatusColor } from "@/lib/utils/formatters";
-import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
+import { useHasBusinessMetrics } from "@/hooks/use-has-business-metrics";
 import {
   Tooltip,
   TooltipContent,
@@ -42,7 +42,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
   const company = useCompanyStore((s) => s.company);
   const role = useAuthStore((s) => s.user?.role ?? "owner");
   const visiblePillars = getVisiblePillars(role);
-  const hasData = hasBusinessMetrics(company);
+  const hasData = useHasBusinessMetrics();
   const displayScore = hasData ? health.masterScore : null;
   const ringSize = expanded ? "lg" : "md";
 

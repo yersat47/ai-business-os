@@ -37,6 +37,8 @@ export function DataCenterGuided() {
   const submitMonth = useMetricsStore((s) => s.submitMonth);
   const editingMonthKey = useMetricsStore((s) => s.editingMonthKey);
   const hasRevenue = useMetricsStore((s) => !!s.currentMonthMetrics.monthly_revenue);
+  const lastSubmittedMonth = useMetricsStore((s) => s.lastSubmittedMonth);
+  const needsSubmit = hasRevenue && !lastSubmittedMonth;
 
   const fillPercent = dataCompletenessPct;
 
@@ -95,6 +97,11 @@ export function DataCenterGuided() {
       </div>
 
       <div className="mt-6 sticky bottom-[calc(5rem+env(safe-area-inset-bottom))] z-10 md:static">
+        {needsSubmit && (
+          <div className="mb-3 rounded-lg border border-accent/40 bg-accent/10 px-3 py-2 text-center text-sm text-accent">
+            {tData("submitReminder")}
+          </div>
+        )}
         <Button
           variant="bronze"
           className="min-h-[48px] w-full"

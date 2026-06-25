@@ -9,14 +9,14 @@ import { Button } from "@/components/ui/button";
 import { formatCurrency } from "@/lib/utils/formatters";
 import { useMetricsStore } from "@/lib/stores/metrics.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
-import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
+import { useHasBusinessMetrics } from "@/hooks/use-has-business-metrics";
 
 export function ProfitPotentialWidget() {
   const t = useTranslations("dashboard.profit");
   const tDash = useTranslations("dashboard");
   const company = useCompanyStore((s) => s.company);
   const profitOutput = useMetricsStore((s) => s.profitOutput);
-  const hasData = hasBusinessMetrics(company) && profitOutput !== null;
+  const hasData = useHasBusinessMetrics() && profitOutput !== null;
 
   if (!hasData || !profitOutput) {
     return (

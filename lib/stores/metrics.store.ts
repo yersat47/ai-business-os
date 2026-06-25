@@ -130,6 +130,10 @@ export const useMetricsStore = create<MetricsState>()(
 
         useHealthStore.getState().setHealth(result.health);
         useFeedbackStore.getState().setMessages(result.feedback);
+
+        if (currentMonthMetrics.monthly_revenue) {
+          useCompanyStore.getState().updateCompany(metricsToCompanyPartial(currentMonthMetrics));
+        }
       },
 
       submitMonth: (monthKey?) => {

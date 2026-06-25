@@ -4,8 +4,8 @@ import { Activity, TrendingUp } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useHealthStore } from "@/lib/stores/health.store";
-import { useCompanyStore } from "@/lib/stores/company.store";
-import { hasBusinessMetrics } from "@/lib/utils/has-business-metrics";
+import { useMetricsStore } from "@/lib/stores/metrics.store";
+import { useHasBusinessMetrics } from "@/hooks/use-has-business-metrics";
 import { MOCK_PROFIT } from "@/lib/mock/mock-profit";
 import { formatCurrency } from "@/lib/utils/formatters";
 import { cn } from "@/lib/utils/cn";
@@ -63,18 +63,22 @@ function NoDataIndicator() {
 
 export function TopBarIndicators() {
   const health = useHealthStore((s) => s.health);
-  const company = useCompanyStore((s) => s.company);
-  const hasData = hasBusinessMetrics(company);
+  const profitOutput = useMetricsStore((s) => s.profitOutput);
+  const hasData = useHasBusinessMetrics();
 
   if (!hasData) {
     return <NoDataIndicator />;
   }
 
+  const profitAmount =
+    profitOutput?.monthlyProfitPotential.net ?? MOCK_PROFIT.totalRecoverable;
+  const showDemo = !profitOutput;
+
   return (
     <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
       <HealthBadge score={health.masterScore} />
       <span className="text-border text-text-muted hidden sm:inline">·</span>
-      <ProfitBadge amount={MOCK_PROFIT.totalRecoverable} showDemo />
+      <ProfitBadge amount={profitAmount} showDemo={showDemo} />
     </div>
   );
 }
