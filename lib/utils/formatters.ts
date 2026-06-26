@@ -13,6 +13,20 @@ export function formatNumber(value: number): string {
   return value.toLocaleString("en-US");
 }
 
+/** Compact axis labels: 1000 → "1K", 1500000 → "1.5M" */
+export function formatCompact(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000) {
+    const n = value / 1_000_000;
+    return `${n % 1 === 0 ? n.toFixed(0) : n.toFixed(1)}M`;
+  }
+  if (abs >= 1_000) {
+    const n = value / 1_000;
+    return `${n % 1 === 0 ? n.toFixed(0) : n.toFixed(1)}K`;
+  }
+  return String(Math.round(value));
+}
+
 export function parseCurrencyInput(value: string): number {
   const cleaned = value.replace(/[^\d]/g, "");
   return cleaned ? parseInt(cleaned, 10) : 0;

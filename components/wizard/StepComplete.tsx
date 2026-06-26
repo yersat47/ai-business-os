@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { BusinessCompletionScore } from "@/components/onboarding/BusinessCompletionScore";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 import { getCompletionFromWizard } from "@/lib/utils/completion-calculator";
-import { ShanyrakArc } from "@/components/shared/ShanyrakArc";
 
 export function StepComplete() {
   const router = useRouter();
@@ -24,8 +24,11 @@ export function StepComplete() {
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center overflow-hidden relative p-6">
-      <ShanyrakArc className="absolute w-[500px] h-[500px] opacity-[0.04] pointer-events-none" />
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden p-6">
+      <KazakhPixelOrnament
+        variant="hero"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      />
       <BusinessCompletionScore
         data={completion}
         onGoToDashboard={() => router.push("/dashboard")}

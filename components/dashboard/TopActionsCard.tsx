@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
 import { formatCurrency, getEffortColor } from "@/lib/utils/formatters";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 import { toast } from "@/hooks/use-toast";
 
 export function TopActionsCard() {
@@ -21,6 +22,12 @@ export function TopActionsCard() {
       className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
     >
       <h3 className="mb-4 font-semibold text-base md:mb-6 md:text-lg">{t("title")}</h3>
+      {actions.length === 0 ? (
+        <div className="relative flex flex-col items-center py-8 text-center">
+          <KazakhPixelOrnament variant="empty" className="mb-2" />
+          <p className="text-sm text-text-secondary">{t("empty")}</p>
+        </div>
+      ) : (
       <div className="space-y-2 md:space-y-6">
         {actions.map((action) => (
           <div
@@ -62,6 +69,7 @@ export function TopActionsCard() {
           </div>
         ))}
       </div>
+      )}
     </motion.div>
   );
 }

@@ -3,6 +3,7 @@ import type { WizardData } from "@/lib/types/company.types";
 import { useAuthStore } from "./auth.store";
 import { useCompanyStore } from "./company.store";
 import { useHealthStore } from "./health.store";
+import { useOnboardingStore } from "./onboarding.store";
 
 interface WizardState {
   currentStep: number;
@@ -35,7 +36,7 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
   isComplete: false,
   nextStep: () => {
     const { currentStep } = get();
-    if (currentStep < 6) set({ currentStep: currentStep + 1 });
+    if (currentStep < 7) set({ currentStep: currentStep + 1 });
   },
   prevStep: () => {
     const { currentStep } = get();
@@ -54,6 +55,7 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
     const selectedRoles = wizardData.selectedRoles ?? [];
     const customRoles = wizardData.customRoles ?? [];
     const hasMetrics = (wizardData.monthlyRevenue ?? 0) > 0;
+    const segment = useOnboardingStore.getState().segment;
 
     const merged = {
       ...companyStore.company,
@@ -63,6 +65,7 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
       industry: wizardData.industry || companyStore.company.industry,
       businessType: wizardData.businessType || companyStore.company.businessType,
       size: wizardData.size || companyStore.company.size,
+      businessSegment: segment ?? wizardData.businessSegment,
       selectedRoles,
       customRoles,
       teamRoles: [...selectedRoles, ...customRoles],
@@ -91,8 +94,10 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
       }
     }
 
-    set({ isComplete: true, currentStep: 6 });
+    set({ isComplete: true, currentStep: 7 });
   },
-  reset: () =>
-    set({ currentStep: 1, wizardData: initialData, isComplete: false }),
+  reset: () => {
+    useOnboardingStore.getState().resetSegment();
+    set({ currentStep: 1, wizardData: initialData, isComplete: false });
+  },
 }));

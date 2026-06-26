@@ -259,7 +259,8 @@
     "actions": {
       "title": "Top Actions",
       "queued": "Action queued",
-      "queuedDesc": "Full action execution available in the next release."
+      "queuedDesc": "Full action execution available in the next release.",
+      "empty": "Enter data in the Data Center — profit recommendations will appear here."
     },
     "aiTeam": {
       "title": "AI Team",
@@ -283,6 +284,11 @@
       "reviewRisks": "Review top risks",
       "checkBriefing": "Check AI briefing",
       "navigateDesc": "Navigating to the relevant section."
+    },
+    "chart": {
+      "title": "Monthly Sales Performance",
+      "primaryLabel": "Current sales",
+      "secondaryLabel": "Target"
     }
   },
   "health": {
@@ -965,12 +971,21 @@
       "openDashboard": "Open your Dashboard →"
     },
     "onboardingSteps": {
-      "1": "Идентичность компании",
-      "2": "Тип бизнеса",
-      "3": "Ваша команда",
-      "4": "Бизнес-показатели",
-      "5": "База знаний",
-      "6": "Готово"
+      "1": "Company identity",
+      "2": "Business segment",
+      "3": "Business type",
+      "4": "Your team",
+      "5": "Business metrics",
+      "6": "Knowledge base",
+      "7": "Done"
+    },
+    "segment": {
+      "title": "Choose your business segment",
+      "subtitle": "We currently support fashion retail. Other segments are coming — you can switch later without losing data.",
+      "why": "Your segment sets benchmarks, AI recommendations, and metric templates.",
+      "gain": "The system will tailor itself to fashion retail in Kazakhstan.",
+      "comingSoonBadge": "Soon · {eta}",
+      "comingSoonTooltip": "Coming soon. We'll notify you when {title} is available."
     },
     "onboarding": {
       "step1Why": "Your name and description are the foundation of Company Brain. The system will remember who you are.",

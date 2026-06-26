@@ -40,6 +40,7 @@ export interface Company {
   teamRoles?: string[];
   selectedRoles?: string[];
   customRoles?: string[];
+  businessSegment?: string;
 }
 
 export interface WizardData extends Partial<Company> {

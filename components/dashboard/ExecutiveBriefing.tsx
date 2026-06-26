@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { useHealthStore } from "@/lib/stores/health.store";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 import { useFeedbackStore } from "@/lib/stores/feedback.store";
 import { formatCurrency } from "@/lib/utils/formatters";
 
@@ -27,8 +28,12 @@ export function ExecutiveBriefing() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.1 }}
-      className="rounded-2xl border border-border bg-surface p-4 shadow-card border-l-4 border-l-accent md:p-6 lg:col-span-2"
+      className="relative overflow-hidden rounded-2xl border border-border bg-surface p-4 shadow-card border-l-4 border-l-accent md:p-6 lg:col-span-2"
     >
+      <KazakhPixelOrnament
+        variant="corner"
+        className="pointer-events-none absolute right-2 top-2"
+      />
       <div className="flex items-center justify-between gap-3 mb-4">
         <h3 className="font-semibold text-base md:text-lg">{t("title")}</h3>
         <span className="text-xs text-text-muted">{tCommon("today")}</span>

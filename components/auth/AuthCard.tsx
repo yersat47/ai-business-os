@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 
 interface AuthCardProps {
   title: string;
@@ -14,8 +15,9 @@ export function AuthCard({ title, subtitle, children, footer }: AuthCardProps) {
   const tCommon = useTranslations("common");
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-8 md:p-6">
-      <div className="w-full max-w-md">
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-8 md:p-6">
+      <KazakhPixelOrnament variant="auth" className="pointer-events-none" />
+      <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2 mb-6">
             <span className="h-10 w-10 rounded-xl bg-accent/20 flex items-center justify-center text-accent">⬡</span>

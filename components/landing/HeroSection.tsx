@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
-import { ShanyrakArc } from "@/components/shared/ShanyrakArc";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 
 export function HeroSection() {
   const t = useTranslations("landing.hero");
@@ -12,7 +12,10 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
-      <ShanyrakArc className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-[0.04] pointer-events-none" />
+      <KazakhPixelOrnament
+        variant="hero"
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0"
+      />
       <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
           {words.map((word, i) => (

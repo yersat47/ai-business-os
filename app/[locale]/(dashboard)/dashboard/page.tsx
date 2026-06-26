@@ -13,13 +13,17 @@ import { TopActionsCard } from "@/components/dashboard/TopActionsCard";
 import { SalesHeatmapWidget } from "@/components/widgets/SalesHeatmapWidget";
 import { AITeamMiniCard } from "@/components/dashboard/AITeamMiniCard";
 import { DataCompletenessCard } from "@/components/dashboard/DataCompletenessCard";
+import { MonthlyPerformanceChart } from "@/components/dashboard/MonthlyPerformanceChart";
+import { CalendarWidget } from "@/components/dashboard/CalendarWidget";
 import { RoleDashboardView } from "@/components/dashboard/RoleDashboardView";
 import { BusinessCompletionScore } from "@/components/onboarding/BusinessCompletionScore";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { getCompletionFromWizard } from "@/lib/utils/completion-calculator";
+import { mockMonthlyData } from "@/lib/mock/mock-monthly-performance";
 
 const quickActionKeys = [
   "updateNumbers",
@@ -65,6 +69,20 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
+          <div className="lg:col-span-2">
+            <MonthlyPerformanceChart
+              data={mockMonthlyData}
+              title={t("chart.title")}
+              primaryLabel={t("chart.primaryLabel")}
+              secondaryLabel={t("chart.secondaryLabel")}
+            />
+          </div>
+          <CalendarWidget />
+        </div>
+
+        <KazakhPixelOrnament variant="divider" className="w-full" />
+
+        <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
           <ExecutiveBriefing />
           <AITeamMiniCard />
         </div>
@@ -84,6 +102,7 @@ export default function DashboardPage() {
             description={t("activity.description")}
             actionLabel={t("activity.action")}
             onAction={() => router.push("/team")}
+            showOrnament
           />
           <div className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6">
             <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">

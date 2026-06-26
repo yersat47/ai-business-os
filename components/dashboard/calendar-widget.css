@@ -1,0 +1,132 @@
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.calendar-collapse {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.calendar-collapse:hover {
+  background: #171a20;
+}
+
+.calendar-root {
+  width: 100%;
+}
+
+.calendar-month-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.calendar-month-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #edeff3;
+  text-transform: capitalize;
+}
+
+.calendar-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.calendar-nav-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ba1ac;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.calendar-nav-button:hover {
+  background: #171a20;
+  color: #edeff3;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekday {
+  font-size: 11px;
+  color: #5e6571;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.calendar-day-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+}
+
+.calendar-day {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #edeff3;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: background 0.12s, color 0.12s;
+}
+
+.calendar-day:hover:not(.selected):not(.outside):not(.disabled) {
+  background: #171a20;
+}
+
+.calendar-day.outside {
+  color: #5e6571;
+  opacity: 0.5;
+}
+
+.calendar-day.today:not(.selected) {
+  border: 1px solid #c9923a;
+  color: #c9923a;
+}
+
+.calendar-day.selected {
+  background: #c9923a;
+  color: #0a0b0e;
+  font-weight: 600;
+  box-shadow: 0 0 16px rgba(201, 146, 58, 0.35);
+}
+
+.calendar-day.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
