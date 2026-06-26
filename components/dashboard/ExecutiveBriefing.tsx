@@ -9,7 +9,11 @@ import { KazakhPixelOrnament } from "@/components/decorative/KazakhPixelOrnament
 import { useFeedbackStore } from "@/lib/stores/feedback.store";
 import { formatCurrency } from "@/lib/utils/formatters";
 
-export function ExecutiveBriefing() {
+interface ExecutiveBriefingProps {
+  variant?: "default" | "hero";
+}
+
+export function ExecutiveBriefing({ variant = "default" }: ExecutiveBriefingProps) {
   const t = useTranslations("dashboard.briefing");
   const tCommon = useTranslations("common");
   const health = useHealthStore((s) => s.health);
@@ -22,6 +26,22 @@ export function ExecutiveBriefing() {
     (health.masterScore > 0
       ? t("emptyWithScore", { score: health.masterScore })
       : t("empty"));
+
+  if (variant === "hero") {
+    return (
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/20 text-accent text-lg">
+            ⬡
+          </div>
+          <span className="font-medium text-accent">{t("agentName")}</span>
+        </div>
+        <p className="text-sm leading-relaxed text-text-secondary md:text-base">
+          {briefing}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <motion.div

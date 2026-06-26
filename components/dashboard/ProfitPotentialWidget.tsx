@@ -11,12 +11,25 @@ import { useMetricsStore } from "@/lib/stores/metrics.store";
 import { useCompanyStore } from "@/lib/stores/company.store";
 import { useHasBusinessMetrics } from "@/hooks/use-has-business-metrics";
 
-export function ProfitPotentialWidget() {
+interface ProfitPotentialWidgetProps {
+  size?: "default" | "hero";
+  embedded?: boolean;
+}
+
+export function ProfitPotentialWidget({
+  size = "default",
+  embedded = false,
+}: ProfitPotentialWidgetProps) {
   const t = useTranslations("dashboard.profit");
   const tDash = useTranslations("dashboard");
   const company = useCompanyStore((s) => s.company);
   const profitOutput = useMetricsStore((s) => s.profitOutput);
   const hasData = useHasBusinessMetrics() && profitOutput !== null;
+  const isHero = size === "hero";
+
+  const shellClass = embedded
+    ? "h-full p-0 border-0 shadow-none bg-transparent"
+    : "h-full rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6";
 
   if (!hasData || !profitOutput) {
     return (
@@ -24,7 +37,7 @@ export function ProfitPotentialWidget() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.05 }}
-        className="h-full rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
+        className={shellClass}
       >
         <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
         <p className="text-sm text-text-secondary mb-6">{t("subtitle")}</p>
@@ -52,11 +65,16 @@ export function ProfitPotentialWidget() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.05 }}
-      className="h-full rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
+      className={shellClass}
     >
       <h3 className="font-semibold text-lg mb-1">{t("title")}</h3>
       <p className="text-sm text-text-secondary mb-4 md:mb-6">{t("subtitle")}</p>
-      <CurrencyDisplay amount={monthlyProfitPotential.net} size="lg" animated />
+      <CurrencyDisplay
+        amount={monthlyProfitPotential.net}
+        size={isHero ? "lg" : "lg"}
+        animated
+      />
+      {!isHero && (
       <p className="text-success text-sm mt-2 mb-6">
         {t("growthPotential", {
           pct:
@@ -65,6 +83,8 @@ export function ProfitPotentialWidget() {
               : "0",
         })}
       </p>
+      )}
+      {!isHero && (
       <div className="space-y-4">
         {breakdownItems.map((item, i) => (
           <div key={item.key}>
@@ -87,13 +107,18 @@ export function ProfitPotentialWidget() {
           </div>
         ))}
       </div>
+      )}
+      {!isHero && (
       <div className="mt-4">
         <ConfidenceBadge confidence={monthlyProfitPotential.confidence === "high" ? 85 : monthlyProfitPotential.confidence === "medium" ? 65 : 45} />
       </div>
+      )}
+      {!isHero && (
       <p className="text-xs text-text-muted mt-6">
         {t("vsLastMonth")} · {formatCurrency(company.monthlyRevenue)}
         {findings.length > 0 && ` · ${findings.length} ${t("findings")}`}
       </p>
+      )}
     </motion.div>
   );
 }

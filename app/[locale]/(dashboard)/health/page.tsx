@@ -42,7 +42,7 @@ export default function HealthPage() {
           </div>
         )}
 
-        <HealthScoreWidget expanded />
+        <HealthScoreWidget size="hero" />
 
         <div className="rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6">
           <h3 className="mb-4 font-semibold text-base md:text-lg">

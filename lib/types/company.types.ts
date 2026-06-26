@@ -47,6 +47,7 @@ export interface WizardData extends Partial<Company> {
   step?: number;
   brainSeeded?: boolean;
   monthlyTransactions?: number;
+  ownerRole?: UserRole;
 }
 
 export interface EmployeeRecord {

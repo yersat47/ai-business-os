@@ -21,7 +21,9 @@ import {
 import { ShanyrakArc } from "@/components/shared/ShanyrakArc";
 
 interface HealthScoreWidgetProps {
-  expanded?: boolean;
+  size?: "compact" | "default" | "hero";
+  showPillars?: boolean;
+  embedded?: boolean;
 }
 
 const statusColors: Record<string, string> = {
@@ -32,7 +34,11 @@ const statusColors: Record<string, string> = {
   excellent: "bg-success",
 };
 
-export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) {
+export function HealthScoreWidget({
+  size = "default",
+  showPillars = true,
+  embedded = false,
+}: HealthScoreWidgetProps) {
   const t = useTranslations("dashboard.health");
   const tDash = useTranslations("dashboard");
   const tPillars = useTranslations("health.pillars");
@@ -44,33 +50,38 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
   const visiblePillars = getVisiblePillars(role);
   const hasData = useHasBusinessMetrics();
   const displayScore = hasData ? health.masterScore : null;
-  const ringSize = expanded ? "lg" : "md";
+  const isHero = size === "hero";
+  const ringSize = isHero ? "lg" : size === "compact" ? "sm" : "md";
 
   const pillars =
     visiblePillars === "all"
       ? health.pillars
       : health.pillars.filter((p) => visiblePillars.includes(p.id));
 
+  const shellClass = embedded
+    ? "relative p-0 border-0 shadow-none bg-transparent"
+    : "relative overflow-hidden rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6";
+
   if (!hasData) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
+        className={shellClass}
       >
         <h3 className="font-semibold text-lg mb-4">{t("title")}</h3>
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-          {expanded ? (
+          {isHero ? (
             <>
               <div className="md:hidden">
-                <ScoreRing score={null} size="md" animated={false} />
+                <ScoreRing score={displayScore} size="md" animated />
               </div>
               <div className="hidden md:block">
-                <ScoreRing score={null} size="lg" animated={false} />
+                <ScoreRing score={displayScore} size="lg" animated />
               </div>
             </>
           ) : (
-            <ScoreRing score={null} size={ringSize} animated={false} />
+            <ScoreRing score={displayScore} size={ringSize} animated={false} />
           )}
           <div className="flex-1 text-center md:text-left">
             <p className="text-warning text-sm font-medium mb-2">
@@ -90,9 +101,9 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl border border-border bg-surface p-4 shadow-card md:p-6"
+      className={shellClass}
     >
-      {expanded && (
+      {isHero && (
         <ShanyrakArc className="absolute -right-16 -top-16 hidden h-56 w-56 opacity-[0.04] pointer-events-none md:block lg:h-64 lg:w-64" />
       )}
       <div className="flex items-center justify-between mb-4 md:mb-6 relative">
@@ -105,7 +116,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
         </Tooltip>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-        {expanded ? (
+        {isHero ? (
           <>
             <div className="md:hidden">
               <ScoreRing score={displayScore} size="md" animated />
@@ -128,6 +139,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
               label={tCommon("thisMonth")}
             />
           </div>
+          {showPillars && (
           <div className="grid grid-cols-2 gap-2 md:block md:space-y-3">
             {pillars.map((pillar, i) => (
               <motion.div
@@ -160,6 +172,7 @@ export function HealthScoreWidget({ expanded = false }: HealthScoreWidgetProps) 
               </motion.div>
             ))}
           </div>
+          )}
         </div>
       </div>
     </motion.div>

@@ -8,7 +8,6 @@ import { StepIndicator } from "./StepIndicator";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { Step1Identity } from "./Step1Identity";
 import { SegmentSelectionStep } from "@/components/onboarding/SegmentSelectionStep";
-import { OnboardingStep2Business } from "./OnboardingStep2Business";
 import { OnboardingStep3Team } from "./OnboardingStep3Team";
 import { OnboardingStep4Metrics } from "./OnboardingStep4Metrics";
 import { Step5BrainSeed } from "./Step5BrainSeed";
@@ -17,11 +16,10 @@ import { StepComplete } from "./StepComplete";
 const stepComponents: Record<number, React.ComponentType> = {
   1: Step1Identity,
   2: SegmentSelectionStep,
-  3: OnboardingStep2Business,
-  4: OnboardingStep3Team,
-  5: OnboardingStep4Metrics,
-  6: Step5BrainSeed,
-  7: StepComplete,
+  3: OnboardingStep3Team,
+  4: OnboardingStep4Metrics,
+  5: Step5BrainSeed,
+  6: StepComplete,
 };
 
 interface WizardShellProps {
@@ -33,14 +31,14 @@ export function WizardShell({ canContinue, onContinue }: WizardShellProps) {
   const t = useTranslations("wizard.shell");
   const { currentStep, prevStep, nextStep, wizardData } = useWizardStore();
   const StepComponent = stepComponents[currentStep];
-  const progress = Math.round(((currentStep - 1) / 6) * 100);
+  const progress = Math.round(((currentStep - 1) / 5) * 100);
 
   const handleContinue = () => {
     if (onContinue) onContinue();
     else nextStep();
   };
 
-  if (currentStep === 7) {
+  if (currentStep === 6) {
     return <StepComplete />;
   }
 

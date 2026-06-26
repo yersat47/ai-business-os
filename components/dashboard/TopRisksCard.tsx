@@ -25,7 +25,11 @@ export function TopRisksCard() {
       <h3 className="mb-4 font-semibold text-base md:mb-6 md:text-lg">{t("title")}</h3>
       <div className="space-y-3 md:space-y-6">
         {risks.map((risk) => (
-          <div key={risk.id} className="space-y-2 rounded-xl border border-border bg-surface-raised p-3 md:border-0 md:bg-transparent md:p-0">
+          <div
+            key={risk.id}
+            id={risk.id === "risk-PE-REV-002" ? "finding-pe-rev-002" : undefined}
+            className="space-y-2 rounded-xl border border-border bg-surface-raised p-3 md:border-0 md:bg-transparent md:p-0"
+          >
             <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2">
               <span
                 className={`h-2 w-2 rounded-full ${severityDot[risk.severity]}`}

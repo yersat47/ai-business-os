@@ -8,7 +8,7 @@ interface StepIndicatorProps {
   currentStep: number;
 }
 
-const stepKeys = ["1", "2", "3", "4", "5", "6", "7"] as const;
+const stepKeys = ["1", "2", "3", "4", "5", "6"] as const;
 
 export function StepIndicator({ currentStep }: StepIndicatorProps) {
   const t = useTranslations("wizard.onboardingSteps");

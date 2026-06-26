@@ -29,6 +29,7 @@ export interface SalesDayHeatmapProps {
   hasData?: boolean;
   isEstimated?: boolean;
   compact?: boolean;
+  linkToFinding?: boolean;
 }
 
 function intensityColor(share: number): string {
@@ -47,8 +48,10 @@ export function SalesDayHeatmap({
   hasData = false,
   isEstimated = false,
   compact = false,
+  linkToFinding = false,
 }: SalesDayHeatmapProps) {
   const t = useTranslations("widgets.heatmap");
+  const tDash = useTranslations("dashboard.heatmap");
 
   const cells = useMemo(() => {
     if (hourly && hourly.length === 7) {
@@ -94,13 +97,26 @@ export function SalesDayHeatmap({
   return (
     <div
       className={cn(
-        "rounded-xl border border-border bg-surface p-4 md:p-5",
-        compact && "p-3"
+        "rounded-xl border bg-surface p-4 md:p-5",
+        compact && "p-3",
+        linkToFinding && ruleTriggered
+          ? "border-warning/50 ring-1 ring-warning/20"
+          : "border-border"
       )}
+      id={linkToFinding && ruleTriggered ? "weekday-heatmap" : undefined}
     >
       <h3 className={cn("mb-3 font-semibold", compact ? "text-sm" : "text-base")}>
         {t("title")}
       </h3>
+
+      {linkToFinding && ruleTriggered && (
+        <a
+          href="#finding-pe-rev-002"
+          className="mb-3 inline-block text-xs text-warning hover:underline"
+        >
+          {tDash("seeFindingAbove")}
+        </a>
+      )}
 
       <div className="grid grid-cols-7 gap-1.5 md:gap-2">
         {DAY_ORDER.map((dayId) => {

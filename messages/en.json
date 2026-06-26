@@ -289,6 +289,22 @@
       "title": "Monthly Sales Performance",
       "primaryLabel": "Current sales",
       "secondaryLabel": "Target"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "legend": {
+        "good": "Strong sales",
+        "okay": "Average",
+        "critical": "Critical"
+      }
+    },
+    "heatmap": {
+      "seeFindingAbove": "See finding above ↑"
+    },
+    "hero": {
+      "analystLabel": "AI Analyst"
     }
   },
   "health": {
@@ -973,11 +989,10 @@
     "onboardingSteps": {
       "1": "Company identity",
       "2": "Business segment",
-      "3": "Business type",
-      "4": "Your team",
-      "5": "Business metrics",
-      "6": "Knowledge base",
-      "7": "Done"
+      "3": "Your team",
+      "4": "Business metrics",
+      "5": "Knowledge base",
+      "6": "Done"
     },
     "segment": {
       "title": "Choose your business segment",
@@ -995,6 +1010,10 @@
       "step2Gain": "Health metrics will be compared to relevant benchmarks.",
       "step3Why": "Add team members — they'll get their own access and role in the system.",
       "step3Gain": "AI agents can give recommendations based on your team structure.",
+      "ownerRoleQuestion": "What is your role in this business?",
+      "ownerRoleHint": "This sets your dashboard view after onboarding.",
+      "teamRolesQuestion": "Who else is on your team?",
+      "skipTeamForNow": "Skip for now — I'll add later",
       "step4Title": "Business metrics",
       "step4Why": "Without this data, Business Health and Profit Potential cannot be calculated.",
       "step4Gain": "You'll see an accurate health index and hidden losses in tenge.",

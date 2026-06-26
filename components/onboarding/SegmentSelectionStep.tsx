@@ -11,6 +11,8 @@ import {
 import { COLORS, RADIUS } from "@/lib/design/tokens";
 import { SEGMENTS } from "@/lib/types/segment.types";
 import { useOnboardingStore } from "@/lib/stores/onboarding.store";
+import { useWizardStore } from "@/lib/stores/wizard.store";
+import { businessTypeFromSegment } from "@/lib/utils/segment-map";
 import { OnboardingTip } from "@/components/wizard/OnboardingTip";
 
 export function SegmentSelectionStep() {
@@ -18,6 +20,15 @@ export function SegmentSelectionStep() {
   const locale = useLocale();
   const segment = useOnboardingStore((s) => s.segment);
   const setSegment = useOnboardingStore((s) => s.setSegment);
+  const setStepData = useWizardStore((s) => s.setStepData);
+
+  const handleSelect = (id: "fashion_retail") => {
+    setSegment(id);
+    const businessType = businessTypeFromSegment(id);
+    if (businessType) {
+      setStepData({ businessType, employeeCount: 3, size: "s2_5" });
+    }
+  };
 
   return (
     <div className="max-w-3xl">
@@ -38,7 +49,7 @@ export function SegmentSelectionStep() {
               whileHover={isActive ? { scale: 1.02 } : undefined}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
               onClick={() => {
-                if (isActive) setSegment("fashion_retail");
+                if (isActive) handleSelect("fashion_retail");
               }}
               style={{
                 background: isSelected

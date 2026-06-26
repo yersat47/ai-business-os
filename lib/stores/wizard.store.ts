@@ -4,6 +4,7 @@ import { useAuthStore } from "./auth.store";
 import { useCompanyStore } from "./company.store";
 import { useHealthStore } from "./health.store";
 import { useOnboardingStore } from "./onboarding.store";
+import { businessTypeFromSegment } from "@/lib/utils/segment-map";
 
 interface WizardState {
   currentStep: number;
@@ -36,7 +37,7 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
   isComplete: false,
   nextStep: () => {
     const { currentStep } = get();
-    if (currentStep < 7) set({ currentStep: currentStep + 1 });
+    if (currentStep < 6) set({ currentStep: currentStep + 1 });
   },
   prevStep: () => {
     const { currentStep } = get();
@@ -56,6 +57,11 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
     const customRoles = wizardData.customRoles ?? [];
     const hasMetrics = (wizardData.monthlyRevenue ?? 0) > 0;
     const segment = useOnboardingStore.getState().segment;
+    const ownerRole = wizardData.ownerRole ?? "owner";
+    const businessType =
+      businessTypeFromSegment(segment) ||
+      wizardData.businessType ||
+      companyStore.company.businessType;
 
     const merged = {
       ...companyStore.company,
@@ -63,8 +69,9 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
       id: companyStore.company.id || "company-001",
       name: wizardData.name || companyStore.company.name,
       industry: wizardData.industry || companyStore.company.industry,
-      businessType: wizardData.businessType || companyStore.company.businessType,
-      size: wizardData.size || companyStore.company.size,
+      businessType,
+      size: wizardData.size || companyStore.company.size || "s2_5",
+      city: wizardData.city || companyStore.company.city || "Алматы",
       businessSegment: segment ?? wizardData.businessSegment,
       selectedRoles,
       customRoles,
@@ -78,13 +85,14 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
     healthStore.recalculate(merged);
 
     const authStore = useAuthStore.getState();
+    const userRole = ownerRole;
     if (!authStore.isAuthenticated) {
       const ownerName = wizardData.name?.trim() || "Owner";
       useAuthStore.setState({
         user: {
           name: ownerName,
           email: "demo@aibos.kz",
-          role: "owner",
+          role: userRole,
         },
         isAuthenticated: true,
         isLoading: false,
@@ -92,9 +100,11 @@ export const useWizardStore = create<WizardState>()((set, get) => ({
       if (typeof document !== "undefined") {
         document.cookie = "ai-bos-auth=true; path=/; max-age=604800";
       }
+    } else {
+      authStore.setRole(userRole);
     }
 
-    set({ isComplete: true, currentStep: 7 });
+    set({ isComplete: true, currentStep: 6 });
   },
   reset: () => {
     useOnboardingStore.getState().resetSegment();

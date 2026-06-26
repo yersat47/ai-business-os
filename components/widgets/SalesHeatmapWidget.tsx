@@ -7,9 +7,10 @@ import { SalesDayHeatmap } from "@/components/widgets/SalesDayHeatmap";
 
 interface SalesHeatmapWidgetProps {
   compact?: boolean;
+  linkToFinding?: boolean;
 }
 
-export function SalesHeatmapWidget({ compact }: SalesHeatmapWidgetProps) {
+export function SalesHeatmapWidget({ compact, linkToFinding }: SalesHeatmapWidgetProps) {
   const metrics = useMetricsStore((s) => s.currentMonthMetrics);
   const heatmap = useMemo(() => buildSalesDayHeatmapData(metrics), [metrics]);
 
@@ -21,6 +22,7 @@ export function SalesHeatmapWidget({ compact }: SalesHeatmapWidgetProps) {
       hasData={heatmap.hasData}
       isEstimated={heatmap.isEstimated}
       compact={compact}
+      linkToFinding={linkToFinding}
     />
   );
 }

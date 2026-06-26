@@ -5,6 +5,8 @@ import {
   UtensilsCrossed,
   Sparkles,
   ShoppingBag,
+  Package,
+  MoreHorizontal,
 } from "lucide-react";
 
 export type SegmentId =
@@ -12,7 +14,9 @@ export type SegmentId =
   | "beauty"
   | "restaurants"
   | "services"
-  | "ecommerce";
+  | "ecommerce"
+  | "wholesale"
+  | "other";
 
 export type SegmentStatus = "active" | "coming_soon";
 
@@ -70,5 +74,23 @@ export const SEGMENTS: BusinessSegmentConfig[] = [
     icon: ShoppingBag,
     status: "coming_soon",
     eta: "Q1 2027",
+  },
+  {
+    id: "wholesale",
+    title: "Оптовая торговля",
+    titleKk: "Көтерме сауда",
+    description: "Оптовые склады и B2B-продажи",
+    icon: Package,
+    status: "coming_soon",
+    eta: "Q2 2027",
+  },
+  {
+    id: "other",
+    title: "Другое",
+    titleKk: "Басқа",
+    description: "Другой формат бизнеса — напишите нам",
+    icon: MoreHorizontal,
+    status: "coming_soon",
+    eta: "Q2 2027",
   },
 ];

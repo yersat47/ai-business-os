@@ -11,6 +11,18 @@ import { Badge } from "@/components/ui/badge";
 import { useWizardStore } from "@/lib/stores/wizard.store";
 import { OnboardingTip } from "./OnboardingTip";
 import { MAIN_ROLE_IDS } from "@/lib/utils/wizard-helpers";
+import type { UserRole } from "@/lib/types/company.types";
+import { cn } from "@/lib/utils/cn";
+
+const OWNER_ROLE_OPTIONS: UserRole[] = [
+  "owner",
+  "manager",
+  "marketer",
+  "smm",
+  "accountant",
+  "salesperson",
+  "administrator",
+];
 
 export function OnboardingStep3Team() {
   const t = useTranslations("wizard.onboarding");
@@ -21,6 +33,7 @@ export function OnboardingStep3Team() {
 
   const selectedRoles = wizardData.selectedRoles ?? [];
   const customRoles = wizardData.customRoles ?? [];
+  const ownerRole = wizardData.ownerRole;
 
   const toggleRole = (roleId: string) => {
     const next = selectedRoles.includes(roleId)
@@ -46,61 +59,98 @@ export function OnboardingStep3Team() {
       <OnboardingTip text={t("step3Why")} gain={t("step3Gain")} />
 
       <div className="mt-6">
-        <Label className="mb-3 block">{t7("roles")}</Label>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {MAIN_ROLE_IDS.map((roleId) => (
-            <label
+        <Label className="mb-3 block text-base font-medium">
+          {t("ownerRoleQuestion")}
+        </Label>
+        <p className="mb-3 text-sm text-text-secondary">{t("ownerRoleHint")}</p>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {OWNER_ROLE_OPTIONS.map((roleId) => (
+            <button
               key={roleId}
-              className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:border-accent transition-colors"
+              type="button"
+              onClick={() => setStepData({ ownerRole: roleId })}
+              className={cn(
+                "min-h-[44px] rounded-xl border px-3 py-2 text-sm transition-all",
+                ownerRole === roleId
+                  ? "border-accent bg-accent/10 text-accent font-medium"
+                  : "border-border bg-surface hover:border-border-bright text-text-secondary"
+              )}
             >
-              <Checkbox
-                checked={selectedRoles.includes(roleId)}
-                onCheckedChange={() => toggleRole(roleId)}
-              />
-              <span className="text-sm">{tRoles(roleId)}</span>
-            </label>
+              {tRoles(roleId)}
+            </button>
           ))}
         </div>
       </div>
 
-      <div className="mt-6">
-        <p className="text-sm text-text-muted mb-2">{t7("customRolesQuestion")}</p>
-        <div className="flex gap-2">
-          <Input
-            value={customRole}
-            onChange={(e) => setCustomRole(e.target.value)}
-            placeholder={t7("customRolePlaceholder")}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                addCustomRole();
-              }
-            }}
-          />
-          <Button type="button" variant="outline" onClick={addCustomRole}>
-            {t7("addRole")}
-          </Button>
-        </div>
-        {customRoles.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {customRoles.map((role) => (
-              <Badge key={role} variant="outline" className="gap-1 pr-1">
-                {role}
-                <button
-                  type="button"
-                  onClick={() => removeCustomRole(role)}
-                  className="ml-1 hover:text-danger"
-                  aria-label={t7("removeRole")}
-                >
-                  <X size={12} />
-                </button>
-              </Badge>
+      {ownerRole && (
+        <div className="mt-8 animate-in slide-in-from-top-2 duration-200">
+          <Label className="mb-1 block text-base font-medium">
+            {t("teamRolesQuestion")}
+          </Label>
+          <p className="mb-3 text-sm text-text-muted">{t7("inviteHint")}</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {MAIN_ROLE_IDS.map((roleId) => (
+              <label
+                key={roleId}
+                className="flex items-center gap-3 p-3 rounded-lg border border-border cursor-pointer hover:border-accent transition-colors"
+              >
+                <Checkbox
+                  checked={selectedRoles.includes(roleId)}
+                  onCheckedChange={() => toggleRole(roleId)}
+                />
+                <span className="text-sm">{tRoles(roleId)}</span>
+              </label>
             ))}
           </div>
-        )}
-      </div>
 
-      <p className="text-xs text-text-muted mt-6">{t7("inviteHint")}</p>
+          <div className="mt-6">
+            <p className="text-sm text-text-muted mb-2">{t7("customRolesQuestion")}</p>
+            <div className="flex gap-2">
+              <Input
+                value={customRole}
+                onChange={(e) => setCustomRole(e.target.value)}
+                placeholder={t7("customRolePlaceholder")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addCustomRole();
+                  }
+                }}
+              />
+              <Button type="button" variant="outline" onClick={addCustomRole}>
+                {t7("addRole")}
+              </Button>
+            </div>
+            {customRoles.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {customRoles.map((role) => (
+                  <Badge key={role} variant="outline" className="gap-1 pr-1">
+                    {role}
+                    <button
+                      type="button"
+                      onClick={() => removeCustomRole(role)}
+                      className="ml-1 hover:text-danger"
+                      aria-label={t7("removeRole")}
+                    >
+                      <X size={12} />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <Button
+            type="button"
+            variant="ghost"
+            className="mt-4 text-text-muted"
+            onClick={() => setStepData({ selectedRoles: [], customRoles: [] })}
+          >
+            {t("skipTeamForNow")}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

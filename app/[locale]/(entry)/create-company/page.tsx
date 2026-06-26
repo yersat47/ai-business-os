@@ -17,19 +17,9 @@ export default function CreateCompanyPage() {
       case 2:
         return segment !== null;
       case 3:
-        return (
-          !!wizardData.businessType &&
-          !!wizardData.size &&
-          !!wizardData.city?.trim()
-        );
-      case 4: {
-        const roleCount =
-          (wizardData.selectedRoles?.length ?? 0) +
-          (wizardData.customRoles?.length ?? 0);
-        return roleCount > 0;
-      }
+        return !!wizardData.ownerRole;
+      case 4:
       case 5:
-      case 6:
         return true;
       default:
         return true;
@@ -37,7 +27,7 @@ export default function CreateCompanyPage() {
   })();
 
   const handleContinue = () => {
-    if (currentStep === 5 && wizardData.monthlyRevenue) {
+    if (currentStep === 4 && wizardData.monthlyRevenue) {
       recalculate(wizardData);
     }
     nextStep();
