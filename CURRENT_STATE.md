@@ -37,6 +37,12 @@
 
 Urban Mode (Fashion Retail, Astana) is the default company across all screens.
 
+## Architecture updates (latest)
+
+- Business Health System now has **7 pillars** (AI Readiness removed from scoring).
+- AI Readiness replaced by **Data Completeness** widget (action-oriented; hidden when completeness ≥ 90%).
+- Pillar weights synced to: Financial 30%, Sales 25%, Customer 15%, Marketing 10%, Inventory 10%, Team 7%, Operations 3%.
+
 ## Next milestone
 
 **Sprint 2 — Backend (Supabase + Auth + DB)**

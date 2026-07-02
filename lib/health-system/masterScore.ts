@@ -6,7 +6,6 @@ import { confidenceMultiplier } from "@/lib/health-system/confidence";
 import { scoreToStatus } from "@/lib/health-system/scoreBands";
 import {
   ALL_PILLAR_CALCULATORS,
-  calculateAiReadinessPillar,
   type PillarResult,
 } from "@/lib/health-system/pillars";
 import { EMPTY_HEALTH } from "@/lib/mock/empty-health";
@@ -19,7 +18,6 @@ const PILLAR_LABELS: Record<string, string> = {
   marketing: "Marketing",
   team: "Team",
   operations: "Operations",
-  aiReadiness: "AI Readiness",
 };
 
 const AGENT_COLORS: Record<string, string> = {
@@ -78,7 +76,6 @@ export function calculateMasterHealth(
 
   const pillarResults = [
     ...ALL_PILLAR_CALCULATORS.map((fn) => fn(metrics)),
-    calculateAiReadinessPillar(completeness),
   ];
 
   const rawMaster = pillarResults.reduce((sum, p) => sum + p.score * p.weight, 0);

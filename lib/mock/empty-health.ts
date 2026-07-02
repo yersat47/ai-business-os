@@ -8,7 +8,6 @@ const pillarIds = [
   "marketing",
   "team",
   "operations",
-  "aiReadiness",
 ] as const;
 
 const emptyPillars = pillarIds.map((id) => ({
@@ -25,12 +24,12 @@ const emptyPillars = pillarIds.map((id) => ({
           : id === "inventory"
             ? 0.1
             : id === "marketing"
-              ? 0.08
+              ? 0.1
               : id === "team"
                 ? 0.07
                 : id === "operations"
                   ? 0.03
-                  : 0.02,
+                  : 0,
   status: "warning" as const,
   trend: "flat" as const,
   delta: 0,
