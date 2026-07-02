@@ -232,7 +232,7 @@
     "fillData": "Enter data",
     "health": {
       "title": "Business Health",
-      "tooltip": "Composite score across 8 business pillars"
+      "tooltip": "Composite score across 7 business pillars"
     },
     "profit": {
       "title": "Profit Potential",
@@ -272,6 +272,24 @@
       "populated": "of brain populated",
       "missingAreas": "{count} missing areas",
       "completeBrain": "Complete your brain →"
+    },
+    "dataCompleteness": {
+      "title": "Data completeness",
+      "headline": {
+        "mid": "Data completeness: {percent}%",
+        "low": "Data completeness: {percent}%",
+        "veryLow": "Start with the basics?"
+      },
+      "body": {
+        "mid": "Add a few parameters and the advice will get more precise.",
+        "low": "Advice is approximate for now. Add these data points to make it more precise in KZT.",
+        "veryLow": "Enter 1–3 key numbers to get your first recommendation in 2 minutes."
+      },
+      "quickWins": {
+        "title": "Next best inputs (quick wins)",
+        "time": "~{minutes} min"
+      },
+      "cta": "Add now"
     },
     "activity": {
       "title": "Recent Activity",

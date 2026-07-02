@@ -24,3 +24,28 @@ Rules:
 Status:
 
 Approved (supersedes ornament-clause of #007)
+
+⸻
+
+Decision #012
+
+Remove AI Readiness as Business Health System pillar.
+Convert to Data Completeness widget.
+
+Reason:
+
+AI Readiness measured product engagement, not business health.
+Circular logic: low data → poor AI advice → user disengagement → even lower data.
+
+Rules:
+
+* AI Readiness pillar removed from BHS scoring
+* Marketing pillar weight increased 8% → 10%
+* AI Readiness metrics moved to Data Completeness widget
+* Widget shows missing fields as actions, not scores
+* Widget hidden when completeness ≥ 90%
+* Widget visible only to Owner + Administrator roles (backend to enforce later)
+
+Status:
+
+Approved. Supersedes AI Readiness pillar sections in Business_Health_System_v1.md and TRD_v2.md.

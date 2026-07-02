@@ -101,7 +101,7 @@ export function calculateMarketingPillar(metrics: BusinessMetrics): PillarResult
   else missing.push("roas");
 
   const score = scores.length ? clamp(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
-  return { id: "marketing", score, weight: 0.08, status: scoreToStatus(score), missingSubMetrics: missing };
+  return { id: "marketing", score, weight: 0.1, status: scoreToStatus(score), missingSubMetrics: missing };
 }
 
 export function calculateTeamPillar(metrics: BusinessMetrics): PillarResult {
@@ -130,17 +130,6 @@ export function calculateOperationsPillar(metrics: BusinessMetrics): PillarResul
     missing.push("rent_ratio");
   }
   return { id: "operations", score, weight: 0.03, status: scoreToStatus(score), missingSubMetrics: missing };
-}
-
-export function calculateAiReadinessPillar(dataCompleteness: number): PillarResult {
-  const score = clamp(dataCompleteness);
-  return {
-    id: "aiReadiness",
-    score,
-    weight: 0.02,
-    status: scoreToStatus(score),
-    missingSubMetrics: score < 80 ? ["data_completeness"] : [],
-  };
 }
 
 export const ALL_PILLAR_CALCULATORS = [
