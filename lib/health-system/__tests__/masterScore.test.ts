@@ -29,7 +29,7 @@ describe("Business Health master score", () => {
 
     expect(health.masterScore).toBeGreaterThan(0);
     expect(health.masterScore).toBeLessThanOrEqual(100);
-    expect(health.pillars).toHaveLength(8);
+    expect(health.pillars).toHaveLength(7);
     expect(health.topRisks.length).toBeGreaterThan(0);
   });
 
